@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: "22"
           package-manager-cache: false
-      - run: npm install --no-audit --no-fund
+      - run: npm ci --no-audit --no-fund
       - run: npm run build
       - name: Process due jobs serially
         env:
