@@ -3,7 +3,7 @@
   "publish_mode": "live",
   "language": "es",
   "scan_interval_hours": 4,
-  "max_jobs_per_scan": 1,
+  "max_jobs_per_scan": 3,
   "min_trend_score": 72,
   "freshness_hours": 12,
   "minimum_sources": 2,
@@ -25,5 +25,6 @@
     "account_fit": 15,
     "original_angle": 15,
     "visual_potential": 10
-  }
+  },
+  "batch_spacing_minutes": 90
 }
