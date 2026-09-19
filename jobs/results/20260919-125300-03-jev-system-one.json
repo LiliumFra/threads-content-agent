@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-19T11:36:00-03:00",
   "action": "post",
   "topic": "typesafe-jev-fastest-adopted-vercel-ai-gateway",
@@ -26,5 +26,14 @@
       "https://techcrunch.com/2026/09/18/a-new-kind-of-ai-model-from-a-chatgpt-inventor-is-thrilling-developers/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-19T14:37:15.568Z",
+    "provider": "buffer",
+    "provider_post_id": "6aae9e1e4594e3153f384334",
+    "content_hash": "050a5089edaaf3b21f14e136e677b72c5fa8c04d8dd9f8c99976d7e4c822e709",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DdePcvaFufx",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789828638/threads-content-agent/threads-050a5089edaaf3b21f14.png"
+  }
 }
