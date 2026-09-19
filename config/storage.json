@@ -1,0 +1,21 @@
+{
+  "github": {
+    "store_generated_media": false,
+    "store_downloaded_media": false,
+    "reason": "Keep the private repository small and avoid consuming Actions/artifact/storage quota with binary media."
+  },
+  "google_drive": {
+    "role": "optional curated media library and archive; not a public Threads media host",
+    "root_folder_id": "1R2D28Qk21OhN5-WXQQ6ExvKTyPqFOUBF",
+    "root_folder_url": "https://drive.google.com/drive/folders/1R2D28Qk21OhN5-WXQQ6ExvKTyPqFOUBF",
+    "media_library_folder_id": "1w4p9HLBMiM8kdZVdzyqbhTQxC5iXAXgR",
+    "media_library_folder_url": "https://drive.google.com/drive/folders/1w4p9HLBMiM8kdZVdzyqbhTQxC5iXAXgR",
+    "published_archive_folder_id": "13Y5ALn9SIlPuVIHTSEoihgbppzBPQhzr",
+    "published_archive_folder_url": "https://drive.google.com/drive/folders/13Y5ALn9SIlPuVIHTSEoihgbppzBPQhzr"
+  },
+  "production_media": {
+    "default": "deterministic editorial card rendered by GitHub Actions",
+    "public_host": "Cloudinary",
+    "web_images": "Only use a real external image when it materially improves the post and usage rights/source are clear. Never hotlink arbitrary search-result images."
+  }
+}
