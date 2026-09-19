@@ -2,7 +2,9 @@
 
 ## Commission in dry-run first
 
-Create one Threads Job issue with dry_run set to true. A dry-run validates the JSON contract, policy and visual renderer but does not publish.
+Create one unique JSON file under jobs/pending with dry_run set to true. The commit immediately wakes the queue workflow.
+
+A dry-run validates the JSON contract, publication policy and visual renderer but never calls Threads.
 
 After that passes, test one text-only live post before enabling generated images.
 
@@ -22,21 +24,17 @@ Metrics additionally need:
 Official Meta Threads API workspace:
 https://www.postman.com/meta/threads/overview
 
-Add the long-lived token at:
-
-Repository Settings -> Secrets and variables -> Actions -> New repository secret
-
-Name:
+Store the long-lived token only in the repository Actions secret:
 
 THREADS_ACCESS_TOKEN
 
-Never place the token in an Issue, commit, Actions command, or chat message.
+Never put it in a job file, commit, log command or chat message.
 
 ## Public media hosting
 
-Threads fetches image media from the URL passed to its API, so generated images need a public URL.
+Threads downloads image media from the URL supplied to its API. Generated images therefore need public hosting.
 
-This project uses signed Cloudinary uploads. Add these repository secrets:
+This project uses signed Cloudinary uploads with repository secrets:
 
 - CLOUDINARY_CLOUD_NAME
 - CLOUDINARY_API_KEY
@@ -46,38 +44,47 @@ Optional repository variable:
 
 - CLOUDINARY_FOLDER
 
-If visual.mode is card and Cloudinary is missing, the agent fails closed rather than silently publishing text only.
+If a card job is live and Cloudinary is missing, publication fails closed.
 
-## Lifecycle
+## Job lifecycle
 
-READY -> PROCESSING -> PUBLISHED
-READY -> PROCESSING -> FAILED
-READY -> DRY_RUN
+A job begins as jobs/pending/<id>.json with status READY.
 
-Future publish_at jobs remain READY. The queue workflow wakes four times per hour and processes due jobs serially.
+Terminal results are moved to jobs/results/<id>.json as:
 
-## Editorial policy
+- DRY_RUN
+- PUBLISHED
+- FAILED
 
-config/policy.json controls the local daily cap, minimum interval, topic cooldown, duplicate lookback and metric refresh cadence.
+Retryable conditions remain in pending:
 
-The content hash prevents an exact semantic duplicate from being posted again inside the lookback window.
+- publish_at is still in the future
+- daily cap reached
+- minimum interval not reached
+- topic cooldown active
+
+queue.yml runs on each pending-job push and every five minutes as a fallback.
+
+## Creating jobs from ChatGPT
+
+ChatGPT should create a unique path such as:
+
+jobs/pending/2026-09-19T153000Z-ai-agents.json
+
+The JSON must follow examples/job.json.
+
+For production trend jobs ChatGPT should research current sources, verify claims, create an original angle, keep standard text at 500 characters or fewer, provide alt text for cards, and include source URLs.
 
 ## Metrics
 
-The metrics workflow refreshes lifetime views, likes, replies, reposts and quotes and writes them into the Issue job JSON.
-
-## ChatGPT operating contract
-
-For production jobs ChatGPT should research a current topic, verify claims against reliable sources, create original wording rather than copying viral posts, include sources, write useful alt text and schedule conservatively.
-
-Use dry_run=true while commissioning.
+metrics.yml refreshes lifetime views, likes, replies, reposts and quotes for PUBLISHED result files.
 
 ## Recovery
 
-FAILED deliberately does not retry live publishing automatically.
+FAILED is terminal by design to prevent accidental duplicate publication.
 
-Correct the cause, set status to READY, remove the old result object, reopen or edit the Issue, and let the event workflow evaluate it again.
+Inspect the result error, create a corrected new pending job with a new filename, and let the system evaluate it from scratch.
 
 ## Token rotation
 
-If a credential is exposed, revoke or rotate it at the provider. Deleting a chat, Issue or commit does not revoke a credential.
+If a credential is exposed, revoke or rotate it at the provider. Deleting a chat or commit does not revoke it.

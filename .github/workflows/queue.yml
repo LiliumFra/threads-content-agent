@@ -1,13 +1,17 @@
 name: Process Threads queue
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "jobs/pending/**/*.json"
+      - "jobs/pending/*.json"
   schedule:
-    - cron: "7,22,37,52 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:
-  contents: read
-  issues: write
+  contents: write
 
 concurrency:
   group: threads-publisher
@@ -27,10 +31,18 @@ jobs:
       - run: npm run build
       - name: Process due jobs serially
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
           CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
           CLOUDINARY_FOLDER: ${{ vars.CLOUDINARY_FOLDER }}
         run: node dist/src/cli/worker.js queue
+      - name: Persist queue state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add jobs/pending jobs/results
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: persist Threads queue results [skip ci]"
+            git push
+          fi

@@ -1,103 +1,72 @@
 # Threads Content Agent
 
-Production-oriented automation for discovering, preparing and publishing original Threads content while keeping **ChatGPT normal** as the editorial brain.
+Production-oriented automation for researching, preparing and publishing original Threads content while keeping **ChatGPT normal** as the editorial brain.
 
 ## Architecture
 
-```
-ChatGPT normal
-  -> GitHub Issue (structured Threads job)
-  -> GitHub Actions
-  -> validation / dedup / rate limits
-  -> deterministic visual renderer
-  -> public media uploader
-  -> official Meta Threads API
-  -> post + metrics
-  -> GitHub Issue result
-```
+ChatGPT normal -> Git commit with jobs/pending/<job>.json -> GitHub Actions -> validation / policy / rendering -> official Threads API -> jobs/results/<job>.json -> metrics refresh.
 
 No OpenAI API, Codex, Work, browser automation or Threads cookies are required.
 
+## Why the queue is file-based
+
+The ChatGPT GitHub connector reliably creates commits, and GitHub Actions reliably reacts to those pushes. A job file is therefore both the durable queue item and the event that wakes the publisher.
+
+This avoids relying on Issue events from integrations, which GitHub may not forward into Actions.
+
 ## Current scope
 
-- Structured jobs carried by GitHub Issues.
-- Official Threads API publisher for text and image posts.
+- Event-driven queue through versioned JSON jobs.
+- Scheduled fallback every five minutes for future publish_at values.
+- Official Threads API publisher for text and generated-image posts.
 - Replies and quote posts supported by the job contract.
-- Deterministic 1080x1350 visual cards rendered locally with SVG + Sharp.
+- Deterministic 1080x1350 editorial cards rendered with SVG + Sharp.
 - Signed Cloudinary upload adapter for public image hosting.
-- Content hashing and idempotency.
-- Daily publication cap, minimum publication interval and topic cooldown.
-- Scheduled queue processing.
+- Content hashing, idempotency, daily cap, minimum interval and topic cooldown.
 - Scheduled post-insights collection.
-- Dry-run mode for safe commissioning.
-- Tests and strict TypeScript.
+- Dry-run commissioning mode.
+- Strict TypeScript and CI tests.
+
+## Queue layout
+
+- jobs/pending/ — jobs waiting to run.
+- jobs/results/ — immutable-ish audit/result records, later enriched with metrics.
+
+A pending file is removed only after DRY_RUN, PUBLISHED or FAILED has been persisted to jobs/results.
+
+Retryable policy conditions such as a future publish time, daily cap, minimum interval or topic cooldown leave the job in pending.
 
 ## Required GitHub Actions secrets
 
-For publishing:
+Publishing:
 
-- `THREADS_ACCESS_TOKEN` — long-lived Threads user token with the required permissions.
+- THREADS_ACCESS_TOKEN
 
-For generated image posts:
+Generated image posts:
 
-- `CLOUDINARY_CLOUD_NAME`
-- `CLOUDINARY_API_KEY`
-- `CLOUDINARY_API_SECRET`
+- CLOUDINARY_CLOUD_NAME
+- CLOUDINARY_API_KEY
+- CLOUDINARY_API_SECRET
 
-Until `THREADS_ACCESS_TOKEN` exists, leave `dry_run: true` in jobs.
+Optional repository variable:
 
-## Threads permissions
-
-The Meta app/user token should include the permissions needed by the features you use, including `threads_basic`, `threads_content_publish`, and for metrics `threads_manage_insights`.
+- CLOUDINARY_FOLDER
 
 ## Creating a job
 
-Create an Issue whose title starts with `[Threads Job]` and whose body contains one fenced JSON object:
+Create a unique JSON file under jobs/pending. See examples/job.json.
 
-```json
-{
-  "schema_version": 1,
-  "status": "READY",
-  "publish_at": "2026-09-19T15:00:00-03:00",
-  "action": "post",
-  "topic": "artificial-intelligence",
-  "language": "es",
-  "content": {
-    "text": "Texto final para Threads.",
-    "topic_tag": "IA",
-    "reply_control": "everyone"
-  },
-  "visual": {
-    "mode": "card",
-    "headline": "La idea principal",
-    "subheadline": "Contexto breve que aporte valor",
-    "eyebrow": "TECNOLOGÍA",
-    "alt_text": "Tarjeta editorial que resume la idea principal."
-  },
-  "strategy": {
-    "hook_style": "curiosity",
-    "goal": "conversation",
-    "sources": ["https://example.com/source"]
-  },
-  "dry_run": true
-}
-```
-
-The event workflow evaluates the issue immediately. Future-dated jobs remain queued and the scheduled queue workflow picks them up when due.
+The push wakes queue.yml immediately. Future-dated jobs remain pending and are picked up by the scheduled fallback.
 
 ## Safety model
 
-Publishing is intentionally fail-closed:
+Publishing fails closed:
 
-- malformed jobs do not publish;
-- duplicate content does not publish;
-- jobs above configured rate limits do not publish;
+- malformed jobs are not published;
+- semantic duplicates are not published;
+- jobs above policy limits remain queued or fail as appropriate;
 - image jobs fail if public media hosting is unavailable;
-- missing Threads credentials fail or remain dry-run;
-- the same issue cannot publish twice.
+- missing Threads credentials cannot publish;
+- an existing result file prevents a job from being processed twice.
 
-See `docs/OPERATIONS.md` for commissioning and secret setup.
-
-## Status
-
-Initial production scaffold. Start in dry-run, validate at least one text job and one image job, then enable live publishing.
+See docs/OPERATIONS.md for commissioning and credentials.

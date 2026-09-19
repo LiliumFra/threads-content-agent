@@ -1,5 +1,4 @@
-import { GitHubClient } from "../github/client.js";
-import { Processor } from "../core/processor.js";
+import { FileProcessor } from "../core/file-processor.js";
 import { loadPolicy } from "../core/policy.js";
 
 function optional(name: string): string | undefined {
@@ -9,12 +8,6 @@ function optional(name: string): string | undefined {
 
 async function main(): Promise<void> {
   const mode = process.argv[2];
-  const repository = process.env.GITHUB_REPOSITORY;
-  const githubToken = process.env.GITHUB_TOKEN;
-  if (!repository) throw new Error("GITHUB_REPOSITORY is required");
-  if (!githubToken) throw new Error("GITHUB_TOKEN is required");
-
-  const github = new GitHubClient(githubToken, repository, optional("GITHUB_API_URL") ?? "https://api.github.com");
   const policy = await loadPolicy(optional("POLICY_PATH") ?? "config/policy.json");
   const cloudName = optional("CLOUDINARY_CLOUD_NAME");
   const apiKey = optional("CLOUDINARY_API_KEY");
@@ -23,8 +16,7 @@ async function main(): Promise<void> {
   const threadsApiHost = optional("THREADS_API_HOST");
   const cloudinaryFolder = optional("CLOUDINARY_FOLDER");
 
-  const processor = new Processor({
-    github,
+  const processor = new FileProcessor({
     policy,
     ...(threadsAccessToken ? { threadsAccessToken } : {}),
     ...(threadsApiHost ? { threadsApiHost } : {}),
@@ -38,10 +30,10 @@ async function main(): Promise<void> {
     } : {})
   });
 
-  if (mode === "issue") {
-    const number = Number(process.argv[3]);
-    if (!Number.isInteger(number) || number <= 0) throw new Error("A positive issue number is required");
-    console.log(JSON.stringify({ issue: number, result: await processor.processIssue(number) }));
+  if (mode === "file") {
+    const path = process.argv[3];
+    if (!path) throw new Error("A pending job path is required");
+    console.log(JSON.stringify({ path, result: await processor.processFile(path) }));
     return;
   }
   if (mode === "queue") {
@@ -52,7 +44,7 @@ async function main(): Promise<void> {
     console.log(JSON.stringify(await processor.refreshMetrics(), null, 2));
     return;
   }
-  throw new Error("Mode must be one of: issue, queue, metrics");
+  throw new Error("Mode must be one of: file, queue, metrics");
 }
 
 main().catch((error) => {

@@ -6,8 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  issues: write
+  contents: write
 
 concurrency:
   group: threads-metrics
@@ -27,6 +26,14 @@ jobs:
       - run: npm run build
       - name: Refresh post insights
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
         run: node dist/src/cli/worker.js metrics
+      - name: Persist metric updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add jobs/results
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: refresh Threads metrics [skip ci]"
+            git push
+          fi
