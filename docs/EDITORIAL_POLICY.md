@@ -10,13 +10,14 @@ The growth strategy is defined in `config/growth.json`. Runtime safety limits ar
 
 ## Publishing cadence
 
-- Target: 3 posts per day.
-- Soft maximum: 4 posts per day when there are enough strong stories.
-- Hard maximum: 5 posts per day.
-- Scan for new developments every 3 hours.
-- Standard spacing: about 105 minutes.
-- Runtime minimum spacing: 75 minutes.
-- Breaking news scoring at least the configured breaking-news threshold may publish immediately rather than waiting for a preferred window, but never bypasses the hard daily cap.
+- Target: 4 posts per day.
+- Soft maximum: 6 posts per day when there are enough strong stories.
+- Hard maximum: 8 posts per day.
+- Scan for new developments every hour.
+- Standard spacing: about 90 minutes.
+- Runtime minimum spacing: 60 minutes.
+- The quality threshold rises with daily volume: score 72 through post 4, 82 for posts 5-6, and 90 for posts 7-8. The ceiling is capacity, never a quota.
+- Breaking news scoring at least the configured breaking-news threshold may take the earliest policy-valid slot rather than waiting for a preferred window, but never bypasses the hard daily cap or API budgets.
 
 Preferred local windows are stored in `config/growth.json`. They are guidance for normal posts, not a reason to delay genuinely time-sensitive news.
 
@@ -142,3 +143,12 @@ If `config/automation.json` has `enabled=false`, create no jobs.
 If credentials or publishing health are uncertain, do not change live state automatically.
 
 `REVIEW` results require inspection and must never be automatically retried.
+
+
+## Free-tier budgets
+
+The publisher is designed against conservative free-tier headroom rather than provider maxima.
+
+- Buffer: keep normal operation below 80 authenticated requests/day and 2,400 requests/30 days. This deliberately leaves reserve below the stricter published Free daily limit and below the 3,000-request rolling 30-day limit.
+- Cloudinary: create media only for jobs that are actually going to publish. Never render/upload speculative rejected candidates. At the hard Threads cap this means at most 8 new social images/day.
+- If an API reports rate-limit exhaustion or a safety budget would be exceeded, leave eligible content queued rather than dropping quality or retrying aggressively.

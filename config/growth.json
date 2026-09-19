@@ -2,12 +2,12 @@
   "version": 1,
   "objective": "Grow a technology and AI Threads account through timely original reporting, useful context, conversation, topic discovery and performance learning.",
   "cadence": {
-    "target_posts_per_day": 3,
-    "soft_max_posts_per_day": 4,
-    "hard_max_posts_per_day": 5,
-    "scan_every_hours": 3,
-    "standard_spacing_minutes": 105,
-    "minimum_spacing_minutes": 75,
+    "target_posts_per_day": 4,
+    "soft_max_posts_per_day": 6,
+    "hard_max_posts_per_day": 8,
+    "scan_every_hours": 1,
+    "standard_spacing_minutes": 90,
+    "minimum_spacing_minutes": 60,
     "preferred_windows_local": [
       {
         "start": "09:00",
@@ -27,10 +27,27 @@
       }
     ],
     "breaking_news": {
-      "publish_immediately_if_score_at_least": 88,
+      "publish_immediately_if_score_at_least": 90,
       "may_ignore_preferred_windows": true,
       "never_ignore_hard_daily_cap": true
-    }
+    },
+    "dynamic_quality_thresholds": [
+      {
+        "posts_already_published_or_pending": "0-3",
+        "minimum_score": 72,
+        "rule": "normal quality threshold"
+      },
+      {
+        "posts_already_published_or_pending": "4-5",
+        "minimum_score": 82,
+        "rule": "only strong incremental stories"
+      },
+      {
+        "posts_already_published_or_pending": "6-7",
+        "minimum_score": 90,
+        "rule": "breaking or exceptional novelty only"
+      }
+    ]
   },
   "content_mix": {
     "rolling_window_posts": 20,
@@ -105,5 +122,20 @@
     "aim_for_conversation_not_bait": true,
     "response_strategy": "When Buffer exposes stable comment-reply operations for this channel, reply with useful context or a genuine follow-up question. Until then, surface posts with meaningful comment activity for manual response.",
     "avoid_empty_replies": true
+  },
+  "api_budget": {
+    "buffer": {
+      "free_monthly_requests": 3000,
+      "operational_monthly_ceiling": 2400,
+      "conservative_daily_ceiling": 80,
+      "estimated_requests_per_single_post_workflow": 3,
+      "daily_metrics_request_ceiling": 30,
+      "rationale": "Stay below the stricter published Buffer Free daily figure even though official Buffer pages currently disagree between 100 and 250 requests/day."
+    },
+    "cloudinary": {
+      "free_credits": 25,
+      "hard_new_images_per_day": 8,
+      "rationale": "One generated image per published post; no speculative uploads for rejected candidates."
+    }
   }
 }

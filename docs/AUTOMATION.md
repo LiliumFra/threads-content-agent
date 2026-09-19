@@ -7,11 +7,11 @@ On each trend scan:
 1. Read `config/automation.json`, `config/growth.json`, `config/storage.json`, `docs/EDITORIAL_POLICY.md` and `docs/MEDIA_POLICY.md`.
 2. If `enabled=false`, stop without creating a job.
 3. Inspect recent `jobs/results` and `jobs/pending` for deduplication, daily capacity, topic rotation, content-mix balance and performance context.
-4. Research current technology discussion, including public Threads signals when available.
+4. Research current technology discussion every hour, including public Threads signals when available.
 5. Verify factual claims with current reliable sources.
 6. Score candidates using the configured seven-factor score.
 7. If no candidate meets the threshold, do nothing.
-8. Aim for three useful posts per day rather than forcing five.
+8. Aim for four useful posts per day, allow six on unusually strong news days, and treat eight as an exceptional hard ceiling rather than a target. Apply escalating score thresholds as daily volume rises.
 9. Use the preferred time windows for normal content. Breaking news may publish immediately when it reaches the configured breaking-news threshold.
 10. Create at most `max_jobs_per_scan` jobs and keep the runtime hard cap at five posts per day.
 11. Set one native Threads topic through `content.topic_tag` when supported.
@@ -53,3 +53,12 @@ CI should not run for ordinary editorial result commits.
 ## Live state
 
 The system is currently live through Buffer, with Cloudinary as the public image host. Direct Meta Threads API support remains a fallback implementation.
+
+
+## API-budget guardrail
+
+Hourly research does not itself call Buffer or Cloudinary. Provider usage happens only when a job publishes or metrics refresh.
+
+Operational planning assumes a conservative Buffer budget of 80 authenticated requests/day and 2,400/30 days. A single isolated publication currently costs approximately three Buffer calls because it discovers organization/channel and then creates the post; a batch is cheaper because discovery is cached inside the worker. Daily metrics refresh is capped to the 30 newest result files.
+
+Cloudinary receives at most one production image upload per published visual job. Rejected trend candidates never consume Cloudinary credits.

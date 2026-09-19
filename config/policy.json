@@ -1,9 +1,9 @@
 {
   "timezone": "America/Argentina/Jujuy",
-  "max_posts_per_day": 5,
-  "min_interval_minutes": 75,
+  "max_posts_per_day": 8,
+  "min_interval_minutes": 60,
   "topic_cooldown_hours": 18,
-  "native_topic_cooldown_hours": 3,
+  "native_topic_cooldown_hours": 2,
   "max_same_native_topic_per_day": 2,
   "duplicate_lookback": 100,
   "metrics_refresh_hours": 24

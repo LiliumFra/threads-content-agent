@@ -2,14 +2,14 @@
   "enabled": true,
   "publish_mode": "live",
   "language": "es",
-  "scan_interval_hours": 3,
-  "daily_target_posts": 3,
-  "daily_soft_max_posts": 4,
+  "scan_interval_hours": 1,
+  "daily_target_posts": 4,
+  "daily_soft_max_posts": 6,
   "max_jobs_per_scan": 3,
   "max_posts_per_batch": 3,
-  "batch_spacing_minutes": 105,
+  "batch_spacing_minutes": 90,
   "min_trend_score": 72,
-  "breaking_news_min_score": 88,
+  "breaking_news_min_score": 90,
   "freshness_hours": 12,
   "minimum_sources": 2,
   "default_visual_mode": "card",
@@ -32,5 +32,24 @@
     "novelty": 15,
     "conversation_potential": 15,
     "visual_potential": 10
+  },
+  "volume_thresholds": [
+    {
+      "through_post": 4,
+      "min_score": 72
+    },
+    {
+      "through_post": 6,
+      "min_score": 82
+    },
+    {
+      "through_post": 8,
+      "min_score": 90
+    }
+  ],
+  "api_budget": {
+    "buffer_conservative_daily_request_budget": 80,
+    "buffer_monthly_request_budget": 2400,
+    "cloudinary_max_new_images_per_day": 8
   }
 }
