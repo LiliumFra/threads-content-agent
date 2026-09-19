@@ -26,5 +26,6 @@
     "original_angle": 15,
     "visual_potential": 10
   },
-  "batch_spacing_minutes": 90
+  "batch_spacing_minutes": 90,
+  "max_posts_per_batch": 3
 }
