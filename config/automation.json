@@ -1,0 +1,29 @@
+{
+  "enabled": false,
+  "publish_mode": "dry-run",
+  "language": "es",
+  "scan_interval_hours": 4,
+  "max_jobs_per_scan": 1,
+  "min_trend_score": 72,
+  "freshness_hours": 36,
+  "minimum_sources": 2,
+  "default_visual_mode": "card",
+  "exclude_politics": true,
+  "categories": [
+    "artificial-intelligence",
+    "android",
+    "chips",
+    "robotics",
+    "software",
+    "cybersecurity",
+    "big-tech"
+  ],
+  "weights": {
+    "freshness": 20,
+    "discussion_velocity": 20,
+    "source_quality": 20,
+    "account_fit": 15,
+    "original_angle": 15,
+    "visual_potential": 10
+  }
+}
