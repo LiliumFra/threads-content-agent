@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-19T16:00:00-03:00",
   "action": "post",
   "topic": "anthropic-next-model-vs-openai-astra",
@@ -37,5 +37,13 @@
       "https://www.ndtvprofit.com/technology/ahead-of-ipo-anthropic-weighs-new-ai-model-to-counter-openais-gpt-6-astra-report-12067503"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-19T20:46:10.552Z",
+    "provider": "buffer",
+    "provider_post_id": "6aaef49413d908add20575ba",
+    "content_hash": "e4c4d643cfc3c1d62b1186725f7788da7054a7f99ad9a68b142aa37f12a74a3e",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789850772/threads-content-agent/threads-e4c4d643cfc3c1d62b11.png"
+  }
 }
