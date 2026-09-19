@@ -1,5 +1,6 @@
 import { FileProcessor } from "../core/file-processor.js";
 import { loadPolicy } from "../core/policy.js";
+import { adaptiveTune } from "../core/adaptive-tuner.js";
 
 function optional(name: string): string | undefined {
   const value = process.env[name]?.trim();
@@ -61,11 +62,15 @@ async function main(): Promise<void> {
     console.log(JSON.stringify(await processor.refreshMetrics(), null, 2));
     return;
   }
+  if (mode === "tune") {
+    console.log(JSON.stringify(await adaptiveTune(), null, 2));
+    return;
+  }
   if (mode === "health") {
     console.log(JSON.stringify(await processor.healthCheck(), null, 2));
     return;
   }
-  throw new Error("Mode must be one of: file, queue, metrics, health");
+  throw new Error("Mode must be one of: file, queue, metrics, tune, health");
 }
 
 main().catch((error) => {
