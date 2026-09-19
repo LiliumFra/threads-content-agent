@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "DRY_RUN",
   "publish_at": "2026-09-19T00:00:00-03:00",
   "action": "post",
   "topic": "system-commissioning",
@@ -24,5 +24,10 @@
       "https://www.postman.com/meta/threads/overview"
     ]
   },
-  "dry_run": true
+  "dry_run": true,
+  "result": {
+    "status": "DRY_RUN",
+    "published_at": "2026-09-19T05:31:31.251Z",
+    "content_hash": "bd614c1b5e554972ab124f61c5a92d76c8ddd066aac4103d57a3c38522726be6"
+  }
 }
