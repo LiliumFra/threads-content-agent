@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-19T12:53:00-03:00",
+  "action": "post",
+  "topic": "anthropic-accenture-embedded-ai-evaluation",
+  "language": "es",
+  "content": {
+    "text": "Anthropic va a dejar que evaluadores externos trabajen dentro de la empresa con acceso comparable al de un empleado. Accenture y Anthropic prevén invertir al menos US$1.000 millones cada una durante cinco años para evaluar modelos, hacer red teaming y probar salvaguardas. La auditoría de IA empieza a parecerse menos a un examen externo y más a una función permanente dentro del laboratorio.",
+    "topic_tag": "InteligenciaArtificial",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "US$2.000 millones para auditar IA desde dentro",
+    "subheadline": "Anthropic y Accenture crearán evaluadores integrados con acceso comparable al de empleados para probar modelos y salvaguardas.",
+    "eyebrow": "IA + SEGURIDAD",
+    "alt_text": "Tarjeta editorial oscura sobre el acuerdo de Anthropic y Accenture para invertir al menos 2.000 millones de dólares combinados en evaluación de IA durante cinco años, con evaluadores integrados dentro del laboratorio."
+  },
+  "strategy": {
+    "hook_style": "structural-change",
+    "goal": "conversation-and-discovery",
+    "trend_score": 83,
+    "sources": [
+      "https://www.anthropic.com/news/accenture-embedded-evaluation",
+      "https://newsroom.accenture.com/news/2026/accenture-and-anthropic-partner-to-build-team-of-embedded-evaluators-at-anthropic",
+      "https://www.reuters.com/business/anthropic-accenture-invest-2-billion-ai-model-evaluation-safety-concerns-rise-2026-09-18/"
+    ]
+  },
+  "dry_run": false
+}
