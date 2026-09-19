@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-19T12:53:00-03:00",
+  "action": "post",
+  "topic": "typesafe-jev-fastest-adopted-vercel-ai-gateway",
+  "language": "es",
+  "content": {
+    "text": "Una IA nueva se está volviendo viral entre desarrolladores por hacer justo lo contrario a ChatGPT: no escribe texto. Jev, de TypeSafe AI, recibe un estado y devuelve decisiones tipadas con probabilidades. Vercel dice que en 24 h llegó a casi 13% de sus equipos pagos, récord en su AI Gateway. ¿Estamos entrando en una etapa donde la IA más útil será la que menos “habla”?",
+    "topic_tag": "InteligenciaArtificial",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "La IA viral que no escribe una sola palabra",
+    "subheadline": "Jev devuelve decisiones tipadas con probabilidades y Vercel reporta adopción récord en su AI Gateway.",
+    "eyebrow": "IA + DESARROLLO",
+    "alt_text": "Gráfico editorial oscuro sobre Jev, el modelo de TypeSafe AI que devuelve decisiones tipadas en lugar de generar texto y que registró una rápida adopción en Vercel AI Gateway."
+  },
+  "strategy": {
+    "hook_style": "counterintuitive-product",
+    "goal": "conversation-and-discovery",
+    "sources": [
+      "https://typesafe.ai/blog/introducing-system-one-models-and-jev",
+      "https://vercel.com/blog/ai-gateway-jev-model-launch",
+      "https://techcrunch.com/2026/09/18/a-new-kind-of-ai-model-from-a-chatgpt-inventor-is-thrilling-developers/"
+    ]
+  },
+  "dry_run": false
+}
