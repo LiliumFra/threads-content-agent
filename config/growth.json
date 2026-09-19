@@ -70,7 +70,25 @@
     ],
     "max_same_topic_per_day": 2,
     "cooldown_hours": 3,
-    "avoid_using_same_generic_topic_for_consecutive_posts": true
+    "avoid_using_same_generic_topic_for_consecutive_posts": true,
+    "default_mode": "with_topic",
+    "expected_usage_rate": ">=90%",
+    "topicless_policy": {
+      "allowed_when_no_relevant_topic_exists": true,
+      "allowed_for_control_experiment": true,
+      "minimum_published_sample_before_control": 30,
+      "control_rate_after_minimum_sample": 0.1,
+      "never_use_topicless_control_for_breaking_news": true,
+      "require_matched_comparison": true
+    },
+    "selection_priority": [
+      "specific_active_topic",
+      "specific_evergreen_topic",
+      "broad_relevant_topic",
+      "no_topic"
+    ],
+    "avoid_forcing_irrelevant_topic": true,
+    "rationale": "Meta reports that posts with tagged topics generally receive more views than posts without topics. Default to a truthful relevant topic and reserve no-topic publishing for posts without a good topical match or a controlled experiment after enough account-specific data exists."
   },
   "copy": {
     "max_characters": 500,

@@ -152,3 +152,23 @@ The publisher is designed against conservative free-tier headroom rather than pr
 - Buffer: keep normal operation below 80 authenticated requests/day and 2,400 requests/30 days. This deliberately leaves reserve below the stricter published Free daily limit and below the 3,000-request rolling 30-day limit.
 - Cloudinary: create media only for jobs that are actually going to publish. Never render/upload speculative rejected candidates. At the hard Threads cap this means at most 8 new social images/day.
 - If an API reports rate-limit exhaustion or a safety budget would be exceeded, leave eligible content queued rather than dropping quality or retrying aggressively.
+
+
+## Topic vs no-topic default
+
+Use a native Threads Topic by default.
+
+Meta has publicly stated that posts with tagged topics generally receive more views than posts without one. Therefore the production default is **with topic**, not a 50/50 split.
+
+Selection order:
+
+1. specific active topic that precisely matches the story;
+2. specific evergreen topic;
+3. broad but still accurate topic;
+4. no topic only when there is no honest relevant match.
+
+Do not attach a popular but unrelated topic merely for reach.
+
+After at least 30 published posts with useful metrics, the growth review may reserve roughly 10% of eligible non-breaking posts as a topicless control group so account-specific performance can be compared. Such tests should be matched as closely as practical by content type, quality, time window and visual format. Breaking news should not be sacrificed to the control group.
+
+The goal is not to prove Meta wrong; the control exists to detect whether this account has a materially different pattern.
