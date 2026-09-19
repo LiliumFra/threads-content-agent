@@ -24,18 +24,18 @@ export class GitHubClient {
   }
 
   private async request<T>(path: string, init: RequestInitJson = {}): Promise<T> {
-    const headers = new Headers(init.headers);
+    const { json, body, ...baseInit } = init;
+    const headers = new Headers(baseInit.headers);
     headers.set("Accept", "application/vnd.github+json");
     headers.set("X-GitHub-Api-Version", "2022-11-28");
     headers.set("Authorization", "Bearer " + this.token);
-    if (init.json !== undefined) headers.set("Content-Type", "application/json");
+    if (json !== undefined) headers.set("Content-Type", "application/json");
 
-    const response = await fetch(this.apiUrl + path, {
-      ...init,
-      headers,
-      body: init.json === undefined ? init.body : JSON.stringify(init.json)
-    });
+    const requestInit: RequestInit = { ...baseInit, headers };
+    if (json !== undefined) requestInit.body = JSON.stringify(json);
+    else if (body !== undefined) requestInit.body = body;
 
+    const response = await fetch(this.apiUrl + path, requestInit);
     if (!response.ok) {
       const error = new Error("GitHub API " + response.status + ": " + await response.text());
       (error as Error & { status?: number }).status = response.status;
