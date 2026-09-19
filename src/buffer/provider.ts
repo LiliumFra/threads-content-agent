@@ -25,20 +25,15 @@ type Channel = {
 };
 
 type CreatePostPayload = {
-  createPost?:
-    | {
-        __typename?: "PostActionSuccess";
-        post?: {
-          id?: string;
-          status?: string | null;
-          externalLink?: string | null;
-        } | null;
-      }
-    | {
-        __typename?: string;
-        message?: string | null;
-      }
-    | null;
+  createPost?: {
+    __typename?: string;
+    message?: string | null;
+    post?: {
+      id?: string;
+      status?: string | null;
+      externalLink?: string | null;
+    } | null;
+  } | null;
 };
 
 type PostMetricsPayload = {

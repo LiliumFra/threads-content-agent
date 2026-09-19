@@ -12,7 +12,14 @@ async function main(): Promise<void> {
   const cloudName = optional("CLOUDINARY_CLOUD_NAME");
   const apiKey = optional("CLOUDINARY_API_KEY");
   const apiSecret = optional("CLOUDINARY_API_SECRET");
-  const publishProvider = optional("PUBLISH_PROVIDER");
+  const rawPublishProvider = optional("PUBLISH_PROVIDER");
+  let publishProvider: "buffer" | "threads" | undefined;
+  if (rawPublishProvider) {
+    if (rawPublishProvider !== "buffer" && rawPublishProvider !== "threads") {
+      throw new Error("PUBLISH_PROVIDER must be buffer or threads");
+    }
+    publishProvider = rawPublishProvider;
+  }
   const bufferApiKey = optional("BUFFER_API_KEY");
   const bufferChannelId = optional("BUFFER_CHANNEL_ID");
   const bufferOrganizationId = optional("BUFFER_ORGANIZATION_ID");
@@ -20,10 +27,6 @@ async function main(): Promise<void> {
   const threadsAccessToken = optional("THREADS_ACCESS_TOKEN");
   const threadsApiHost = optional("THREADS_API_HOST");
   const cloudinaryFolder = optional("CLOUDINARY_FOLDER");
-
-  if (publishProvider && publishProvider !== "buffer" && publishProvider !== "threads") {
-    throw new Error("PUBLISH_PROVIDER must be buffer or threads");
-  }
 
   const processor = new FileProcessor({
     policy,
