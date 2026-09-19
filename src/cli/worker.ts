@@ -12,12 +12,26 @@ async function main(): Promise<void> {
   const cloudName = optional("CLOUDINARY_CLOUD_NAME");
   const apiKey = optional("CLOUDINARY_API_KEY");
   const apiSecret = optional("CLOUDINARY_API_SECRET");
+  const publishProvider = optional("PUBLISH_PROVIDER");
+  const bufferApiKey = optional("BUFFER_API_KEY");
+  const bufferChannelId = optional("BUFFER_CHANNEL_ID");
+  const bufferOrganizationId = optional("BUFFER_ORGANIZATION_ID");
+  const bufferApiHost = optional("BUFFER_API_HOST");
   const threadsAccessToken = optional("THREADS_ACCESS_TOKEN");
   const threadsApiHost = optional("THREADS_API_HOST");
   const cloudinaryFolder = optional("CLOUDINARY_FOLDER");
 
+  if (publishProvider && publishProvider !== "buffer" && publishProvider !== "threads") {
+    throw new Error("PUBLISH_PROVIDER must be buffer or threads");
+  }
+
   const processor = new FileProcessor({
     policy,
+    ...(publishProvider ? { publishProvider } : {}),
+    ...(bufferApiKey ? { bufferApiKey } : {}),
+    ...(bufferChannelId ? { bufferChannelId } : {}),
+    ...(bufferOrganizationId ? { bufferOrganizationId } : {}),
+    ...(bufferApiHost ? { bufferApiHost } : {}),
     ...(threadsAccessToken ? { threadsAccessToken } : {}),
     ...(threadsApiHost ? { threadsApiHost } : {}),
     ...(cloudName && apiKey && apiSecret ? {
@@ -44,7 +58,11 @@ async function main(): Promise<void> {
     console.log(JSON.stringify(await processor.refreshMetrics(), null, 2));
     return;
   }
-  throw new Error("Mode must be one of: file, queue, metrics");
+  if (mode === "health") {
+    console.log(JSON.stringify(await processor.healthCheck(), null, 2));
+    return;
+  }
+  throw new Error("Mode must be one of: file, queue, metrics, health");
 }
 
 main().catch((error) => {

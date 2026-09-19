@@ -1,5 +1,11 @@
 import { mkdir, readdir, readFile, unlink, writeFile } from "node:fs/promises";
 import { basename, join } from "node:path";
+import {
+  AmbiguousBufferPublishError,
+  BufferConfigurationError,
+  BufferProvider,
+  RetryableBufferError
+} from "../buffer/provider.js";
 import { contentHash, jobSchema, type ThreadsJob } from "../domain/job.js";
 import { uploadPng } from "../media/cloudinary.js";
 import { renderCard } from "../render/card.js";
@@ -14,6 +20,11 @@ export type FileProcessorConfig = {
   policy: Policy;
   pendingDir?: string;
   resultsDir?: string;
+  publishProvider?: "buffer" | "threads";
+  bufferApiKey?: string;
+  bufferChannelId?: string;
+  bufferOrganizationId?: string;
+  bufferApiHost?: string;
   threadsAccessToken?: string;
   threadsApiHost?: string;
   cloudinary?: { cloudName: string; apiKey: string; apiSecret: string; folder?: string };
@@ -38,10 +49,40 @@ async function writeJob(path: string, job: ThreadsJob): Promise<void> {
 export class FileProcessor {
   private readonly pendingDir: string;
   private readonly resultsDir: string;
+  private buffer?: BufferProvider;
+  private threads?: ThreadsProvider;
 
   constructor(private readonly config: FileProcessorConfig) {
     this.pendingDir = config.pendingDir ?? "jobs/pending";
     this.resultsDir = config.resultsDir ?? "jobs/results";
+  }
+
+  private providerName(): "buffer" | "threads" {
+    return this.config.publishProvider ?? "buffer";
+  }
+
+  private bufferProvider(): BufferProvider {
+    if (!this.config.bufferApiKey) {
+      throw new BufferConfigurationError("BUFFER_API_KEY is not configured");
+    }
+    this.buffer ??= new BufferProvider(
+      this.config.bufferApiKey,
+      this.config.bufferChannelId,
+      this.config.bufferOrganizationId,
+      this.config.bufferApiHost
+    );
+    return this.buffer;
+  }
+
+  private threadsProvider(): ThreadsProvider {
+    if (!this.config.threadsAccessToken) {
+      throw new Error("THREADS_ACCESS_TOKEN is not configured");
+    }
+    this.threads ??= new ThreadsProvider(
+      this.config.threadsAccessToken,
+      this.config.threadsApiHost
+    );
+    return this.threads;
   }
 
   private resultPath(pendingPath: string): string {
@@ -67,6 +108,17 @@ export class FileProcessor {
     await mkdir(this.resultsDir, { recursive: true });
     await writeJob(this.resultPath(pendingPath), job);
     await unlink(pendingPath);
+  }
+
+  async healthCheck(): Promise<Record<string, unknown>> {
+    if (this.providerName() === "buffer") {
+      const health = await this.bufferProvider().healthCheck();
+      return { provider: "buffer", ...health };
+    }
+    if (!this.config.threadsAccessToken) {
+      throw new Error("THREADS_ACCESS_TOKEN is not configured");
+    }
+    return { provider: "threads", configured: true };
   }
 
   async processFile(path: string, now = new Date()): Promise<string> {
@@ -122,15 +174,41 @@ export class FileProcessor {
         return "dry-run";
       }
 
-      if (!this.config.threadsAccessToken) {
-        throw new Error("THREADS_ACCESS_TOKEN is not configured");
+      let mediaUrl: string | undefined;
+      const provider = this.providerName();
+
+      if (provider === "buffer") {
+        const buffer = this.bufferProvider();
+        await buffer.healthCheck();
+
+        if (png) {
+          if (!this.config.cloudinary) throw new Error("Image job requires Cloudinary secrets");
+          mediaUrl = await uploadPng(
+            png,
+            "threads-" + hash.slice(0, 20),
+            this.config.cloudinary
+          );
+        }
+
+        const publishedPost = await buffer.publish(job, mediaUrl);
+        const published: ThreadsJob = {
+          ...job,
+          status: "PUBLISHED",
+          result: {
+            status: "PUBLISHED",
+            published_at: now.toISOString(),
+            provider: "buffer",
+            provider_post_id: publishedPost.id,
+            content_hash: hash,
+            ...(publishedPost.externalUrl ? { external_url: publishedPost.externalUrl } : {}),
+            ...(mediaUrl ? { media_url: mediaUrl } : {})
+          }
+        };
+        await this.persistTerminal(path, published);
+        return "published:buffer";
       }
 
-      const threads = new ThreadsProvider(
-        this.config.threadsAccessToken,
-        this.config.threadsApiHost
-      );
-
+      const threads = this.threadsProvider();
       const quota = await threads.getPublishingQuota();
       const quotaExhausted = job.action === "reply"
         ? quota.replyUsage >= quota.replyTotal
@@ -140,7 +218,6 @@ export class FileProcessor {
         return "queued:Threads API publishing quota exhausted";
       }
 
-      let mediaUrl: string | undefined;
       if (png) {
         if (!this.config.cloudinary) throw new Error("Image job requires Cloudinary secrets");
         mediaUrl = await uploadPng(
@@ -157,19 +234,21 @@ export class FileProcessor {
         result: {
           status: "PUBLISHED",
           published_at: now.toISOString(),
+          provider: "threads",
+          provider_post_id: threadId,
           thread_id: threadId,
           content_hash: hash,
           ...(mediaUrl ? { media_url: mediaUrl } : {})
         }
       };
       await this.persistTerminal(path, published);
-      return "published";
+      return "published:threads";
     } catch (error) {
-      if (error instanceof RetryableThreadsError) {
+      if (error instanceof RetryableBufferError || error instanceof RetryableThreadsError) {
         return "queued:" + error.message;
       }
 
-      if (error instanceof AmbiguousPublishError) {
+      if (error instanceof AmbiguousBufferPublishError || error instanceof AmbiguousPublishError) {
         const review: ThreadsJob = {
           ...job,
           status: "REVIEW",
@@ -207,28 +286,45 @@ export class FileProcessor {
   }
 
   async refreshMetrics(): Promise<Record<string, string>> {
-    if (!this.config.threadsAccessToken) {
-      throw new Error("THREADS_ACCESS_TOKEN is required for metrics");
-    }
-
-    const threads = new ThreadsProvider(
-      this.config.threadsAccessToken,
-      this.config.threadsApiHost
-    );
     const results: Record<string, string> = {};
+    const paths = (await listJson(this.resultsDir)).reverse().slice(0, 30);
 
-    for (const path of await listJson(this.resultsDir)) {
+    for (const path of paths) {
       try {
         const job = await readJob(path);
         const previousResult = job.result;
-        const threadId = previousResult?.thread_id;
-
-        if (job.status !== "PUBLISHED" || !previousResult || !threadId) {
+        if (job.status !== "PUBLISHED" || !previousResult) {
           results[basename(path)] = "skipped";
           continue;
         }
 
-        const metrics = await threads.getInsights(threadId);
+        if (previousResult.provider === "buffer") {
+          const postId = previousResult.provider_post_id;
+          if (!postId) {
+            results[basename(path)] = "skipped:no-buffer-post-id";
+            continue;
+          }
+          const snapshot = await this.bufferProvider().getMetrics(postId);
+          const next: ThreadsJob = {
+            ...job,
+            result: {
+              ...previousResult,
+              metrics: snapshot.normalized,
+              provider_metrics: snapshot.raw,
+              metrics_updated_at: snapshot.updatedAt ?? new Date().toISOString()
+            }
+          };
+          await writeJob(path, next);
+          results[basename(path)] = "updated:buffer";
+          continue;
+        }
+
+        const threadId = previousResult.provider_post_id ?? previousResult.thread_id;
+        if (!threadId) {
+          results[basename(path)] = "skipped:no-thread-id";
+          continue;
+        }
+        const metrics = await this.threadsProvider().getInsights(threadId);
         const next: ThreadsJob = {
           ...job,
           result: {
@@ -238,7 +334,7 @@ export class FileProcessor {
           }
         };
         await writeJob(path, next);
-        results[basename(path)] = "updated";
+        results[basename(path)] = "updated:threads";
       } catch (error) {
         results[basename(path)] = "error:" + (
           error instanceof Error ? error.message : String(error)

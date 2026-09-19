@@ -12,10 +12,14 @@ const metricsSchema = z.object({
 const resultSchema = z.object({
   status: z.enum(["PUBLISHED", "DRY_RUN", "FAILED", "REVIEW"]),
   published_at: z.string().optional(),
+  provider: z.enum(["buffer", "threads"]).optional(),
+  provider_post_id: z.string().min(1).optional(),
   thread_id: z.string().min(1).optional(),
+  external_url: z.string().url().optional(),
   content_hash: z.string().length(64),
   media_url: z.string().url().optional(),
   metrics: metricsSchema.optional(),
+  provider_metrics: z.record(z.string(), z.number()).optional(),
   metrics_updated_at: z.string().optional(),
   error: z.string().max(2000).optional()
 });
