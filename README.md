@@ -22,7 +22,7 @@ This avoids relying on Issue events from integrations, which GitHub may not forw
 - Replies and quote posts supported by the job contract.
 - Deterministic 1080x1350 editorial cards rendered with SVG + Sharp.
 - Signed Cloudinary upload adapter for public image hosting.
-- Content hashing, idempotency, daily cap, minimum interval and topic cooldown.
+- Content hashing, idempotency, official API quota checks, daily cap, minimum interval and topic cooldown.
 - Scheduled post-insights collection.
 - Dry-run commissioning mode.
 - Strict TypeScript and CI tests.
@@ -67,6 +67,6 @@ Publishing fails closed:
 - jobs above policy limits remain queued or fail as appropriate;
 - image jobs fail if public media hosting is unavailable;
 - missing Threads credentials cannot publish;
-- an existing result file prevents a job from being processed twice.
+- an existing result file prevents a job from being processed twice; ambiguous publish responses become REVIEW rather than risking a duplicate.
 
 See docs/OPERATIONS.md for commissioning and credentials.

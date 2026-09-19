@@ -54,7 +54,7 @@ Terminal results are moved to jobs/results/<id>.json as:
 
 - DRY_RUN
 - PUBLISHED
-- FAILED
+- FAILED\n- REVIEW — the remote publication state is ambiguous and must not be auto-retried
 
 Retryable conditions remain in pending:
 
@@ -63,7 +63,7 @@ Retryable conditions remain in pending:
 - minimum interval not reached
 - topic cooldown active
 
-queue.yml runs on each pending-job push and every five minutes as a fallback.
+queue.yml runs on each pending-job push and every five minutes as a fallback. Live jobs also check Meta's current API quota before uploading or publishing.
 
 ## Creating jobs from ChatGPT
 
@@ -81,7 +81,7 @@ metrics.yml refreshes lifetime views, likes, replies, reposts and quotes for PUB
 
 ## Recovery
 
-FAILED is terminal by design to prevent accidental duplicate publication.
+FAILED and REVIEW are terminal by design. REVIEW specifically means the API response was ambiguous enough that automatic retry could create a duplicate.
 
 Inspect the result error, create a corrected new pending job with a new filename, and let the system evaluate it from scratch.
 

@@ -10,7 +10,7 @@ const metricsSchema = z.object({
 });
 
 const resultSchema = z.object({
-  status: z.enum(["PUBLISHED", "DRY_RUN", "FAILED"]),
+  status: z.enum(["PUBLISHED", "DRY_RUN", "FAILED", "REVIEW"]),
   published_at: z.string().optional(),
   thread_id: z.string().min(1).optional(),
   content_hash: z.string().length(64),
@@ -33,7 +33,7 @@ const visualSchema = z.discriminatedUnion("mode", [
 
 export const jobSchema = z.object({
   schema_version: z.literal(1),
-  status: z.enum(["READY", "PUBLISHED", "FAILED", "DRY_RUN"]).default("READY"),
+  status: z.enum(["READY", "PUBLISHED", "FAILED", "DRY_RUN", "REVIEW"]).default("READY"),
   publish_at: z.string().datetime({ offset: true }),
   action: z.enum(["post", "reply", "quote"]).default("post"),
   relation_id: z.string().min(1).optional(),

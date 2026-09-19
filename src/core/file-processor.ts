@@ -3,7 +3,11 @@ import { basename, join } from "node:path";
 import { contentHash, jobSchema, type ThreadsJob } from "../domain/job.js";
 import { uploadPng } from "../media/cloudinary.js";
 import { renderCard } from "../render/card.js";
-import { ThreadsProvider } from "../threads/provider.js";
+import {
+  AmbiguousPublishError,
+  RetryableThreadsError,
+  ThreadsProvider
+} from "../threads/provider.js";
 import { evaluatePolicy, type Policy } from "./policy.js";
 
 export type FileProcessorConfig = {
@@ -85,6 +89,7 @@ export class FileProcessor {
     const decision = evaluatePolicy(job, await this.publishedJobs(), this.config.policy, now);
     if (!decision.ok) {
       if (decision.retryable) return "queued:" + decision.reason;
+
       const failed: ThreadsJob = {
         ...job,
         status: "FAILED",
@@ -117,15 +122,34 @@ export class FileProcessor {
         return "dry-run";
       }
 
-      if (!this.config.threadsAccessToken) throw new Error("THREADS_ACCESS_TOKEN is not configured");
+      if (!this.config.threadsAccessToken) {
+        throw new Error("THREADS_ACCESS_TOKEN is not configured");
+      }
+
+      const threads = new ThreadsProvider(
+        this.config.threadsAccessToken,
+        this.config.threadsApiHost
+      );
+
+      const quota = await threads.getPublishingQuota();
+      const quotaExhausted = job.action === "reply"
+        ? quota.replyUsage >= quota.replyTotal
+        : quota.postUsage >= quota.postTotal;
+
+      if (quotaExhausted) {
+        return "queued:Threads API publishing quota exhausted";
+      }
 
       let mediaUrl: string | undefined;
       if (png) {
         if (!this.config.cloudinary) throw new Error("Image job requires Cloudinary secrets");
-        mediaUrl = await uploadPng(png, "threads-" + hash.slice(0, 20), this.config.cloudinary);
+        mediaUrl = await uploadPng(
+          png,
+          "threads-" + hash.slice(0, 20),
+          this.config.cloudinary
+        );
       }
 
-      const threads = new ThreadsProvider(this.config.threadsAccessToken, this.config.threadsApiHost);
       const threadId = await threads.publish(job, mediaUrl);
       const published: ThreadsJob = {
         ...job,
@@ -141,6 +165,24 @@ export class FileProcessor {
       await this.persistTerminal(path, published);
       return "published";
     } catch (error) {
+      if (error instanceof RetryableThreadsError) {
+        return "queued:" + error.message;
+      }
+
+      if (error instanceof AmbiguousPublishError) {
+        const review: ThreadsJob = {
+          ...job,
+          status: "REVIEW",
+          result: {
+            status: "REVIEW",
+            content_hash: hash,
+            error: error.message.slice(0, 2000)
+          }
+        };
+        await this.persistTerminal(path, review);
+        return "review:" + error.message;
+      }
+
       const message = error instanceof Error ? error.message : String(error);
       const failed: ThreadsJob = {
         ...job,
@@ -165,8 +207,14 @@ export class FileProcessor {
   }
 
   async refreshMetrics(): Promise<Record<string, string>> {
-    if (!this.config.threadsAccessToken) throw new Error("THREADS_ACCESS_TOKEN is required for metrics");
-    const threads = new ThreadsProvider(this.config.threadsAccessToken, this.config.threadsApiHost);
+    if (!this.config.threadsAccessToken) {
+      throw new Error("THREADS_ACCESS_TOKEN is required for metrics");
+    }
+
+    const threads = new ThreadsProvider(
+      this.config.threadsAccessToken,
+      this.config.threadsApiHost
+    );
     const results: Record<string, string> = {};
 
     for (const path of await listJson(this.resultsDir)) {
@@ -174,6 +222,7 @@ export class FileProcessor {
         const job = await readJob(path);
         const previousResult = job.result;
         const threadId = previousResult?.thread_id;
+
         if (job.status !== "PUBLISHED" || !previousResult || !threadId) {
           results[basename(path)] = "skipped";
           continue;
@@ -191,9 +240,12 @@ export class FileProcessor {
         await writeJob(path, next);
         results[basename(path)] = "updated";
       } catch (error) {
-        results[basename(path)] = "error:" + (error instanceof Error ? error.message : String(error));
+        results[basename(path)] = "error:" + (
+          error instanceof Error ? error.message : String(error)
+        );
       }
     }
+
     return results;
   }
 }

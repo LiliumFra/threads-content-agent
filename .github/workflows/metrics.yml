@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: threads-metrics
+  group: threads-state-writer
   cancel-in-progress: true
 
 jobs:
@@ -17,8 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: "22"
           package-manager-cache: false
@@ -35,5 +35,13 @@ jobs:
           git add jobs/results
           if ! git diff --cached --quiet; then
             git commit -m "chore: refresh Threads metrics [skip ci]"
-            git push
+            for attempt in 1 2 3; do
+              git pull --rebase origin main
+              if git push origin HEAD:main; then
+                exit 0
+              fi
+              sleep $((attempt * 2))
+            done
+            echo "Failed to persist metric state after retries" >&2
+            exit 1
           fi
