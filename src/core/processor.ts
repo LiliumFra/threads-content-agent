@@ -135,15 +135,16 @@ export class Processor {
     for (const issue of await this.config.github.listIssues("closed", PUBLISHED)) {
       try {
         const job = this.config.github.parseJob(issue);
-        const threadId = job.result?.thread_id;
-        if (!threadId || job.status !== "PUBLISHED") {
+        const previousResult = job.result;
+        const threadId = previousResult?.thread_id;
+        if (!threadId || !previousResult || job.status !== "PUBLISHED") {
           results[String(issue.number)] = "skipped";
           continue;
         }
         const metrics = await threads.getInsights(threadId);
         const next: ThreadsJob = {
           ...job,
-          result: { ...job.result, metrics, metrics_updated_at: new Date().toISOString() }
+          result: { ...previousResult, metrics, metrics_updated_at: new Date().toISOString() }
         };
         await this.config.github.saveJob(issue.number, next, [PUBLISHED], "closed");
         results[String(issue.number)] = "updated";
