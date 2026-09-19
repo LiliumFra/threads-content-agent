@@ -9,7 +9,7 @@ const baseJob: ThreadsJob = {
   action: "post",
   topic: "ai",
   language: "es",
-  content: { text: "Prueba Buffer" },
+  content: { text: "Prueba Buffer", topic_tag: "InteligenciaArtificial" },
   visual: {
     mode: "card",
     headline: "Titular",
@@ -79,11 +79,19 @@ describe("BufferProvider", () => {
     const createCall = fetchMock.mock.calls[2];
     const init = createCall?.[1] as RequestInit;
     const body = JSON.parse(String(init.body)) as {
-      variables: { input: { channelId: string; mode: string; assets: unknown[] } };
+      variables: {
+        input: {
+          channelId: string;
+          mode: string;
+          assets: unknown[];
+          metadata?: { threads?: { topic?: string } };
+        };
+      };
     };
     expect(body.variables.input.channelId).toBe("thread-channel");
     expect(body.variables.input.mode).toBe("shareNow");
     expect(JSON.stringify(body.variables.input.assets)).toContain("Texto alternativo");
+    expect(body.variables.input.metadata?.threads?.topic).toBe("InteligenciaArtificial");
   });
 
   it("requires BUFFER_CHANNEL_ID when multiple active Threads channels exist", async () => {

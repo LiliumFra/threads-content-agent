@@ -258,7 +258,10 @@ export class BufferProvider {
       channelId: health.channelId,
       schedulingType: "automatic",
       mode: "shareNow",
-      aiAssisted: true
+      aiAssisted: true,
+      ...(job.content.topic_tag
+        ? { metadata: { threads: { topic: job.content.topic_tag } } }
+        : {})
     };
 
     if (imageUrl) {
