@@ -2,6 +2,10 @@ name: Test Buffer connection
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "ops/buffer-health-request.txt"
 
 permissions:
   contents: read
