@@ -32,11 +32,13 @@ jobs:
           BUFFER_ORGANIZATION_ID: ${{ vars.BUFFER_ORGANIZATION_ID }}
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
         run: node dist/src/cli/worker.js metrics
+      - name: Run bounded adaptive tuning
+        run: node dist/src/cli/worker.js tune
       - name: Persist metric updates
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add jobs/results
+          git add jobs/results config/growth.json state/adaptive-tuning.jsonl
           if ! git diff --cached --quiet; then
             git commit -m "chore: refresh Threads metrics [skip ci]"
             for attempt in 1 2 3; do
