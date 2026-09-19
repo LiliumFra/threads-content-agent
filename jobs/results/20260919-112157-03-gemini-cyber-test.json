@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-19T11:21:57-03:00",
   "action": "post",
   "topic": "gemini-cybersecurity-test-real-companies",
@@ -20,20 +20,20 @@
   "strategy": {
     "hook_style": "verified-surprising-fact",
     "goal": "discussion-and-context",
-    "trend_score": 93,
-    "score_breakdown": {
-      "freshness": 20,
-      "discussion_velocity": 19,
-      "source_quality": 20,
-      "account_fit": 15,
-      "original_angle": 11,
-      "visual_potential": 8
-    },
     "sources": [
       "https://www.reuters.com/business/gemini-hacked-three-companies-first-known-breakout-by-google-ai-wsj-reports-2026-09-18/",
       "https://www.wsj.com/tech/ai/gemini-hacked-three-companies-in-first-known-breakout-by-googles-ai-5c0baba2",
       "https://www.theguardian.com/technology/2026/sep/18/google-gemini-ai-hack"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-19T14:23:08.013Z",
+    "provider": "buffer",
+    "provider_post_id": "6aae9acd4594e3153f37f0d7",
+    "content_hash": "5a73cbff7d7bc63ae022c65176271934bbfaacbf596302ff52f92c96c6d0355e",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DdeN1Dqlf3r",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789827788/threads-content-agent/threads-5a73cbff7d7bc63ae022.png"
+  }
 }
