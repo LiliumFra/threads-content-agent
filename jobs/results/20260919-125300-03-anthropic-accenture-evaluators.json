@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-19T12:53:00-03:00",
   "action": "post",
   "topic": "anthropic-accenture-embedded-ai-evaluation",
@@ -37,5 +37,13 @@
       "https://www.reuters.com/business/anthropic-accenture-invest-2-billion-ai-model-evaluation-safety-concerns-rise-2026-09-18/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-19T17:37:19.631Z",
+    "provider": "buffer",
+    "provider_post_id": "6aaec8519a30e1221c1088ce",
+    "content_hash": "4e98cf5eda100643d2e10e426d870924b69463a521b5d2ce2bc8d509a172caec",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789839440/threads-content-agent/threads-4e98cf5eda100643d2e1.png"
+  }
 }
