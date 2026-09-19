@@ -13,8 +13,9 @@ export async function uploadPng(png: Buffer, publicId: string, config: Cloudinar
   const signed = ["folder=" + folder, "public_id=" + publicId, "timestamp=" + timestamp].sort().join("&");
   const signature = createHash("sha1").update(signed + config.apiSecret).digest("hex");
 
+  const arrayBuffer = png.buffer.slice(png.byteOffset, png.byteOffset + png.byteLength) as ArrayBuffer;
   const form = new FormData();
-  form.set("file", new Blob([png], { type: "image/png" }), publicId + ".png");
+  form.set("file", new Blob([arrayBuffer], { type: "image/png" }), publicId + ".png");
   form.set("api_key", config.apiKey);
   form.set("timestamp", timestamp);
   form.set("folder", folder);
