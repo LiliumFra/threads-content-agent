@@ -7,6 +7,8 @@ const policySchema = z.object({
   max_posts_per_day: z.number().int().positive(),
   min_interval_minutes: z.number().int().nonnegative(),
   topic_cooldown_hours: z.number().int().nonnegative(),
+  native_topic_cooldown_hours: z.number().int().nonnegative(),
+  max_same_native_topic_per_day: z.number().int().positive(),
   duplicate_lookback: z.number().int().positive().max(500),
   metrics_refresh_hours: z.number().int().positive()
 });
@@ -28,6 +30,11 @@ function dayKey(date: Date, timezone: string): string {
   return [value.year, value.month, value.day].join("-");
 }
 
+function normalizeTopic(value: string | undefined): string | undefined {
+  const normalized = value?.trim().replace(/\s+/g, " ").toLowerCase();
+  return normalized || undefined;
+}
+
 export type PolicyDecision =
   | { ok: true }
   | { ok: false; retryable: boolean; reason: string };
@@ -46,13 +53,34 @@ export function evaluatePolicy(candidate: ThreadsJob, published: ThreadsJob[], p
     .sort((a, b) => b.date.getTime() - a.date.getTime());
 
   const today = dayKey(now, policy.timezone);
-  if (withDates.filter((entry) => dayKey(entry.date, policy.timezone) === today).length >= policy.max_posts_per_day) {
+  const publishedToday = withDates.filter((entry) => dayKey(entry.date, policy.timezone) === today);
+  if (publishedToday.length >= policy.max_posts_per_day) {
     return { ok: false, retryable: true, reason: "Daily publication cap reached" };
   }
 
   const latest = withDates[0]?.date;
   if (latest && now.getTime() - latest.getTime() < policy.min_interval_minutes * 60_000) {
     return { ok: false, retryable: true, reason: "Minimum publication interval not reached" };
+  }
+
+  const nativeTopic = normalizeTopic(candidate.content.topic_tag);
+  if (nativeTopic) {
+    const sameNativeToday = publishedToday.filter(
+      (entry) => normalizeTopic(entry.job.content.topic_tag) === nativeTopic
+    );
+    if (sameNativeToday.length >= policy.max_same_native_topic_per_day) {
+      return { ok: false, retryable: true, reason: "Native Threads topic daily cap reached" };
+    }
+
+    const latestSameNative = withDates.find(
+      (entry) => normalizeTopic(entry.job.content.topic_tag) === nativeTopic
+    )?.date;
+    if (
+      latestSameNative &&
+      now.getTime() - latestSameNative.getTime() < policy.native_topic_cooldown_hours * 3_600_000
+    ) {
+      return { ok: false, retryable: true, reason: "Native Threads topic cooldown is still active" };
+    }
   }
 
   const latestSameTopic = withDates.find((entry) => entry.job.topic === candidate.topic)?.date;

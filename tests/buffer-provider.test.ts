@@ -20,6 +20,8 @@ const baseJob: ThreadsJob = {
   strategy: {
     hook_style: "curiosity",
     goal: "conversation",
+    content_type: "breaking_news",
+    candidate_score: 90,
     sources: ["https://example.com"]
   },
   dry_run: false
@@ -37,7 +39,7 @@ afterEach(() => {
 });
 
 describe("BufferProvider", () => {
-  it("discovers one Threads channel and publishes an image with alt text", async () => {
+  it("discovers one Threads channel and publishes an image with alt text and native topic", async () => {
     const fetchMock = vi.fn()
       .mockResolvedValueOnce(json({
         data: { account: { organizations: [{ id: "org-1", name: "Org" }] } }
@@ -120,9 +122,14 @@ describe("BufferProvider", () => {
           id: "buffer-post-1",
           metrics: [
             { type: "views", value: 100 },
+            { type: "impressions", value: 120 },
+            { type: "reach", value: 80 },
             { type: "reactions", value: 9 },
             { type: "comments", value: 4 },
-            { type: "reposts", value: 2 }
+            { type: "reposts", value: 2 },
+            { type: "shares", value: 3 },
+            { type: "quotes", value: 1 },
+            { type: "engagementRate", value: 7.5 }
           ],
           metricsUpdatedAt: "2026-09-19T08:00:00Z"
         }
@@ -131,9 +138,14 @@ describe("BufferProvider", () => {
 
     const snapshot = await new BufferProvider("secret").getMetrics("buffer-post-1");
     expect(snapshot.normalized.views).toBe(100);
+    expect(snapshot.normalized.impressions).toBe(120);
+    expect(snapshot.normalized.reach).toBe(80);
     expect(snapshot.normalized.likes).toBe(9);
     expect(snapshot.normalized.replies).toBe(4);
     expect(snapshot.normalized.reposts).toBe(2);
+    expect(snapshot.normalized.shares).toBe(3);
+    expect(snapshot.normalized.quotes).toBe(1);
+    expect(snapshot.normalized.engagement_rate).toBe(7.5);
     expect(snapshot.raw.reactions).toBe(9);
   });
 });

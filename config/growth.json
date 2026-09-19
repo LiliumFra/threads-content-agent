@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "objective": "Grow a technology and AI Threads account through timely original reporting, useful context, conversation, topic discovery and performance learning.",
+  "cadence": {
+    "target_posts_per_day": 3,
+    "soft_max_posts_per_day": 4,
+    "hard_max_posts_per_day": 5,
+    "scan_every_hours": 3,
+    "standard_spacing_minutes": 105,
+    "minimum_spacing_minutes": 75,
+    "preferred_windows_local": [
+      {
+        "start": "09:00",
+        "end": "10:30"
+      },
+      {
+        "start": "12:00",
+        "end": "13:30"
+      },
+      {
+        "start": "16:00",
+        "end": "17:30"
+      },
+      {
+        "start": "20:00",
+        "end": "21:30"
+      }
+    ],
+    "breaking_news": {
+      "publish_immediately_if_score_at_least": 88,
+      "may_ignore_preferred_windows": true,
+      "never_ignore_hard_daily_cap": true
+    }
+  },
+  "content_mix": {
+    "rolling_window_posts": 20,
+    "targets_percent": {
+      "breaking_news": 45,
+      "explainer": 20,
+      "discussion": 15,
+      "data": 10,
+      "light": 10
+    },
+    "guidance": "Use the mix as a directional target, not a quota. A strong current story always beats filler."
+  },
+  "native_topics": {
+    "required_when_supported": true,
+    "max_one_per_post": true,
+    "prefer_specific_active_topic_over_generic": true,
+    "generic_examples": [
+      "InteligenciaArtificial",
+      "Tecnología"
+    ],
+    "max_same_topic_per_day": 2,
+    "cooldown_hours": 3,
+    "avoid_using_same_generic_topic_for_consecutive_posts": true
+  },
+  "copy": {
+    "max_characters": 500,
+    "neutral_spanish": true,
+    "factual_hook_first": true,
+    "include_useful_context": true,
+    "natural_question_when_useful": true,
+    "avoid_engagement_bait": true,
+    "avoid_excessive_hashtags": true,
+    "avoid_generic_ctas": true,
+    "avoid_copying_viral_phrasing": true
+  },
+  "visuals": {
+    "default": "rich-dark-editorial-card",
+    "aspect_ratio": "4:5",
+    "add_information_not_duplicate_copy": true,
+    "rotate_palette_by_topic": true,
+    "show_native_topic_badge": true,
+    "require_alt_text": true,
+    "use_native_chatgpt_image_when_automatic_handoff_is_available": true,
+    "fallback_renderer": "src/render/card.ts"
+  },
+  "performance_learning": {
+    "lookback_posts": 30,
+    "minimum_sample_before_strategy_tuning": 20,
+    "metrics_expected_lag_hours": 24,
+    "dimensions": [
+      "content_type",
+      "topic_tag",
+      "hook_style",
+      "publish_hour",
+      "visual_mode"
+    ],
+    "optimize_for": [
+      "comments",
+      "reposts",
+      "quotes",
+      "engagement_rate",
+      "views"
+    ],
+    "rules": [
+      "Do not copy a winning hook verbatim.",
+      "Prefer patterns supported by multiple posts.",
+      "Do not change the strategy from one outlier.",
+      "Prioritize conversation quality over raw posting volume."
+    ]
+  },
+  "engagement": {
+    "aim_for_conversation_not_bait": true,
+    "response_strategy": "When Buffer exposes stable comment-reply operations for this channel, reply with useful context or a genuine follow-up question. Until then, surface posts with meaningful comment activity for manual response.",
+    "avoid_empty_replies": true
+  }
+}

@@ -3,10 +3,14 @@ import { z } from "zod";
 
 const metricsSchema = z.object({
   views: z.number().nonnegative().optional(),
+  impressions: z.number().nonnegative().optional(),
+  reach: z.number().nonnegative().optional(),
   likes: z.number().nonnegative().optional(),
   replies: z.number().nonnegative().optional(),
   reposts: z.number().nonnegative().optional(),
-  quotes: z.number().nonnegative().optional()
+  quotes: z.number().nonnegative().optional(),
+  shares: z.number().nonnegative().optional(),
+  engagement_rate: z.number().nonnegative().optional()
 });
 
 const resultSchema = z.object({
@@ -35,6 +39,14 @@ const visualSchema = z.discriminatedUnion("mode", [
   })
 ]);
 
+const contentTypeSchema = z.enum([
+  "breaking_news",
+  "explainer",
+  "discussion",
+  "data",
+  "light"
+]);
+
 export const jobSchema = z.object({
   schema_version: z.literal(1),
   status: z.enum(["READY", "PUBLISHED", "FAILED", "DRY_RUN", "REVIEW"]).default("READY"),
@@ -52,6 +64,10 @@ export const jobSchema = z.object({
   strategy: z.object({
     hook_style: z.string().min(1).max(50),
     goal: z.string().min(1).max(50),
+    content_type: contentTypeSchema.optional(),
+    candidate_score: z.number().min(0).max(100).optional(),
+    breaking_news: z.boolean().optional(),
+    score_breakdown: z.record(z.string(), z.number().min(0).max(100)).optional(),
     sources: z.array(z.string().url()).min(1).max(8)
   }),
   dry_run: z.boolean().default(true),

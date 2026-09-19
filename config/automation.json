@@ -2,13 +2,19 @@
   "enabled": true,
   "publish_mode": "live",
   "language": "es",
-  "scan_interval_hours": 4,
+  "scan_interval_hours": 3,
+  "daily_target_posts": 3,
+  "daily_soft_max_posts": 4,
   "max_jobs_per_scan": 3,
+  "max_posts_per_batch": 3,
+  "batch_spacing_minutes": 105,
   "min_trend_score": 72,
+  "breaking_news_min_score": 88,
   "freshness_hours": 12,
   "minimum_sources": 2,
   "default_visual_mode": "card",
   "exclude_politics": true,
+  "growth_config_path": "config/growth.json",
   "categories": [
     "artificial-intelligence",
     "android",
@@ -19,13 +25,12 @@
     "big-tech"
   ],
   "weights": {
-    "freshness": 20,
-    "discussion_velocity": 20,
-    "source_quality": 20,
+    "freshness": 15,
+    "discussion_velocity": 15,
+    "source_quality": 15,
     "account_fit": 15,
-    "original_angle": 15,
+    "novelty": 15,
+    "conversation_potential": 15,
     "visual_potential": 10
-  },
-  "batch_spacing_minutes": 90,
-  "max_posts_per_batch": 3
+  }
 }

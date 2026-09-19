@@ -352,6 +352,10 @@ export class BufferProvider {
       const normalizedKey = key.toLowerCase().replace(/[^a-z]/g, "");
       if (normalizedKey === "views" || normalizedKey === "view") {
         normalized.views = metric.value;
+      } else if (normalizedKey === "impressions" || normalizedKey === "impression") {
+        normalized.impressions = metric.value;
+      } else if (normalizedKey === "reach") {
+        normalized.reach = metric.value;
       } else if (
         normalizedKey === "likes" ||
         normalizedKey === "like" ||
@@ -368,18 +372,15 @@ export class BufferProvider {
         normalized.replies = metric.value;
       } else if (
         normalizedKey === "reposts" ||
-        normalizedKey === "repost" ||
-        normalizedKey === "shares" ||
-        normalizedKey === "share"
+        normalizedKey === "repost"
       ) {
         normalized.reposts = metric.value;
+      } else if (normalizedKey === "shares" || normalizedKey === "share") {
+        normalized.shares = metric.value;
       } else if (normalizedKey === "quotes" || normalizedKey === "quote") {
         normalized.quotes = metric.value;
-      } else if (
-        (normalized.views === undefined) &&
-        (normalizedKey === "impressions" || normalizedKey === "impression")
-      ) {
-        normalized.views = metric.value;
+      } else if (normalizedKey === "engagementrate") {
+        normalized.engagement_rate = metric.value;
       }
     }
 
