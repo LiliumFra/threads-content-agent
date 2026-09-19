@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-19T15:00:00-03:00",
+  "action": "post",
+  "topic": "artificial-intelligence",
+  "language": "es",
+  "content": {
+    "text": "Una idea original, verificada y breve para Threads.",
+    "topic_tag": "IA",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "El dato que cambia la conversación",
+    "subheadline": "Contexto breve, verificable y diseñado para aportar valor.",
+    "eyebrow": "TECNOLOGÍA",
+    "alt_text": "Tarjeta editorial con un titular y contexto sobre una tendencia tecnológica."
+  },
+  "strategy": {
+    "hook_style": "curiosity",
+    "goal": "conversation",
+    "sources": ["https://example.com/source"]
+  },
+  "dry_run": true
+}
