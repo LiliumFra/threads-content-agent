@@ -155,5 +155,78 @@
       "hard_new_images_per_day": 8,
       "rationale": "One generated image per published post; no speculative uploads for rejected candidates."
     }
+  },
+  "adaptive_control": {
+    "enabled": true,
+    "mode": "bounded_auto_tuning",
+    "evaluation_interval_hours": 24,
+    "minimum_published_posts_before_tuning": 20,
+    "minimum_posts_per_segment": 5,
+    "metrics_maturity_hours": 24,
+    "change_cooldown_hours": 48,
+    "max_parameter_changes_per_cycle": 3,
+    "rollback_lookback_days": 7,
+    "objective_priority": [
+      "conversation_quality",
+      "engagement_rate",
+      "reposts_quotes",
+      "views",
+      "posting_efficiency"
+    ],
+    "tunable_parameters": {
+      "min_trend_score": {
+        "min": 68,
+        "max": 80,
+        "max_step": 2
+      },
+      "strong_incremental_threshold": {
+        "min": 78,
+        "max": 88,
+        "max_step": 2
+      },
+      "batch_spacing_minutes": {
+        "min": 60,
+        "max": 180,
+        "max_step": 30
+      },
+      "target_posts_per_day": {
+        "min": 3,
+        "max": 5,
+        "max_step": 1
+      },
+      "soft_max_posts_per_day": {
+        "min": 4,
+        "max": 6,
+        "max_step": 1
+      },
+      "content_mix_target_percent": {
+        "max_step_percentage_points": 5
+      },
+      "preferred_windows_local": {
+        "max_shift_minutes": 60
+      },
+      "native_topic_cooldown_hours": {
+        "min": 2,
+        "max": 8,
+        "max_step": 1
+      }
+    },
+    "immutable_guardrails": [
+      "Never exceed policy.max_posts_per_day.",
+      "Never reduce policy.min_interval_minutes.",
+      "Never weaken source verification, deduplication, editorial, political-exclusion, secret-handling, provider-budget, or media safety rules.",
+      "Never raise provider budgets automatically.",
+      "Never publish a rejected candidate merely to satisfy volume targets.",
+      "Never tune from immature metrics or a single outlier."
+    ],
+    "decision_rules": [
+      "Tune only from mature account-specific metrics and repository history.",
+      "Require repeated directional evidence across multiple posts before changing a parameter.",
+      "Prefer one small reversible change over broad simultaneous changes.",
+      "Record previous value, new value, evidence, timestamp and reason for every automatic change.",
+      "Automatically roll back a recent change when mature post-change evidence materially degrades the primary objectives without a clear news-cycle explanation.",
+      "Treat platform/API capability changes as configuration migrations: adopt them only after documentation or runtime validation."
+    ],
+    "audit_log_path": "state/adaptive-tuning.jsonl"
   }
 }
