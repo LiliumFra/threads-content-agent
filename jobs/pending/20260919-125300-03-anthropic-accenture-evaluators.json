@@ -7,7 +7,7 @@
   "language": "es",
   "content": {
     "text": "Anthropic va a dejar que evaluadores externos trabajen dentro de la empresa con acceso comparable al de un empleado. Accenture y Anthropic prevén invertir al menos US$1.000 millones cada una durante cinco años para evaluar modelos, hacer red teaming y probar salvaguardas. La auditoría de IA empieza a parecerse menos a un examen externo y más a una función permanente dentro del laboratorio.",
-    "topic_tag": "InteligenciaArtificial",
+    "topic_tag": "Anthropic",
     "reply_control": "everyone"
   },
   "visual": {
@@ -20,7 +20,17 @@
   "strategy": {
     "hook_style": "structural-change",
     "goal": "conversation-and-discovery",
-    "trend_score": 83,
+    "content_type": "breaking_news",
+    "candidate_score": 83,
+    "score_breakdown": {
+      "freshness": 85,
+      "discussion_velocity": 80,
+      "source_quality": 98,
+      "account_fit": 90,
+      "novelty": 82,
+      "conversation_potential": 78,
+      "visual_potential": 72
+    },
     "sources": [
       "https://www.anthropic.com/news/accenture-embedded-evaluation",
       "https://newsroom.accenture.com/news/2026/accenture-and-anthropic-partner-to-build-team-of-embedded-evaluators-at-anthropic",
