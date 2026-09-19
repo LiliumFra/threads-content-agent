@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-19T00:00:00-03:00",
+  "action": "post",
+  "topic": "system-commissioning",
+  "language": "es",
+  "content": {
+    "text": "Prueba interna del pipeline editorial de Threads. No debe publicarse.",
+    "topic_tag": "Tecnología",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "Pipeline listo para validar",
+    "subheadline": "Esta tarjeta se renderiza en CI sin publicar contenido ni utilizar credenciales de Threads.",
+    "eyebrow": "DRY RUN",
+    "alt_text": "Tarjeta de prueba del pipeline de automatización de Threads."
+  },
+  "strategy": {
+    "hook_style": "commissioning",
+    "goal": "validation",
+    "sources": [
+      "https://www.postman.com/meta/threads/overview"
+    ]
+  },
+  "dry_run": true
+}
