@@ -138,12 +138,12 @@
         "enabled": true,
         "max_resolution_steps": 6,
         "ordered_checks": [
-          "primary_source_press_or_media_terms",
-          "official_press_kit_or_download_page",
-          "explicit_license_or_reuse_notice",
-          "image_metadata_and_credit_line",
-          "original_photographer_or_agency_terms",
-          "reputable_source_usage_terms"
+          "primary_source_press_terms",
+          "official_press_kit",
+          "explicit_reuse_license",
+          "image_credit_metadata",
+          "photographer_or_agency_terms",
+          "source_site_terms"
         ],
         "publish_when": [
           "official_press_asset",
@@ -152,12 +152,7 @@
           "permission_granted"
         ],
         "attribution_required_when_applicable": true,
-        "attribution_fields": [
-          "credit",
-          "source_url",
-          "rights_evidence_url"
-        ],
-        "unknown_after_resolution": "reference_only_generate_original_visual",
+        "unknown_after_resolution": "reference_only",
         "never_treat_credit_as_permission": true
       }
     }
