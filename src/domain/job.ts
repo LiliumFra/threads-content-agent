@@ -35,6 +35,12 @@ const sourceMediaSchema = z.object({
   image_url: z.string().url(),
   source_url: z.string().url(),
   credit: z.string().min(1).max(240),
+  rights_evidence_url: z.string().url().optional(),
+  rights_evidence_type: z.enum(["press_terms","press_kit","license_notice","metadata_credit","photographer_terms","site_terms","none_found"]).optional(),
+  rights_checked_at: z.string().datetime({ offset: true }).optional(),
+  decision_reason: z.string().min(1).max(500).optional(),
+  attribution_required: z.boolean().default(true),
+  attribution_text: z.string().min(1).max(300).optional(),
   rights: z.enum([
     "official_press_asset",
     "licensed_reusable",
@@ -97,6 +103,13 @@ export const jobSchema = z.object({
       code: "custom",
       path: ["source_media", "publishable"],
       message: "reference_only source media cannot be marked publishable"
+    });
+  }
+  if (job.source_media?.publishable && !job.source_media.rights_evidence_url && job.source_media.rights !== "public_domain") {
+    ctx.addIssue({
+      code: "custom",
+      path: ["source_media", "rights_evidence_url"],
+      message: "publishable source media requires a rights evidence URL unless public domain"
     });
   }
   if ((job.action === "reply" || job.action === "quote") && !job.relation_id) {
