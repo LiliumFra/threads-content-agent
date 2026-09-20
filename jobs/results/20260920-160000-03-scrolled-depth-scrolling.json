@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-20T16:00:00-03:00",
   "action": "post",
   "topic": "ScrollEd depth scrolling",
@@ -52,5 +52,17 @@
       "https://scrolled.org/terms.html"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-20T19:30:05.139Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab034409644849c899e3ddc",
+    "content_hash": "e001d34b438b85943fee9df426c3624c0123c493c47c0fc6528ba8b299f87b7a",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789932606/threads-content-agent/threads-e001d34b438b85943fee.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789932606/threads-content-agent/threads-e001d34b438b85943fee.png",
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789932606/threads-content-agent/threads-source-e001d34b438b85943fee.webp"
+    ]
+  }
 }
