@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-19T17:30:00-03:00",
   "action": "post",
   "topic": "nscale-ai-infrastructure-ipo",
@@ -36,5 +36,17 @@
       "https://www.reuters.com/technology/ai-cloud-firm-nscale-files-us-ipo-2026-09-18/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-20T04:08:44.429Z",
+    "provider": "buffer",
+    "provider_post_id": "6aaf5c4f4594e3153f497c7d",
+    "content_hash": "9a6ae4cd65f6450f17d1384f37123c8a23688cfe131322d920bcd2f922382efc",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DdfsUI_lcvx",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789877326/threads-content-agent/threads-9a6ae4cd65f6450f17d1.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789877326/threads-content-agent/threads-9a6ae4cd65f6450f17d1.png"
+    ]
+  }
 }
