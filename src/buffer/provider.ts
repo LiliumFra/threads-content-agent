@@ -269,7 +269,14 @@ export class BufferProvider {
       if (mediaUrls.length > 20) {
         throw new BufferConfigurationError("Threads supports at most 20 images per post");
       }
-      input.assets = mediaUrls.map((url) => ({ image: { url } }));
+      input.assets = mediaUrls.map((url, index) => ({
+        image: {
+          url,
+          ...(index === 0 && job.visual.mode === "card"
+            ? { metadata: { altText: job.visual.alt_text } }
+            : {})
+        }
+      }));
     }
 
     const data = await this.query<CreatePostPayload>(
