@@ -22,10 +22,28 @@ const resultSchema = z.object({
   external_url: z.string().url().optional(),
   content_hash: z.string().length(64),
   media_url: z.string().url().optional(),
+  media_urls: z.array(z.string().url()).max(20).optional(),
   metrics: metricsSchema.optional(),
   provider_metrics: z.record(z.string(), z.number()).optional(),
   metrics_updated_at: z.string().optional(),
   error: z.string().max(2000).optional()
+});
+
+
+const sourceMediaSchema = z.object({
+  kind: z.literal("news_image").default("news_image"),
+  image_url: z.string().url(),
+  source_url: z.string().url(),
+  credit: z.string().min(1).max(240),
+  rights: z.enum([
+    "official_press_asset",
+    "licensed_reusable",
+    "public_domain",
+    "permission_granted",
+    "reference_only"
+  ]),
+  retrieved_at: z.string().datetime({ offset: true }),
+  publishable: z.boolean().default(false)
 });
 
 const visualSchema = z.discriminatedUnion("mode", [
@@ -61,6 +79,7 @@ export const jobSchema = z.object({
     reply_control: z.string().min(1).max(50).optional()
   }),
   visual: visualSchema.default({ mode: "none" }),
+  source_media: sourceMediaSchema.optional(),
   strategy: z.object({
     hook_style: z.string().min(1).max(50),
     goal: z.string().min(1).max(50),
@@ -73,6 +92,13 @@ export const jobSchema = z.object({
   dry_run: z.boolean().default(true),
   result: resultSchema.optional()
 }).superRefine((job, ctx) => {
+  if (job.source_media?.publishable && job.source_media.rights === "reference_only") {
+    ctx.addIssue({
+      code: "custom",
+      path: ["source_media", "publishable"],
+      message: "reference_only source media cannot be marked publishable"
+    });
+  }
   if ((job.action === "reply" || job.action === "quote") && !job.relation_id) {
     ctx.addIssue({
       code: "custom",
