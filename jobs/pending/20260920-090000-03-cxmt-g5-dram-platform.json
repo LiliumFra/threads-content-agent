@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-20T09:00:00-03:00",
+  "action": "post",
+  "topic": "cxmt-g5-dram-platform-mass-production",
+  "language": "es",
+  "content": {
+    "text": "CXMT acaba de llevar a producción masiva su plataforma DRAM de quinta generación: usa cuádruple patronado para reducir el half-pitch activo a 11,95 nm y afirma obtener al menos 50% más dies brutos por oblea que con su generación anterior. Ya fabrica LPDDR5X de 24 Gb sobre el nuevo proceso. La competencia en memoria acaba de ponerse más interesante.",
+    "topic_tag": "Semiconductors",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "CXMT lleva su G5 DRAM a producción masiva",
+    "subheadline": "11,95 nm de half-pitch activo, cuádruple patronado y ≥50% más dies brutos por oblea frente a su plataforma anterior.",
+    "eyebrow": "CHIPS + MEMORIA",
+    "alt_text": "Tarjeta editorial oscura sobre la plataforma DRAM G5 de CXMT, destacando producción masiva, half-pitch activo de 11,95 nanómetros, cuádruple patronado y el aumento declarado de al menos 50% en dies brutos por oblea."
+  },
+  "strategy": {
+    "hook_style": "manufacturing-milestone-plus-process-numbers",
+    "goal": "context-and-conversation",
+    "content_type": "breaking_news",
+    "candidate_score": 91,
+    "breaking_news": true,
+    "score_breakdown": {
+      "freshness": 99,
+      "discussion_velocity": 82,
+      "source_quality": 93,
+      "account_fit": 91,
+      "novelty": 96,
+      "conversation_potential": 84,
+      "visual_potential": 78
+    },
+    "sources": [
+      "https://www.reuters.com/world/asia-pacific/chinas-cxmt-says-new-memory-chip-platform-enters-mass-production-2026-09-20/",
+      "https://www.eepw.com.cn/article/202609/483631.htm",
+      "https://wap.cj.sina.cn/7x24/5103730"
+    ]
+  },
+  "dry_run": false
+}
