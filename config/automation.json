@@ -50,6 +50,19 @@
   "api_budget": {
     "buffer_conservative_daily_request_budget": 80,
     "buffer_monthly_request_budget": 2400,
-    "cloudinary_max_new_images_per_day": 8
+    "cloudinary_max_new_images_per_day": 8,
+    "shared_across_languages": true
+  },
+  "languages": {
+    "default": "es",
+    "nighttime": "en",
+    "nighttime_window_local": {
+      "start": "22:30",
+      "end": "02:30"
+    },
+    "nighttime_target_posts": 1,
+    "nighttime_soft_max_posts": 2,
+    "nighttime_min_trend_score": 78,
+    "deduplicate_across_languages": true
   }
 }
