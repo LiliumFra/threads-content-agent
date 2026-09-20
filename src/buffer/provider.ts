@@ -245,7 +245,7 @@ export class BufferProvider {
     return health;
   }
 
-  async publish(job: ThreadsJob, imageUrl?: string): Promise<BufferPublishResult> {
+  async publish(job: ThreadsJob, imageUrls: string[] = []): Promise<BufferPublishResult> {
     if (job.action !== "post") {
       throw new BufferConfigurationError(
         "Buffer provider currently supports root Threads posts only; reply/quote jobs must use the direct Threads provider"
@@ -264,15 +264,11 @@ export class BufferProvider {
         : {})
     };
 
-    if (imageUrl) {
-      input.assets = [{
-        image: {
-          url: imageUrl,
-          ...(job.visual.mode === "card"
-            ? { metadata: { altText: job.visual.alt_text } }
-            : {})
-        }
-      }];
+    if (imageUrls.length > 0) {
+      if (imageUrls.length > 20) {
+        throw new BufferConfigurationError("Threads supports at most 20 images per post");
+      }
+      input.assets = imageUrls.map((url) => ({ image: { url } }));
     }
 
     const data = await this.query<CreatePostPayload>(
