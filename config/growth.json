@@ -329,7 +329,9 @@
       "metrics_daily_ceiling": 30,
       "free_queue_slots_per_channel": 10,
       "operational_queue_ceiling": 8,
-      "reserved_queue_slots": 2
+      "reserved_queue_slots": 2,
+      "queue_usage_mode": "github_pending_then_buffer_shareNow",
+      "buffer_scheduled_queue_is_current_bottleneck": false
     },
     "cloudinary": {
       "max_new_images_per_day": 12
@@ -341,8 +343,8 @@
       "Do not render or upload media for rejected candidates.",
       "Count pending jobs before allocating new publication slots.",
       "Optional source/news image uploads consume the same Cloudinary/media budget; omit the optional image before approaching a provider ceiling.",
-      "Never occupy more than 8 of Buffer Free's 10 scheduled slots; keep 2 available for breaking news or queue recovery.",
-      "Higher daily publication capacity does not authorize higher provider request ceilings."
+      "Higher daily publication capacity does not authorize higher provider request ceilings.",
+      "Current runtime publishes due jobs with Buffer shareNow, so Buffer's 10 scheduled-slot limit is informational unless schedulingType changes in the future."
     ]
   },
   "frequency_strategy": {
