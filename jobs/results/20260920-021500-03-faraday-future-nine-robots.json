@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-20T02:15:00-03:00",
   "action": "post",
   "topic": "faraday-future-919-nine-robots",
@@ -47,5 +47,17 @@
       "https://finance.yahoo.com/technology/ai/articles/faraday-future-launches-four-industry-005700953.html"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-20T05:29:44.198Z",
+    "provider": "buffer",
+    "provider_post_id": "6aaf6f4a8d048c06b4fabdfd",
+    "content_hash": "e515087dc89d9caa8f70819ff2499ed5539ddf00fef7ca4a69cec75a7a58977f",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/Ddf1lQsDjM8",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789882185/threads-content-agent/threads-e515087dc89d9caa8f70.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789882185/threads-content-agent/threads-e515087dc89d9caa8f70.png"
+    ]
+  }
 }
