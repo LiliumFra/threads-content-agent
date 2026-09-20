@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-20T17:15:00-03:00",
   "action": "post",
   "topic": "Vocci AI note-taking ring",
@@ -52,5 +52,16 @@
       "https://docs.vocci.ai/what-is-vocci"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-20T22:05:21.800Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab058a35ae2b4276706a1eb",
+    "content_hash": "f0b28b3a413a4bc34490a0f364475d73674b14f9901be46a143faeb79c7e0678",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789941922/threads-content-agent/threads-f0b28b3a413a4bc34490.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789941922/threads-content-agent/threads-f0b28b3a413a4bc34490.png"
+    ]
+  }
 }
