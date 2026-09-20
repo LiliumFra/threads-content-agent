@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-20T09:00:00-03:00",
   "action": "post",
   "topic": "cxmt-g5-dram-platform-mass-production",
@@ -38,5 +38,17 @@
       "https://wap.cj.sina.cn/7x24/5103730"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-20T12:26:33.000Z",
+    "provider": "buffer",
+    "provider_post_id": "6aafd0fb566e1a89bc2ea6e5",
+    "content_hash": "afd60aee87bad9967d48c6a68ca49d7a3ebd4e673bcbacf29abb9a52a0cf1a02",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DdglSNPlubr",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789907194/threads-content-agent/threads-afd60aee87bad9967d48.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789907194/threads-content-agent/threads-afd60aee87bad9967d48.png"
+    ]
+  }
 }
