@@ -56,3 +56,12 @@ Before classifying a story image as `reference_only`, the automation should make
 Record any evidence in `source_media.rights_evidence_url`, `rights_evidence_type`, `rights_checked_at` and `decision_reason`. Attribution is required whenever the license/source requires it, but attribution by itself is not evidence of permission.
 
 If the bounded search still cannot establish reuse rights, keep the image as `reference_only`, preserve its credit and source URL, and use it only as editorial reference for an original generated/card visual. The original visual may reflect factual subject matter and composition goals, but must not copy protected visual expression, logos/watermarks beyond ordinary factual branding use, or distinctive copyrighted artwork.
+
+
+## Rights-resolution pass
+
+Before classifying an image as reference-only, perform a bounded rights-resolution pass. Check the primary-source press terms, official press kit, explicit reuse license, image credit/metadata, photographer or agency terms, and the source site's media terms.
+
+Store any evidence in the job as rights_evidence_url, rights_evidence_type, rights_checked_at and decision_reason. Store attribution_text when attribution is required.
+
+If those checks still do not establish reuse permission, keep the image as reference_only. Preserve the source and credit for traceability, but publish the original editorial visual instead.
