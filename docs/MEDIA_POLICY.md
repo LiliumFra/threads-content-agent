@@ -47,3 +47,12 @@ For an approved story, the system may attach one additional real image associate
 A search-result image is never enough evidence of reuse rights. Every candidate source image must carry its source URL, original image URL, credit, retrieval timestamp and a rights classification. If rights are unclear, mark it `reference_only`: keep the reference for editorial context but do not republish it.
 
 When `source_media.publishable=true`, the runtime may ingest the remote HTTPS image into Cloudinary and attach it after the generated editorial card. Buffer supports multi-image Threads posts, but the optional source image must be dropped first whenever the configured free-tier media ceiling would otherwise be exceeded. Never remove watermarks or bypass access controls.
+
+
+## Rights-resolution workflow
+
+Before classifying a story image as `reference_only`, the automation should make a bounded rights-resolution pass. Check, in order, the primary-source press/media terms, official press kit/download page, explicit reuse/license notices, image credit/metadata, photographer or agency terms, and the source site's usage terms.
+
+Record any evidence in `source_media.rights_evidence_url`, `rights_evidence_type`, `rights_checked_at` and `decision_reason`. Attribution is required whenever the license/source requires it, but attribution by itself is not evidence of permission.
+
+If the bounded search still cannot establish reuse rights, keep the image as `reference_only`, preserve its credit and source URL, and use it only as editorial reference for an original generated/card visual. The original visual may reflect factual subject matter and composition goals, but must not copy protected visual expression, logos/watermarks beyond ordinary factual branding use, or distinctive copyrighted artwork.
