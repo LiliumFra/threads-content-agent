@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-20T13:15:00-03:00",
+  "action": "post",
+  "topic": "Garantías financieras detrás de la infraestructura de IA",
+  "language": "es",
+  "content": {
+    "text": "La carrera por la infraestructura de IA también se está jugando fuera del balance: las grandes tecnológicas acumularon hasta US$300.000 millones en garantías para financiar centros de datos y chips en menos de un año. Nvidia respalda hasta US$105.000 millones ligados al campus de OpenAI en Ohio; Broadcom también usa garantías residuales. El riesgo ya no está solo en los modelos: también está en cómo se financia el cómputo.",
+    "topic_tag": "Inteligencia Artificial"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "US$300.000 M detrás del boom de IA",
+    "subheadline": "Garantías fuera de balance están ayudando a financiar chips y centros de datos a una escala inédita.",
+    "eyebrow": "INFRAESTRUCTURA IA",
+    "alt_text": "Tarjeta editorial sobre hasta 300.000 millones de dólares en garantías financieras vinculadas a infraestructura de inteligencia artificial."
+  },
+  "strategy": {
+    "hook_style": "counterintuitive-number",
+    "goal": "conversation",
+    "content_type": "data",
+    "candidate_score": 88,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 96,
+      "discussion_velocity": 82,
+      "source_quality": 94,
+      "account_fit": 88,
+      "novelty": 92,
+      "conversation_potential": 88,
+      "visual_potential": 76
+    },
+    "sources": [
+      "https://www.ft.com/content/7f11afae-c4e3-4054-a65b-873f3647f563",
+      "https://investors.broadcom.com/static-files/96641754-401f-4090-a4ab-210728c83a28"
+    ]
+  },
+  "dry_run": false
+}
