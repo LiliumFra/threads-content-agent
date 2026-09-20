@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-20T13:15:00-03:00",
   "action": "post",
   "topic": "Garantías financieras detrás de la infraestructura de IA",
@@ -36,5 +36,16 @@
       "https://investors.broadcom.com/static-files/96641754-401f-4090-a4ab-210728c83a28"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-20T16:51:15.108Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab00f06581115d59059c936",
+    "content_hash": "2597a740486e8810013ab6bee4e69cab9b3c37bca6996ffdabe4ed510aae1223",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789923077/threads-content-agent/threads-2597a740486e8810013a.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789923077/threads-content-agent/threads-2597a740486e8810013a.png"
+    ]
+  }
 }
