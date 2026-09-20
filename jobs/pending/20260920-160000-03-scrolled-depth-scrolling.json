@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-20T16:00:00-03:00",
+  "action": "post",
+  "topic": "ScrollEd depth scrolling",
+  "language": "es",
+  "content": {
+    "text": "¿Y si el problema no fuera hacer scroll, sino qué hay detrás de cada swipe? ScrollEd convierte aprendizaje en un feed vertical: subes para descubrir y deslizas lateralmente para profundizar, ver fuentes y terminar con una prueba de recuerdo. Su apuesta es usar la mecánica del doomscrolling sin optimizarla solo para retenerte. ¿Puede un feed enseñar profundidad?",
+    "topic_tag": "EdTech"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "ScrollEd quiere convertir el scroll en aprendizaje",
+    "subheadline": "Un eje descubre temas; el otro profundiza con contexto, fuentes y recuperación activa.",
+    "eyebrow": "EDTECH + IA",
+    "alt_text": "Tarjeta editorial sobre ScrollEd y su interfaz de aprendizaje mediante desplazamiento vertical y navegación lateral para profundizar en un tema."
+  },
+  "source_media": {
+    "kind": "news_image",
+    "image_url": "https://scrolled.org/app/app-overview.webp",
+    "source_url": "https://scrolled.org/",
+    "credit": "ScrollEd / Filarion, Inc.",
+    "rights_evidence_url": "https://scrolled.org/terms.html",
+    "rights_evidence_type": "site_terms",
+    "rights_checked_at": "2026-09-20T15:47:58-03:00",
+    "decision_reason": "ScrollEd Terms section 6 explicitly permits screenshots and clips used in good faith to reference the Service, including press and reviews; this official app screenshot is used to reference the product.",
+    "attribution_required": true,
+    "attribution_text": "Image: ScrollEd / Filarion, Inc.",
+    "rights": "permission_granted",
+    "retrieved_at": "2026-09-20T15:47:58-03:00",
+    "publishable": true
+  },
+  "strategy": {
+    "hook_style": "behavioral-contrast",
+    "goal": "conversation",
+    "content_type": "breaking_news",
+    "candidate_score": 87,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 98,
+      "discussion_velocity": 74,
+      "source_quality": 90,
+      "account_fit": 84,
+      "novelty": 94,
+      "conversation_potential": 89,
+      "visual_potential": 91
+    },
+    "sources": [
+      "https://scrolled.org/",
+      "https://techcrunch.com/2026/09/20/scrolled-wants-to-turn-textbooks-into-tiktok/",
+      "https://scrolled.org/terms.html"
+    ]
+  },
+  "dry_run": false
+}
