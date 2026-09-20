@@ -80,7 +80,7 @@ export async function adaptiveTune() {
       .trim()
       .split("\n")
       .filter(Boolean)
-      .map(JSON.parse);
+      .map((line) => JSON.parse(line));
   } catch {}
 
   const last = history.at(-1);
