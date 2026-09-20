@@ -7,7 +7,7 @@ import {
   RetryableBufferError
 } from "../buffer/provider.js";
 import { contentHash, jobSchema, type ThreadsJob } from "../domain/job.js";
-import { uploadPng } from "../media/cloudinary.js";
+import { uploadPng, uploadRemoteImage } from "../media/cloudinary.js";
 import { renderCard } from "../render/card.js";
 import {
   AmbiguousPublishError,
@@ -44,6 +44,17 @@ async function readJob(path: string): Promise<ThreadsJob> {
 
 async function writeJob(path: string, job: ThreadsJob): Promise<void> {
   await writeFile(path, JSON.stringify(job, null, 2) + "\n", "utf8");
+}
+
+function dayKey(date: Date, timezone: string): string {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: timezone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(date);
+  const value = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return [value.year, value.month, value.day].join("-");
 }
 
 export class FileProcessor {
@@ -102,6 +113,31 @@ export class FileProcessor {
       const right = b.result?.published_at ? new Date(b.result.published_at).getTime() : 0;
       return right - left;
     });
+  }
+
+
+  private async mediaUploadCeiling(): Promise<number> {
+    try {
+      const growth = JSON.parse(await readFile("config/growth.json", "utf8")) as {
+        free_tier_governor?: { cloudinary?: { max_new_images_per_day?: number } };
+      };
+      return growth.free_tier_governor?.cloudinary?.max_new_images_per_day ?? 8;
+    } catch {
+      return 8;
+    }
+  }
+
+  private async mediaUploadsToday(now: Date): Promise<number> {
+    const today = dayKey(now, this.config.policy.timezone);
+    let count = 0;
+    for (const job of await this.publishedJobs()) {
+      const at = job.result?.published_at;
+      if (!at || dayKey(new Date(at), this.config.policy.timezone) !== today) continue;
+      const urls = job.result?.media_urls;
+      if (urls?.length) count += urls.length;
+      else if (job.result?.media_url) count += 1;
+    }
+    return count;
   }
 
   private async persistTerminal(pendingPath: string, job: ThreadsJob): Promise<void> {
@@ -181,16 +217,45 @@ export class FileProcessor {
         const buffer = this.bufferProvider();
         await buffer.healthCheck();
 
+        const mediaUrls: string[] = [];
+        const mediaCeiling = await this.mediaUploadCeiling();
+        let usedMediaUploads = await this.mediaUploadsToday(now);
+
         if (png) {
           if (!this.config.cloudinary) throw new Error("Image job requires Cloudinary secrets");
+          if (usedMediaUploads >= mediaCeiling) {
+            return "queued:Cloudinary daily media ceiling reached";
+          }
           mediaUrl = await uploadPng(
             png,
             "threads-" + hash.slice(0, 20),
             this.config.cloudinary
           );
+          mediaUrls.push(mediaUrl);
+          usedMediaUploads += 1;
         }
 
-        const publishedPost = await buffer.publish(job, mediaUrl);
+        const source = job.source_media;
+        if (
+          source?.publishable &&
+          source.rights !== "reference_only" &&
+          this.config.cloudinary &&
+          usedMediaUploads < mediaCeiling
+        ) {
+          try {
+            const sourceUrl = await uploadRemoteImage(
+              source.image_url,
+              "threads-source-" + hash.slice(0, 20),
+              this.config.cloudinary
+            );
+            mediaUrls.push(sourceUrl);
+            usedMediaUploads += 1;
+          } catch {
+            // Source media is optional. The original editorial visual remains the safe fallback.
+          }
+        }
+
+        const publishedPost = await buffer.publish(job, mediaUrls);
         const published: ThreadsJob = {
           ...job,
           status: "PUBLISHED",
@@ -201,7 +266,8 @@ export class FileProcessor {
             provider_post_id: publishedPost.id,
             content_hash: hash,
             ...(publishedPost.externalUrl ? { external_url: publishedPost.externalUrl } : {}),
-            ...(mediaUrl ? { media_url: mediaUrl } : {})
+            ...(mediaUrl ? { media_url: mediaUrl } : {}),
+            ...(mediaUrls.length ? { media_urls: mediaUrls } : {})
           }
         };
         await this.persistTerminal(path, published);
