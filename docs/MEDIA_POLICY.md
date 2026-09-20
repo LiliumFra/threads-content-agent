@@ -34,3 +34,16 @@ Do not scatter project media elsewhere in Drive.
 Do not commit PNG, JPG, WEBP, video or other heavy media to this private repository.
 
 GitHub should store source code, small JSON jobs, small result metadata and documentation only.
+
+
+## Story-specific source image
+
+For an approved story, the system may attach one additional real image associated with that exact news event. Priority is:
+
+1. primary-source newsroom or official product/company media;
+2. official press kit;
+3. licensed, public-domain or explicitly reusable reporting media.
+
+A search-result image is never enough evidence of reuse rights. Every candidate source image must carry its source URL, original image URL, credit, retrieval timestamp and a rights classification. If rights are unclear, mark it `reference_only`: keep the reference for editorial context but do not republish it.
+
+When `source_media.publishable=true`, the runtime may ingest the remote HTTPS image into Cloudinary and attach it after the generated editorial card. Buffer supports multi-image Threads posts, but the optional source image must be dropped first whenever the configured free-tier media ceiling would otherwise be exceeded. Never remove watermarks or bypass access controls.
