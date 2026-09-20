@@ -116,6 +116,7 @@
     "minimum_sample_before_strategy_tuning": 20,
     "metrics_expected_lag_hours": 24,
     "dimensions": [
+      "language",
       "content_type",
       "topic_tag",
       "hook_style",
@@ -217,7 +218,8 @@
       "Never weaken source verification, deduplication, editorial, political-exclusion, secret-handling, provider-budget, or media safety rules.",
       "Never raise provider budgets automatically.",
       "Never publish a rejected candidate merely to satisfy volume targets.",
-      "Never tune from immature metrics or a single outlier."
+      "Never tune from immature metrics or a single outlier.",
+      "Never alter language free-tier ceilings or the shared global daily hard cap automatically."
     ],
     "decision_rules": [
       "Tune only from mature account-specific metrics and repository history.",
@@ -228,5 +230,64 @@
       "Treat platform/API capability changes as configuration migrations: adopt them only after documentation or runtime validation."
     ],
     "audit_log_path": "state/adaptive-tuning.jsonl"
+  },
+  "language_strategy": {
+    "mode": "bilingual_timeboxed",
+    "timezone": "America/Argentina/Jujuy",
+    "daytime": {
+      "language": "es",
+      "windows_local": [
+        {
+          "start": "09:00",
+          "end": "21:30"
+        }
+      ],
+      "target_posts": 4
+    },
+    "nighttime": {
+      "language": "en",
+      "windows_local": [
+        {
+          "start": "22:30",
+          "end": "02:30"
+        }
+      ],
+      "target_posts": 1,
+      "soft_max_posts": 2,
+      "min_candidate_score": 78,
+      "style": "same-rich-dark-editorial",
+      "require_new_angle_if_story_seen_in_other_language": true
+    },
+    "shared_daily_hard_cap": 8,
+    "deduplicate_across_languages": true,
+    "learning_segments": [
+      "language",
+      "content_type",
+      "topic_tag",
+      "hook_style",
+      "publish_hour",
+      "visual_mode"
+    ]
+  },
+  "free_tier_governor": {
+    "enabled": true,
+    "fail_closed": true,
+    "reserve_fraction": 0.2,
+    "buffer": {
+      "daily_request_ceiling": 80,
+      "monthly_request_ceiling": 2400,
+      "estimated_requests_per_publish": 3,
+      "metrics_daily_ceiling": 30
+    },
+    "cloudinary": {
+      "max_new_images_per_day": 8
+    },
+    "rules": [
+      "Share budgets across all languages.",
+      "Never raise provider ceilings through adaptive tuning.",
+      "Queue rather than publish when the estimated operation would exceed a ceiling or reserve.",
+      "Do not render or upload media for rejected candidates.",
+      "Count pending jobs before allocating new publication slots."
+    ]
   }
 }
