@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-20T02:15:00-03:00",
+  "action": "post",
+  "topic": "faraday-future-919-nine-robots",
+  "language": "en",
+  "content": {
+    "text": "Faraday Future just launched 9 new robot configurations across five models — including a 95 cm humanoid starting at $9,990 and industrial quadrupeds priced above $70K. The interesting part isn't the lineup size: it's the attempt to span classrooms, research, security and inspection with one robotics stack. Can one platform really serve all four?",
+    "topic_tag": "Robotics",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "Faraday Future launches 9 robot configurations",
+    "subheadline": "From a $9,990 classroom humanoid to industrial quadrupeds: one robotics stack is being stretched across education, research, security and inspection.",
+    "eyebrow": "PHYSICAL AI + ROBOTICS",
+    "alt_text": "Dark editorial card summarizing Faraday Future's September 19 robotics launch, highlighting nine configurations across humanoid and industrial robot models and their target use cases."
+  },
+  "source_media": {
+    "kind": "news_image",
+    "image_url": "https://mms.businesswire.com/media/20260916196720/en/2903729/4/CGI_202609161605141_P_16x9_EN.jpg",
+    "source_url": "https://investors.ff.com/faraday-future-to-unveil-nine-new-ai-powered-robots-and-four-industry-solutions-at-its-annual-919-launch-event-completing-its-one-brain-multi-form-multi-capability-robot-world-2-0/",
+    "credit": "Faraday Future / Business Wire",
+    "rights": "reference_only",
+    "retrieved_at": "2026-09-20T01:07:23-03:00",
+    "publishable": false
+  },
+  "strategy": {
+    "hook_style": "verified-launch-plus-price-contrast",
+    "goal": "context-and-conversation",
+    "content_type": "breaking_news",
+    "candidate_score": 86,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 98,
+      "discussion_velocity": 70,
+      "source_quality": 90,
+      "account_fit": 82,
+      "novelty": 94,
+      "conversation_potential": 78,
+      "visual_potential": 96
+    },
+    "sources": [
+      "https://investors.ff.com/faraday-future-to-unveil-nine-new-ai-powered-robots-and-four-industry-solutions-at-its-annual-919-launch-event-completing-its-one-brain-multi-form-multi-capability-robot-world-2-0/",
+      "https://gamesbeat.com/faraday-future-launches-at-least-nine-robots-across-4-product-categories/",
+      "https://finance.yahoo.com/technology/ai/articles/faraday-future-launches-four-industry-005700953.html"
+    ]
+  },
+  "dry_run": false
+}
