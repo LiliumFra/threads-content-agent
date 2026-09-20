@@ -2,11 +2,11 @@
   "version": 1,
   "objective": "Grow a technology and AI Threads account through timely original reporting, useful context, conversation, topic discovery and performance learning.",
   "cadence": {
-    "target_posts_per_day": 4,
-    "soft_max_posts_per_day": 6,
-    "hard_max_posts_per_day": 8,
+    "target_posts_per_day": 5,
+    "soft_max_posts_per_day": 8,
+    "hard_max_posts_per_day": 12,
     "scan_every_hours": 1,
-    "standard_spacing_minutes": 90,
+    "standard_spacing_minutes": 75,
     "minimum_spacing_minutes": 60,
     "preferred_windows_local": [
       {
@@ -33,17 +33,22 @@
     },
     "dynamic_quality_thresholds": [
       {
-        "posts_already_published_or_pending": "0-3",
+        "posts_already_published_or_pending": "0-4",
         "minimum_score": 72,
         "rule": "normal quality threshold"
       },
       {
-        "posts_already_published_or_pending": "4-5",
-        "minimum_score": 82,
-        "rule": "only strong incremental stories"
+        "posts_already_published_or_pending": "5-7",
+        "minimum_score": 78,
+        "rule": "strong incremental story"
       },
       {
-        "posts_already_published_or_pending": "6-7",
+        "posts_already_published_or_pending": "8-9",
+        "minimum_score": 84,
+        "rule": "high-news-cycle story with clear novelty"
+      },
+      {
+        "posts_already_published_or_pending": "10-11",
         "minimum_score": 90,
         "rule": "breaking or exceptional novelty only"
       }
@@ -144,23 +149,31 @@
       "visual_mode"
     ],
     "optimize_for": [
-      "comments",
+      "replies",
       "reposts",
       "quotes",
       "engagement_rate",
-      "views"
+      "views",
+      "follower_growth_when_available"
     ],
     "rules": [
       "Do not copy a winning hook verbatim.",
       "Prefer patterns supported by multiple posts.",
       "Do not change the strategy from one outlier.",
-      "Prioritize conversation quality over raw posting volume."
+      "Prioritize conversation quality over raw posting volume.",
+      "Evaluate frequency using per-post quality and total account growth together; never optimize raw post count alone."
     ]
   },
   "engagement": {
     "aim_for_conversation_not_bait": true,
     "response_strategy": "When Buffer exposes stable comment-reply operations for this channel, reply with useful context or a genuine follow-up question. Until then, surface posts with meaningful comment activity for manual response.",
-    "avoid_empty_replies": true
+    "avoid_empty_replies": true,
+    "reply_opportunity_scoring": {
+      "enabled": true,
+      "metric": "replies",
+      "surface_for_manual_engagement_when_replies_at_least": 3,
+      "reason": "Conversation is a primary Threads growth surface; do not fabricate unsupported automated replies."
+    }
   },
   "api_budget": {
     "buffer": {
@@ -169,12 +182,15 @@
       "conservative_daily_ceiling": 80,
       "estimated_requests_per_single_post_workflow": 3,
       "daily_metrics_request_ceiling": 30,
-      "rationale": "Stay below the stricter published Buffer Free daily figure even though official Buffer pages currently disagree between 100 and 250 requests/day."
+      "rationale": "Buffer Free provides 10 scheduled slots per channel and 3,000 API requests/month. Keep two queue slots in reserve and retain conservative request ceilings.",
+      "free_queue_slots_per_channel": 10,
+      "operational_queue_ceiling": 8,
+      "reserved_queue_slots": 2
     },
     "cloudinary": {
       "free_credits": 25,
-      "hard_new_images_per_day": 8,
-      "rationale": "One generated image per published post; no speculative uploads for rejected candidates."
+      "hard_new_images_per_day": 12,
+      "rationale": "Up to one generated visual per published post; a second source image is optional and must be omitted before free-tier headroom is threatened."
     }
   },
   "adaptive_control": {
@@ -208,16 +224,16 @@
       "batch_spacing_minutes": {
         "min": 60,
         "max": 180,
-        "max_step": 30
+        "max_step": 15
       },
       "target_posts_per_day": {
         "min": 3,
-        "max": 5,
+        "max": 7,
         "max_step": 1
       },
       "soft_max_posts_per_day": {
-        "min": 4,
-        "max": 6,
+        "min": 5,
+        "max": 10,
         "max_step": 1
       },
       "content_mix_target_percent": {
@@ -239,7 +255,8 @@
       "Never raise provider budgets automatically.",
       "Never publish a rejected candidate merely to satisfy volume targets.",
       "Never tune from immature metrics or a single outlier.",
-      "Never alter language free-tier ceilings or the shared global daily hard cap automatically."
+      "Never alter language free-tier ceilings or the shared global daily hard cap automatically.",
+      "Never automatically raise the 12-post global hard cap."
     ],
     "decision_rules": [
       "Tune only from mature account-specific metrics and repository history.",
@@ -273,12 +290,12 @@
         }
       ],
       "target_posts": 1,
-      "soft_max_posts": 2,
+      "soft_max_posts": 3,
       "min_candidate_score": 78,
       "style": "same-rich-dark-editorial",
       "require_new_angle_if_story_seen_in_other_language": true
     },
-    "shared_daily_hard_cap": 8,
+    "shared_daily_hard_cap": 12,
     "deduplicate_across_languages": true,
     "learning_segments": [
       "language",
@@ -287,7 +304,19 @@
       "hook_style",
       "publish_hour",
       "visual_mode"
-    ]
+    ],
+    "audience_time_learning": {
+      "enabled": true,
+      "static_windows_are_priors_not_truth": true,
+      "dimensions": [
+        "language",
+        "target_region",
+        "weekday",
+        "audience_local_hour"
+      ],
+      "general_prior": "Weekday audience-local mornings are a strong generic prior, but account-specific mature metrics override the prior.",
+      "nighttime_english_is_controlled_experiment": true
+    }
   },
   "free_tier_governor": {
     "enabled": true,
@@ -297,10 +326,13 @@
       "daily_request_ceiling": 80,
       "monthly_request_ceiling": 2400,
       "estimated_requests_per_publish": 3,
-      "metrics_daily_ceiling": 30
+      "metrics_daily_ceiling": 30,
+      "free_queue_slots_per_channel": 10,
+      "operational_queue_ceiling": 8,
+      "reserved_queue_slots": 2
     },
     "cloudinary": {
-      "max_new_images_per_day": 8
+      "max_new_images_per_day": 12
     },
     "rules": [
       "Share budgets across all languages.",
@@ -308,7 +340,38 @@
       "Queue rather than publish when the estimated operation would exceed a ceiling or reserve.",
       "Do not render or upload media for rejected candidates.",
       "Count pending jobs before allocating new publication slots.",
-      "Optional source/news image uploads consume the same Cloudinary/media budget; omit the optional image before approaching a provider ceiling."
+      "Optional source/news image uploads consume the same Cloudinary/media budget; omit the optional image before approaching a provider ceiling.",
+      "Never occupy more than 8 of Buffer Free's 10 scheduled slots; keep 2 available for breaking news or queue recovery.",
+      "Higher daily publication capacity does not authorize higher provider request ceilings."
     ]
+  },
+  "frequency_strategy": {
+    "mode": "opportunity_elastic",
+    "principle": "Publishing capacity is not a quota. Increase volume only when independent high-quality opportunities exist.",
+    "base_target": 5,
+    "normal_capacity": 8,
+    "exceptional_capacity": 12,
+    "no_filler": true,
+    "count_pending_toward_capacity": true,
+    "evidence_review_minimum_posts": 30,
+    "saturation_checks": [
+      "median_views_per_post",
+      "median_engagement_rate",
+      "replies_per_post",
+      "follower_growth_when_available"
+    ],
+    "reduce_volume_if": [
+      "median_views_per_post materially declines across mature matched samples",
+      "engagement quality declines across mature matched samples",
+      "provider headroom becomes constrained"
+    ]
+  },
+  "experiments": {
+    "multi_post_threads": {
+      "enabled": false,
+      "status": "runtime_validation_required",
+      "rationale": "Current Buffer Free supports multi-post Threads, but enable only after provider payload support is implemented and validated. Long-form formats may improve reach but should not be enabled by config alone.",
+      "max_scheduled_threaded_posts_on_free_queue": 1
+    }
   }
 }
