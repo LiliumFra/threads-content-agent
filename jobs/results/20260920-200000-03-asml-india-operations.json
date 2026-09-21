@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-20T20:00:00-03:00",
   "action": "post",
   "topic": "ASML starts India operations",
@@ -53,5 +53,17 @@
       "https://www.ptinews.com/press-release/asml-reinforces-support-for-india-s-semiconductor-ambitions-at-semicon-india-2026/4076773"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-21T01:10:36.712Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab0840f3649bbabeab89fe6",
+    "content_hash": "68a854f9308902cd6b3dec9423391e856f9c252f795b89efdc994a19356a3694",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/Ddh8uRRlTP4",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789953038/threads-content-agent/threads-68a854f9308902cd6b3d.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789953038/threads-content-agent/threads-68a854f9308902cd6b3d.png"
+    ]
+  }
 }
