@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "status": "PENDING",
+  "publish_at": "2026-09-21T02:25:00-03:00",
+  "action": "post",
+  "topic": "Qwen Image 2.1 native RGBA release",
+  "language": "en",
+  "content": {
+    "text": "Qwen-Image-2.1 just made a surprisingly practical AI-image feature native: transparent RGBA output. The 7B visual model can also edit with up to 10 reference images, and Diffusers + ComfyUI supported it on day one. The catch matters: its research license is not a free pass for commercial deployment. For local image workflows, is native transparency more useful than another benchmark win?",
+    "topic_tag": "Generative AI"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "Qwen-Image-2.1 makes transparency native",
+    "subheadline": "7B visual model · RGBA output · up to 10 references · day-one tooling support",
+    "eyebrow": "OPEN-WEIGHT IMAGE AI",
+    "alt_text": "Dark editorial card explaining Qwen-Image-2.1, highlighting native transparent RGBA generation, a 7B visual model and multi-reference editing."
+  },
+  "source_media": {
+    "kind": "official_model_sample",
+    "image_url": "https://raw.githubusercontent.com/QwenLM/Qwen-Image-2.1/main/assets/example-38.jpg",
+    "source_url": "https://github.com/QwenLM/Qwen-Image-2.1",
+    "credit": "Qwen / Alibaba",
+    "rights_evidence_url": "https://github.com/QwenLM/Qwen-Image-2.1/blob/main/LICENSE",
+    "rights_evidence_type": "repository_research_license",
+    "rights_checked_at": "2026-09-21T02:16:00-03:00",
+    "decision_reason": "Official repository sample located, but the repository is governed by the Qwen Research License Agreement and the bounded check did not establish clear permission to republish the sample in a social-media growth workflow. Preserve as editorial reference only and publish the original card.",
+    "attribution_required": true,
+    "attribution_text": "Reference image: Qwen / Alibaba",
+    "rights": "unknown_for_social_republication",
+    "retrieved_at": "2026-09-21T02:16:00-03:00",
+    "publishable": false,
+    "reference_only": true
+  },
+  "strategy": {
+    "hook_style": "practical-capability-contrast",
+    "goal": "conversation",
+    "content_type": "breaking_news",
+    "candidate_score": 89,
+    "breaking_news": false,
+    "consumer_relevance": "medium-high_creator_developer",
+    "breakout_test": "practical-utility-with-caveat",
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 12,
+      "source_quality": 14,
+      "account_fit": 14,
+      "novelty": 14,
+      "conversation_potential": 12,
+      "visual_potential": 8
+    },
+    "sources": [
+      "https://github.com/QwenLM/Qwen-Image-2.1",
+      "https://the-decoder.com/alibabas-open-weight-qwen-image-2-1-claims-to-beat-closed-models-in-image-generation-with-just-7-billion-parameters/"
+    ]
+  },
+  "dry_run": false
+}
