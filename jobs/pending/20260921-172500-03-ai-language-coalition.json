@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-21T17:25:00-03:00",
+  "action": "post",
+  "topic": "AI language access coalition",
+  "language": "es",
+  "content": {
+    "text": "La IA todavía habla bien solo una fracción de los ~7.000 idiomas del mundo. Hoy 60 organizaciones —incluidas Google, Anthropic, Microsoft, NVIDIA, Mistral y OpenAI Foundation— fijaron una meta: que 3.400 millones de personas con idiomas hoy subrepresentados puedan usar IA en su propia lengua y voz en cinco años. El reto no es solo traducir: también son dialectos, contexto y datos con consentimiento. ¿Qué idioma debería mejorar primero?",
+    "topic_tag": "Inteligencia Artificial"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "La IA quiere hablar 3.400 millones de voces más",
+    "subheadline": "60 organizaciones · datos abiertos · voz y dialectos · meta a cinco años",
+    "eyebrow": "IA Y LENGUAJE",
+    "alt_text": "Tarjeta editorial oscura sobre una coalición de 60 organizaciones que busca mejorar la IA para idiomas subrepresentados y alcanzar a 3.400 millones de personas en cinco años."
+  },
+  "strategy": {
+    "hook_style": "scale-gap-to-practical-question",
+    "goal": "conversation",
+    "content_type": "breaking_news",
+    "candidate_score": 87,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 12,
+      "source_quality": 15,
+      "account_fit": 13,
+      "novelty": 15,
+      "conversation_potential": 10,
+      "visual_potential": 7
+    },
+    "sources": [
+      "https://www.gatesfoundation.org/ideas/media-center/press-releases/2026/09/ai-language-partnership",
+      "https://apnews.com/article/aefb021bede3b02c83890f65cd540fd0"
+    ]
+  },
+  "dry_run": false
+}
