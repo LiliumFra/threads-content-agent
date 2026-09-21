@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-21T14:30:00-03:00",
+  "action": "post",
+  "topic": "Aikido Altar open-weight security model",
+  "language": "es",
+  "content": {
+    "text": "Aikido acaba de lanzar Altar, un modelo open-weight de ciberseguridad pensado para ejecutarse dentro de la infraestructura de una empresa, incluso en entornos aislados. Parte de GLM-5.3 y Aikido dice haberlo reducido de 1,51 TB a 328 GB mediante cuantización y poda de expertos. La idea práctica: analizar código sensible sin enviarlo a un proveedor externo. ¿Para seguridad crítica pesa más la soberanía de datos que tener el modelo más grande?",
+    "topic_tag": "Cybersecurity"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "IA de seguridad sin sacar el código de tu red",
+    "subheadline": "Aikido Altar · open-weight · GLM-5.3 optimizado de 1,51 TB a 328 GB · despliegue local",
+    "eyebrow": "CIBERSEGURIDAD + IA",
+    "alt_text": "Tarjeta editorial oscura sobre Aikido Altar, un modelo open-weight de ciberseguridad diseñado para despliegue local y entornos aislados."
+  },
+  "source_media": {
+    "kind": "news_image",
+    "image_url": "https://www.aikido.dev/favicon.ico",
+    "source_url": "https://www.aikido.dev/blog/aikido-altar-open-weight-ai-sovereign-security",
+    "credit": "Aikido Security",
+    "rights_evidence_type": "none_found",
+    "rights_checked_at": "2026-09-21T13:37:51-03:00",
+    "decision_reason": "Primary-source story located, but the bounded rights-resolution pass did not establish explicit social-media republication rights for a story-specific asset. Keep the source reference non-publishable and use the original editorial card.",
+    "attribution_required": true,
+    "attribution_text": "Referencia: Aikido Security",
+    "rights": "reference_only",
+    "retrieved_at": "2026-09-21T13:37:51-03:00",
+    "publishable": false
+  },
+  "strategy": {
+    "hook_style": "practical-sovereignty-contrast",
+    "goal": "conversation",
+    "content_type": "breaking_news",
+    "candidate_score": 86,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 11,
+      "source_quality": 15,
+      "account_fit": 14,
+      "novelty": 14,
+      "conversation_potential": 10,
+      "visual_potential": 7
+    },
+    "sources": [
+      "https://www.aikido.dev/blog/aikido-altar-open-weight-ai-sovereign-security",
+      "https://www.reuters.com/legal/litigation/belgiums-aikido-launches-cybersecurity-ai-model-demand-local-tools-grows-2026-09-21/"
+    ]
+  },
+  "dry_run": false
+}
