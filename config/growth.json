@@ -167,7 +167,10 @@
       "topic_tag",
       "hook_style",
       "publish_hour",
-      "visual_mode"
+      "visual_mode",
+      "audience_source_when_available",
+      "consumer_relevance",
+      "conversion_class"
     ],
     "optimize_for": [
       "replies",
@@ -175,7 +178,9 @@
       "quotes",
       "engagement_rate",
       "views",
-      "follower_growth_when_available"
+      "follower_growth_when_available",
+      "profile_visits_when_available",
+      "followers_gained_when_available"
     ],
     "rules": [
       "Do not copy a winning hook verbatim.",
@@ -183,7 +188,25 @@
       "Do not change the strategy from one outlier.",
       "Prioritize conversation quality over raw posting volume.",
       "Evaluate frequency using per-post quality and total account growth together; never optimize raw post count alone."
-    ]
+    ],
+    "breakout_learning": {
+      "enabled": true,
+      "manual_signal_path": "state/manual-breakouts.json",
+      "breakout_view_multiplier_vs_median": 3,
+      "classify_independently": [
+        "distribution_breakout",
+        "engagement_breakout",
+        "conversation_breakout",
+        "conversion_breakout"
+      ],
+      "rules": [
+        "Do not treat high views alone as high engagement.",
+        "When views are high but replies/profile/follower conversion are low, classify as distribution breakout and learn distribution traits separately.",
+        "Use manual screenshot signals as hypothesis seeds until account API sync confirms comparable metrics.",
+        "Run matched follow-up tests on structural traits instead of copying wording, brand, or artwork.",
+        "Prefer broad consumer relevance, immediate user utility, recognizable product identity, and a concrete user-priority question when testing the Samsung pattern."
+      ]
+    }
   },
   "engagement": {
     "aim_for_conversation_not_bait": true,
