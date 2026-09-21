@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-21T18:40:00-03:00",
+  "action": "post",
+  "topic": "Amazon blocks Meta Muse shopping agent",
+  "language": "es",
+  "content": {
+    "text": "Amazon acaba de bloquear a Muse, el agente de IA de Meta, para comprar en Amazon.com. El choque importa más que las dos marcas: si los agentes van a comprar por nosotros, las tiendas decidirán cuáles pueden entrar, cómo se identifican y qué datos pueden tocar. Meta dice que Muse protege credenciales en una VM segura. ¿Confiarías en un agente para comprar por ti?",
+    "topic_tag": "AI Agents"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "Amazon le cierra la puerta a Muse",
+    "subheadline": "El nuevo conflicto de la IA: quién decide qué agentes pueden comprar por nosotros",
+    "eyebrow": "AGENTES DE IA",
+    "alt_text": "Tarjeta editorial oscura sobre el bloqueo de Amazon al agente Muse de Meta, enfocada en control, identidad y privacidad de los agentes de compra."
+  },
+  "source_media": {
+    "kind": "news_image",
+    "image_url": "https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/",
+    "source_url": "https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/",
+    "credit": "Meta",
+    "rights_evidence_type": "none_found",
+    "rights_checked_at": "2026-09-21T16:54:25-03:00",
+    "decision_reason": "Official Meta launch materials provide story-specific Muse visuals, but the bounded rights pass did not establish explicit social-media republication permission. Retain only as editorial reference and publish the original card.",
+    "attribution_required": true,
+    "attribution_text": "Reference: Meta",
+    "rights": "reference_only",
+    "retrieved_at": "2026-09-21T16:54:25-03:00",
+    "publishable": false
+  },
+  "strategy": {
+    "hook_style": "platform-control-practical-contrast",
+    "goal": "conversation",
+    "content_type": "breaking_news",
+    "candidate_score": 91,
+    "breaking_news": true,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 14,
+      "source_quality": 14,
+      "account_fit": 14,
+      "novelty": 14,
+      "conversation_potential": 13,
+      "visual_potential": 7
+    },
+    "sources": [
+      "https://www.threads.com/",
+      "https://techcrunch.com/2026/09/21/metas-ai-agent-has-been-blocked-from-using-amazon-com/",
+      "https://www.geekwire.com/2026/amazon-blocks-metas-muse-ai-assistant-in-new-standoff-over-agentic-shopping/",
+      "https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/"
+    ]
+  },
+  "dry_run": false
+}
