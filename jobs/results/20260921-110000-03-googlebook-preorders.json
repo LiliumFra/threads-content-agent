@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-21T11:00:00-03:00",
   "action": "post",
   "topic": "Googlebook preorders open",
@@ -51,5 +51,16 @@
       "https://www.phonearena.com/news/googlebook-is-finally-here-the-laptop-your-pixel-or-android-phone-has-been-waiting-for_id183472"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-21T14:15:34.261Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab13c08b8f2d20f0e2dd4eb",
+    "content_hash": "cc5d7be66540a68bc9cff062c87108bf2077666ecad9db575fbeacc5f8d402fc",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790000135/threads-content-agent/threads-cc5d7be66540a68bc9cf.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790000135/threads-content-agent/threads-cc5d7be66540a68bc9cf.png"
+    ]
+  }
 }
