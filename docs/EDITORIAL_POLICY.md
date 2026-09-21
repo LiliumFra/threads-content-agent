@@ -184,3 +184,18 @@ The cadence is intentionally opportunity-elastic. Meta has publicly linked highe
 Generic timing data is treated as a prior, not a rule. Weekday audience-local mornings are a strong broad benchmark, while account-specific mature metrics by language, target region, weekday and audience-local hour should progressively override the generic prior.
 
 Multi-post Threads are a future controlled experiment rather than an enabled default. Buffer Free supports them, but the repository must first validate provider payload support and enforce the Free-plan restriction of one scheduled threaded post at a time.
+
+
+## Breakout taxonomy
+
+Do not collapse every high-performing post into one "winner" category.
+
+A post may be:
+- a distribution breakout: views materially exceed the mature rolling median even when replies or conversion remain low;
+- an engagement breakout: reactions/reposts/quotes outperform matched posts;
+- a conversation breakout: replies materially outperform matched posts;
+- a conversion breakout: profile visits or follower gains materially outperform matched posts when those metrics are available.
+
+The Samsung One UI 9 manual insight snapshot is the first explicit distribution-breakout benchmark for this account: 8,063 views from 4,929 viewers, 18 likes, 0 replies, 2 profile visits and 0 followers gained. Most reach came through Instagram rather than the Threads home surface. Treat this as evidence that broad consumer relevance and cross-surface distribution can create reach without proportional conversation or conversion.
+
+Do not copy its wording or over-publish Samsung. Instead test structural traits on genuinely timely comparable stories: large installed-base products, rollout/availability changes, direct user utility, a recognizable product identity, and a concrete question about what users value most. Require repeated matched evidence before changing content mix or cadence.
