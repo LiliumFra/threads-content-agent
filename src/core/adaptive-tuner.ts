@@ -5,6 +5,7 @@ type Any = Record<string, any>;
 const growthPath = "config/growth.json";
 const policyPath = "config/policy.json";
 const resultsDir = "jobs/results";
+const manualBreakoutsPath = "state/manual-breakouts.json";
 const clamp = (n: number, a: number, b: number) => Math.max(a, Math.min(b, n));
 const median = (xs: number[]) => {
   const a = [...xs].sort((x, y) => x - y);
@@ -35,6 +36,40 @@ async function loadJobs() {
   );
 }
 
+async function loadManualBreakouts() {
+  try {
+    const payload = JSON.parse(await readFile(manualBreakoutsPath, "utf8"));
+    return Array.isArray(payload?.signals) ? payload.signals : [];
+  } catch {
+    return [];
+  }
+}
+
+function breakoutDiagnostics(jobs: Any[], multiplier = 3) {
+  const views = jobs.map((j) => metric(j, "views")).filter((v) => v > 0);
+  const medianViews = median(views);
+  const threshold = medianViews > 0 ? medianViews * multiplier : 0;
+  return {
+    median_views: medianViews,
+    threshold,
+    posts: jobs
+      .filter((j) => threshold > 0 && metric(j, "views") >= threshold)
+      .map((j) => ({
+        topic: j.topic,
+        language: j.language,
+        views: metric(j, "views"),
+        replies: metric(j, "replies"),
+        reposts: metric(j, "reposts"),
+        quotes: metric(j, "quotes"),
+        likes: metric(j, "likes"),
+        classification:
+          metric(j, "replies") === 0
+            ? "distribution_breakout"
+            : "distribution_and_conversation_breakout"
+      }))
+  };
+}
+
 function languageDiagnostics(jobs: Any[]) {
   const languages = [...new Set(jobs.map((j) => String(j.language ?? "unknown")))];
   return Object.fromEntries(
@@ -56,6 +91,7 @@ export async function adaptiveTune() {
   const c = g.adaptive_control;
   if (!c?.enabled) return { status: "disabled" };
 
+  const manualBreakouts = await loadManualBreakouts();
   const jobs = (await loadJobs()).filter(
     (j) => j.status === "PUBLISHED" && j.result?.metrics && j.result?.published_at
   );
@@ -69,7 +105,9 @@ export async function adaptiveTune() {
       status: "insufficient_sample",
       mature: mature.length,
       required: c.minimum_published_posts_before_tuning,
-      by_language: languageDiagnostics(mature)
+      by_language: languageDiagnostics(mature),
+      breakouts: breakoutDiagnostics(mature, g.performance_learning?.breakout_learning?.breakout_view_multiplier_vs_median ?? 3),
+      manual_breakout_signals: manualBreakouts
     };
   }
 
@@ -85,14 +123,14 @@ export async function adaptiveTune() {
 
   const last = history.at(-1);
   if (last && now - Date.parse(last.timestamp) < c.change_cooldown_hours * 3_600_000) {
-    return { status: "cooldown", by_language: languageDiagnostics(mature) };
+    return { status: "cooldown", by_language: languageDiagnostics(mature), breakouts: breakoutDiagnostics(mature, g.performance_learning?.breakout_learning?.breakout_view_multiplier_vs_median ?? 3), manual_breakout_signals: manualBreakouts };
   }
 
   const recentSize = Math.min(10, mature.length);
   const recent = mature.slice(-recentSize);
   const prior = mature.slice(0, -recentSize);
   if (prior.length < c.minimum_posts_per_segment) {
-    return { status: "insufficient_baseline", by_language: languageDiagnostics(mature) };
+    return { status: "insufficient_baseline", by_language: languageDiagnostics(mature), breakouts: breakoutDiagnostics(mature, g.performance_learning?.breakout_learning?.breakout_view_multiplier_vs_median ?? 3), manual_breakout_signals: manualBreakouts };
   }
 
   const recentMedian = median(recent.map(score));
@@ -144,7 +182,8 @@ export async function adaptiveTune() {
   }
 
   const diagnostics = languageDiagnostics(mature);
-  if (!changes.length) return { status: "stable", ratio, by_language: diagnostics };
+  const breakoutReport = breakoutDiagnostics(mature, g.performance_learning?.breakout_learning?.breakout_view_multiplier_vs_median ?? 3);
+  if (!changes.length) return { status: "stable", ratio, by_language: diagnostics, breakouts: breakoutReport, manual_breakout_signals: manualBreakouts };
 
   for (const change of changes) {
     if (change.path === "cadence.target_posts_per_day") {
@@ -168,6 +207,8 @@ export async function adaptiveTune() {
     recent_median: recentMedian,
     mature_posts: mature.length,
     by_language: diagnostics,
+    breakouts: breakoutReport,
+    manual_breakout_signals: manualBreakouts,
     changes,
     reason: "bounded mature-metrics auto-tuning with conversation-first score"
   };
