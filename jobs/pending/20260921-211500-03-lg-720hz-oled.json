@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-21T21:15:00-03:00",
+  "action": "post",
+  "topic": "LG Display 720Hz OLED mass production",
+  "language": "es",
+  "content": {
+    "text": "LG Display ya produce en masa un OLED de 24,5 pulgadas a 720 Hz y 0,02 ms: debutará en el ASUS ROG Swift OLED PG259QWS Ace, monitor oficial del PGL CS2 Major Singapore 2026. El salto es enorme sobre el papel, pero sigue en 1080p. Para esports, ¿preferirías 720 Hz o más resolución?",
+    "topic_tag": "Gaming Monitors"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "OLED gaming llega a 720 Hz",
+    "subheadline": "24,5 pulgadas · 1080p · 0,02 ms · producción en masa",
+    "eyebrow": "ESPORTS DISPLAY",
+    "alt_text": "Tarjeta editorial sobre el nuevo panel OLED gaming de LG Display de 24,5 pulgadas, 720 Hz, resolución Full HD y respuesta de 0,02 ms."
+  },
+  "source_media": {
+    "kind": "news_image",
+    "image_url": "https://news.lgdisplay.com/en/2026/09/lg-display-launches-24-5-inch-720hz-gaming-oled-panel/",
+    "source_url": "https://news.lgdisplay.com/en/2026/09/lg-display-launches-24-5-inch-720hz-gaming-oled-panel/",
+    "credit": "LG Display",
+    "rights_evidence_url": "https://news.lgdisplay.com/en/2026/09/lg-display-launches-24-5-inch-720hz-gaming-oled-panel/",
+    "rights_evidence_type": "none_found",
+    "rights_checked_at": "2026-09-21T17:59:31-03:00",
+    "decision_reason": "Official story-specific newsroom asset found, but the bounded rights pass did not establish explicit social-media republication permission. Attribution alone is insufficient, so retain only as editorial reference and publish the original card.",
+    "attribution_required": true,
+    "attribution_text": "Reference: LG Display",
+    "rights": "reference_only",
+    "retrieved_at": "2026-09-21T17:59:31-03:00",
+    "publishable": false
+  },
+  "strategy": {
+    "hook_style": "specification-versus-practical-priority",
+    "goal": "conversation",
+    "content_type": "breaking_news",
+    "candidate_score": 88,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 12,
+      "source_quality": 15,
+      "account_fit": 13,
+      "novelty": 14,
+      "conversation_potential": 11,
+      "visual_potential": 8
+    },
+    "sources": [
+      "https://news.lgdisplay.com/en/2026/09/lg-display-launches-24-5-inch-720hz-gaming-oled-panel/",
+      "https://www.koreaherald.com/article/10880031"
+    ]
+  },
+  "dry_run": false
+}
