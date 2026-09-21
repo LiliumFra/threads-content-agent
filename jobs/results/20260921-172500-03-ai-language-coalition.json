@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-21T17:25:00-03:00",
   "action": "post",
   "topic": "AI language access coalition",
@@ -36,5 +36,16 @@
       "https://apnews.com/article/aefb021bede3b02c83890f65cd540fd0"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-21T20:48:22.064Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab198181b349ea8ed94ef04",
+    "content_hash": "a0aaf33e7885bbd2991b5790fe4b0563bd53c42dd0d5da8416b7b61b79b39d90",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790023703/threads-content-agent/threads-a0aaf33e7885bbd2991b.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790023703/threads-content-agent/threads-a0aaf33e7885bbd2991b.png"
+    ]
+  }
 }
