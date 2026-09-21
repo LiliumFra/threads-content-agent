@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "signals": [
+    {
+      "id": "samsung-one-ui-9-2026-09-18",
+      "source": "manual_threads_insights_screenshots",
+      "captured_at": "2026-09-20T22:34:00-03:00",
+      "topic": "Samsung One UI 9 rollout",
+      "language": "es",
+      "views": 8063,
+      "unique_viewers": 4929,
+      "profile_visits": 2,
+      "followers_gained": 0,
+      "likes": 18,
+      "replies": 0,
+      "shares": 1,
+      "reposts": null,
+      "quotes": 0,
+      "like_rate_percent": 0.22,
+      "reply_rate_percent": 0,
+      "quote_rate_percent": 0,
+      "audience": {
+        "countries_percent": {
+          "Mexico": 3.25,
+          "Venezuela": 1.26,
+          "Colombia": 1.08,
+          "Argentina": 1.08,
+          "España": 0.87
+        },
+        "cities_percent": {
+          "Lima": 0.43,
+          "Ciudad de México": 0.37,
+          "Caracas": 0.32,
+          "Bogotá": 0.3,
+          "Buenos Aires": 0.3
+        },
+        "age_percent": {
+          "13-17": 1.68,
+          "18-24": 10.2,
+          "25-34": 41.62,
+          "35-44": 27.65,
+          "45-54": 12.57,
+          "55-64": 4.47,
+          "65+": 1.82
+        },
+        "gender_percent": {
+          "Mujeres": 11.45,
+          "Hombres": 81.01,
+          "Otro": 7.54
+        },
+        "origin_percent": {
+          "Instagram": 88.08,
+          "Inicio": 11.59,
+          "Actividad": 0.12,
+          "Búsqueda": 0.11
+        }
+      },
+      "derived": {
+        "views_per_viewer": 1.636,
+        "profile_visit_rate_percent": 0.025,
+        "follower_conversion_percent": 0,
+        "classification": "distribution_breakout_low_conversion"
+      },
+      "notes": [
+        "Repost count is visually inconsistent across screenshots; do not treat it as exact.",
+        "This signal is a hypothesis seed and should not directly trigger cadence tuning until matched against synced account data."
+      ]
+    }
+  ]
+}
