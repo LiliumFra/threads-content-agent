@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-21T20:00:00-03:00",
+  "action": "post",
+  "topic": "AMD reaches $1 trillion valuation on AI demand",
+  "language": "es",
+  "content": {
+    "text": "AMD superó por primera vez US$1 billón de capitalización mientras la demanda de infraestructura de IA vuelve a impulsar a los fabricantes de chips. Sus acciones llegaron a subir cerca de 10% y tocaron un récord. El dato interesante no es solo bursátil: AMD está intentando pasar de vender chips a competir con sistemas completos de IA. ¿Ya la ves como un rival real de Nvidia?",
+    "topic_tag": "AMD"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "AMD entra al club del US$1 billón",
+    "subheadline": "La apuesta ya no es solo vender chips: quiere competir con sistemas completos de IA",
+    "eyebrow": "CHIPS E IA",
+    "alt_text": "Tarjeta editorial oscura sobre AMD superando por primera vez un billón de dólares de capitalización, con contexto sobre su expansión desde chips hacia sistemas completos de inteligencia artificial."
+  },
+  "strategy": {
+    "hook_style": "milestone-strategy-contrast",
+    "goal": "conversation",
+    "content_type": "breaking_news",
+    "candidate_score": 90,
+    "breaking_news": true,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 14,
+      "source_quality": 14,
+      "account_fit": 13,
+      "novelty": 15,
+      "conversation_potential": 11,
+      "visual_potential": 8
+    },
+    "sources": [
+      "https://www.reuters.com/business/amd-becomes-latest-chipmaker-reach-1-trillion-valuation-ai-demand-2026-09-21/",
+      "https://www.marketscreener.com/news/amd-surpasses-1-trillion-valuation-becomes-seventh-chip-stock-to-do-so-ce785adbdf8ff520"
+    ]
+  },
+  "dry_run": false
+}
