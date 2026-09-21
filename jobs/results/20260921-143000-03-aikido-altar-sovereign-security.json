@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-21T14:30:00-03:00",
   "action": "post",
   "topic": "Aikido Altar open-weight security model",
@@ -50,5 +50,17 @@
       "https://www.reuters.com/legal/litigation/belgiums-aikido-launches-cybersecurity-ai-model-demand-local-tools-grows-2026-09-21/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-21T18:53:53.460Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab17d45cbf92765bbe9fcaa",
+    "content_hash": "798c8921d6b537ff1ebc7ca646895d60a043759f61eb002e782097b15762aca7",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/Ddj2aVTlCjH",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790016835/threads-content-agent/threads-798c8921d6b537ff1ebc.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790016835/threads-content-agent/threads-798c8921d6b537ff1ebc.png"
+    ]
+  }
 }
