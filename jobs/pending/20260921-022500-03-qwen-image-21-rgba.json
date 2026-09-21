@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "PENDING",
+  "status": "READY",
   "publish_at": "2026-09-21T02:25:00-03:00",
   "action": "post",
   "topic": "Qwen Image 2.1 native RGBA release",
@@ -17,20 +17,19 @@
     "alt_text": "Dark editorial card explaining Qwen-Image-2.1, highlighting native transparent RGBA generation, a 7B visual model and multi-reference editing."
   },
   "source_media": {
-    "kind": "official_model_sample",
+    "kind": "news_image",
     "image_url": "https://raw.githubusercontent.com/QwenLM/Qwen-Image-2.1/main/assets/example-38.jpg",
     "source_url": "https://github.com/QwenLM/Qwen-Image-2.1",
     "credit": "Qwen / Alibaba",
     "rights_evidence_url": "https://github.com/QwenLM/Qwen-Image-2.1/blob/main/LICENSE",
-    "rights_evidence_type": "repository_research_license",
+    "rights_evidence_type": "license_notice",
     "rights_checked_at": "2026-09-21T02:16:00-03:00",
     "decision_reason": "Official repository sample located, but the repository is governed by the Qwen Research License Agreement and the bounded check did not establish clear permission to republish the sample in a social-media growth workflow. Preserve as editorial reference only and publish the original card.",
     "attribution_required": true,
     "attribution_text": "Reference image: Qwen / Alibaba",
-    "rights": "unknown_for_social_republication",
+    "rights": "reference_only",
     "retrieved_at": "2026-09-21T02:16:00-03:00",
-    "publishable": false,
-    "reference_only": true
+    "publishable": false
   },
   "strategy": {
     "hook_style": "practical-capability-contrast",
