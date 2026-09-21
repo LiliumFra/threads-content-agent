@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-21T09:45:00-03:00",
   "action": "post",
   "topic": "Xiaomi 18 Pro September 23 launch preview",
@@ -50,5 +50,17 @@
       "https://technode.com/2026/09/21/xiaomi-schedules-xiaomi-18-pro-series-launch-for-sept-23/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-21T13:12:55.874Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab12d5b0f102dca1ae16f15",
+    "content_hash": "b1953c7ed2b3bce7127bb478c56dc6a5ed81a62a97a8402362988c5cd84f845f",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DdjPY_cICdg",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789996377/threads-content-agent/threads-b1953c7ed2b3bce7127b.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789996377/threads-content-agent/threads-b1953c7ed2b3bce7127b.png"
+    ]
+  }
 }
