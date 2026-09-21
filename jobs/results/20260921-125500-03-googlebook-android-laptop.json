@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-21T12:55:00-03:00",
   "action": "post",
   "topic": "Googlebook Android laptop preorders",
@@ -51,5 +51,16 @@
       "https://www.reuters.com/business/retail-consumer/google-opens-pre-orders-899-googlebook-laptops-built-around-gemini-ai-2026-09-21/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-21T16:38:52.692Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab15d9fd60d4acf72a4428f",
+    "content_hash": "f6535f5402deb08752bf4eb6f99987e4552d17f0ea525f2c1e6ff43db5660317",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790008734/threads-content-agent/threads-f6535f5402deb08752bf.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790008734/threads-content-agent/threads-f6535f5402deb08752bf.png"
+    ]
+  }
 }
