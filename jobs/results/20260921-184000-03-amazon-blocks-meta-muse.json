@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-21T18:40:00-03:00",
   "action": "post",
   "topic": "Amazon blocks Meta Muse shopping agent",
@@ -51,5 +51,16 @@
       "https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-21T23:20:26.268Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab1bbbc826cfc54b85ee39f",
+    "content_hash": "09ffdb071e9f4319838ecd0e4d59000eacaa6d3543f9565f9335bddfc02fa035",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790032827/threads-content-agent/threads-09ffdb071e9f4319838e.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790032827/threads-content-agent/threads-09ffdb071e9f4319838e.png"
+    ]
+  }
 }
