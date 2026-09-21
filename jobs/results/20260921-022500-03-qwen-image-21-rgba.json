@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-21T02:25:00-03:00",
   "action": "post",
   "topic": "Qwen Image 2.1 native RGBA release",
@@ -37,8 +37,6 @@
     "content_type": "breaking_news",
     "candidate_score": 89,
     "breaking_news": false,
-    "consumer_relevance": "medium-high_creator_developer",
-    "breakout_test": "practical-utility-with-caveat",
     "score_breakdown": {
       "freshness": 15,
       "discussion_velocity": 12,
@@ -53,5 +51,17 @@
       "https://the-decoder.com/alibabas-open-weight-qwen-image-2-1-claims-to-beat-closed-models-in-image-generation-with-just-7-billion-parameters/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-21T06:12:21.265Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab0cac726caf7929b0d27b1",
+    "content_hash": "a5c43396dfa58448b96e9e5896c982cc9e02cdba799bb01f275e151abf74f97a",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DdifQVvlfEc",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789971143/threads-content-agent/threads-a5c43396dfa58448b96e.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1789971143/threads-content-agent/threads-a5c43396dfa58448b96e.png"
+    ]
+  }
 }
