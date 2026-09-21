@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-21T09:45:00-03:00",
+  "action": "post",
+  "topic": "Xiaomi 18 Pro September 23 launch preview",
+  "language": "es",
+  "content": {
+    "text": "Xiaomi presentará los 18 Pro el 23 de septiembre, pero la cifra que puede cambiar más el uso diario no es la cámara: el Pro Max sube hasta 8.500 mAh. También habrá cámaras Leica de 200 MP, pantalla trasera y privacidad integrada en el panel. Falta comprobar autonomía real, no solo capacidad. Usuarios de Xiaomi: ¿priorizarían batería, cámara o privacidad?",
+    "topic_tag": "Xiaomi"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "Xiaomi 18 Pro: hasta 8.500 mAh",
+    "subheadline": "Lanzamiento el 23 de septiembre · Leica 200 MP · pantalla trasera · privacidad integrada",
+    "eyebrow": "ANDROID · PRÓXIMO FLAGSHIP",
+    "alt_text": "Tarjeta editorial oscura sobre la serie Xiaomi 18 Pro, destacando la batería de hasta 8.500 mAh, cámaras Leica de 200 MP y privacidad integrada en pantalla."
+  },
+  "source_media": {
+    "kind": "news_image",
+    "image_url": "https://www.techadvisor.com/article/3239682/xiaomi-18-series-launch-date-set-specs-and-colours-confirmed.html",
+    "source_url": "https://www.techadvisor.com/article/3239682/xiaomi-18-series-launch-date-set-specs-and-colours-confirmed.html",
+    "credit": "Xiaomi, via Tech Advisor",
+    "rights_evidence_type": "metadata_credit",
+    "rights_checked_at": "2026-09-21T09:40:00-03:00",
+    "decision_reason": "Current reporting identifies Xiaomi as the image source, but the bounded review did not establish explicit social-media republication permission. Keep the real-image lead as editorial reference only and publish the original card.",
+    "attribution_required": true,
+    "attribution_text": "Reference image: Xiaomi / Tech Advisor",
+    "rights": "reference_only",
+    "retrieved_at": "2026-09-21T09:40:00-03:00",
+    "publishable": false
+  },
+  "strategy": {
+    "hook_style": "practical-priority-contrast",
+    "goal": "conversation",
+    "content_type": "breaking_news",
+    "candidate_score": 88,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 12,
+      "source_quality": 13,
+      "account_fit": 15,
+      "novelty": 14,
+      "conversation_potential": 11,
+      "visual_potential": 8
+    },
+    "sources": [
+      "https://www.techadvisor.com/article/3239682/xiaomi-18-series-launch-date-set-specs-and-colours-confirmed.html",
+      "https://technode.com/2026/09/21/xiaomi-schedules-xiaomi-18-pro-series-launch-for-sept-23/"
+    ]
+  },
+  "dry_run": false
+}
