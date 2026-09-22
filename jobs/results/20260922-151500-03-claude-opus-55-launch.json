@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-22T15:15:00-03:00",
   "action": "post",
   "topic": "Anthropic launches Claude Opus 5.5",
@@ -52,5 +52,16 @@
       "https://github.blog/changelog/2026-09-22-claude-opus-5-5-is-now-available-in-github-copilot/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-22T18:57:52.772Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab2cfb31e19ddcbdf0a6d1d",
+    "content_hash": "3b29474a1b3c0218fd75ca9b315827e680ae328ceed9983c2aa1b9f688825009",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790103474/threads-content-agent/threads-3b29474a1b3c0218fd75.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790103474/threads-content-agent/threads-3b29474a1b3c0218fd75.png"
+    ]
+  }
 }
