@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-22T13:15:00-03:00",
   "action": "post",
   "topic": "Unit 42 Continuous Frontier AI Defense launch",
@@ -51,5 +51,16 @@
       "https://www.reuters.com/technology/palo-alto-networks-unveils-ai-powered-cybersecurity-service-using-claude-gpt-2026-09-22/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-22T17:49:59.219Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab2bfd3062917fee81882c4",
+    "content_hash": "f1e2ffca7b737e8c9643bad5b9e1050715ad0db495b30a745a671516dcfa41ef",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790099410/threads-content-agent/threads-f1e2ffca7b737e8c9643.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790099410/threads-content-agent/threads-f1e2ffca7b737e8c9643.png"
+    ]
+  }
 }
