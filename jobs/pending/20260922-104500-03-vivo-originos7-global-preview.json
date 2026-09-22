@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-22T10:45:00-03:00",
+  "action": "post",
+  "topic": "Vivo OriginOS 7 global preview rollout",
+  "language": "es",
+  "content": {
+    "text": "Vivo empezó el despliegue global de OriginOS 7 basado en Android 17: el Preview Program ya llega al X300 Pro y algunos iQOO en India, Tailandia y Malasia. Jovi AI puede trabajar entre teléfono y PC, mientras Vivo promete aperturas de apps 10% más rápidas. Para un usuario de Vivo, ¿pesa más la IA entre dispositivos o que el sistema siga siendo fluido?",
+    "topic_tag": "Vivo"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "OriginOS 7 empieza su expansión global",
+    "subheadline": "Android 17 · Jovi AI · Vivo + iQOO",
+    "eyebrow": "ANDROID UPDATE",
+    "alt_text": "Tarjeta editorial oscura sobre el despliegue global de OriginOS 7, destacando Android 17, Jovi AI y el programa Preview para dispositivos Vivo e iQOO."
+  },
+  "source_media": {
+    "kind": "news_image",
+    "image_url": "https://www.vivo.com/en/activity/termsofuse",
+    "source_url": "https://www.vivo.com/en/activity/termsofuse",
+    "credit": "vivo",
+    "rights_evidence_url": "https://www.vivo.com/en/activity/termsofuse",
+    "rights_evidence_type": "site_terms",
+    "rights_checked_at": "2026-09-22T09:25:00-03:00",
+    "decision_reason": "A story-specific Vivo visual was sought, but Vivo's current website terms state that site images are copyrighted and reproduction requires prior written consent except limited private/non-commercial use. No explicit social-republication permission was established, so the external visual remains reference-only and the original editorial card will publish instead.",
+    "attribution_required": true,
+    "attribution_text": "Reference: vivo",
+    "rights": "reference_only",
+    "retrieved_at": "2026-09-22T09:25:00-03:00",
+    "publishable": false
+  },
+  "strategy": {
+    "hook_style": "consumer-rollout-practical-priority",
+    "goal": "conversation",
+    "content_type": "breaking_news",
+    "candidate_score": 88,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 12,
+      "source_quality": 13,
+      "account_fit": 15,
+      "novelty": 14,
+      "conversation_potential": 11,
+      "visual_potential": 8
+    },
+    "breakout_test": {
+      "seed": "samsung-one-ui-9-2026-09-18",
+      "class": "distribution_hypothesis_test",
+      "matched_traits": ["large_consumer_installed_base", "rollout_availability_change", "immediate_user_utility", "recognizable_product_identity", "concrete_user_priority_question"],
+      "note": "Tests structural distribution traits only; does not infer engagement or conversion performance from the Samsung outlier."
+    },
+    "sources": [
+      "https://www.moneycontrol.com/technology/originos-7-with-jovi-ai-dynamic-glow-announced-for-vivo-and-iqoo-smartphones-article-14035238.html",
+      "https://www.gadgets360.com/mobiles/news/vivo-originos-7-launch-android-17-jovi-ai-dynamic-glow-design-features-12079475"
+    ]
+  },
+  "dry_run": false
+}
