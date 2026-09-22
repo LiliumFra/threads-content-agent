@@ -32,7 +32,7 @@
     "publishable": false
   },
   "strategy": {
-    "hook_style": "consumer-availability-practical-alternative-question",
+    "hook_style": "consumer-availability-practical-question",
     "goal": "conversation",
     "content_type": "breaking_news",
     "candidate_score": 94,
