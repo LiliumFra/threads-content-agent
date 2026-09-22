@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-22T14:15:00-03:00",
+  "action": "post",
+  "topic": "Adobe Premiere launches on Android",
+  "language": "es",
+  "content": {
+    "text": "Adobe Premiere ya está disponible en Android: edición multipista, exportación 4K y herramientas Firefly en una app gratuita, sin marca de agua en las exportaciones. Llega justo cuando Premiere Rush entra en su tramo final de soporte. Para quienes editan desde el teléfono, la pregunta práctica es simple: ¿Premiere puede reemplazar a CapCut en tu flujo móvil?",
+    "topic_tag": "Adobe Premiere"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "Premiere por fin llega a Android",
+    "subheadline": "Gratis · multipista · 4K · Firefly",
+    "eyebrow": "ANDROID CREATORS",
+    "alt_text": "Tarjeta editorial oscura sobre el lanzamiento de Adobe Premiere para Android, destacando edición multipista, exportación 4K y herramientas Firefly."
+  },
+  "source_media": {
+    "kind": "news_image",
+    "image_url": "https://blog.adobe.com/en/publish/2026/09/22/adobe-premiere-expands-android-fast-powerful-easy-mobile-video-editing",
+    "source_url": "https://blog.adobe.com/en/publish/2026/09/22/adobe-premiere-expands-android-fast-powerful-easy-mobile-video-editing",
+    "credit": "Adobe",
+    "rights_evidence_url": "https://blog.adobe.com/en/publish/2026/09/22/adobe-premiere-expands-android-fast-powerful-easy-mobile-video-editing",
+    "rights_evidence_type": "site_terms",
+    "rights_checked_at": "2026-09-22T13:06:00-03:00",
+    "decision_reason": "A story-specific official Adobe promotional image is present on the launch page, but the bounded rights-resolution review did not establish an explicit social-republication license. Credit alone is not permission; retain as reference_only and publish the original editorial card.",
+    "attribution_required": true,
+    "attribution_text": "Reference: Adobe",
+    "rights": "reference_only",
+    "retrieved_at": "2026-09-22T13:06:00-03:00",
+    "publishable": false
+  },
+  "strategy": {
+    "hook_style": "consumer-availability-practical-alternative-question",
+    "goal": "conversation",
+    "content_type": "breaking_news",
+    "candidate_score": 94,
+    "breaking_news": true,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 14,
+      "source_quality": 15,
+      "account_fit": 15,
+      "novelty": 14,
+      "conversation_potential": 14,
+      "visual_potential": 7
+    },
+    "sources": [
+      "https://blog.adobe.com/en/publish/2026/09/22/adobe-premiere-expands-android-fast-powerful-easy-mobile-video-editing",
+      "https://www.theverge.com/tech/998639/adobe-premiere-android-mobile-app",
+      "https://thenextweb.com/news/adobe-premieres-free-mobile-video-editor-arrives-on-android"
+    ]
+  },
+  "dry_run": false
+}
