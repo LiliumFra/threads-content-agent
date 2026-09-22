@@ -49,6 +49,10 @@
     {
       "through_post": 12,
       "min_score": 90
+    },
+    {
+      "through_post": 16,
+      "min_score": 94
     }
   ],
   "api_budget": {
