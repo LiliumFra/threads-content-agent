@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-21T21:15:00-03:00",
   "action": "post",
   "topic": "LG Display 720Hz OLED mass production",
@@ -51,5 +51,17 @@
       "https://www.koreaherald.com/article/10880031"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-22T10:02:49.444Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab2524bb093a512d288705f",
+    "content_hash": "b50807ecb6e1aa24b3af475ec32fd517582a0298aaaa71e8dd37b7b642c04668",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DdlebQGlsbT",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790071370/threads-content-agent/threads-b50807ecb6e1aa24b3af.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790071370/threads-content-agent/threads-b50807ecb6e1aa24b3af.png"
+    ]
+  }
 }
