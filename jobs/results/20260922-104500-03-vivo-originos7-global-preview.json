@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-22T10:45:00-03:00",
   "action": "post",
   "topic": "Vivo OriginOS 7 global preview rollout",
@@ -46,16 +46,21 @@
       "conversation_potential": 11,
       "visual_potential": 8
     },
-    "breakout_test": {
-      "seed": "samsung-one-ui-9-2026-09-18",
-      "class": "distribution_hypothesis_test",
-      "matched_traits": ["large_consumer_installed_base", "rollout_availability_change", "immediate_user_utility", "recognizable_product_identity", "concrete_user_priority_question"],
-      "note": "Tests structural distribution traits only; does not infer engagement or conversion performance from the Samsung outlier."
-    },
     "sources": [
       "https://www.moneycontrol.com/technology/originos-7-with-jovi-ai-dynamic-glow-announced-for-vivo-and-iqoo-smartphones-article-14035238.html",
       "https://www.gadgets360.com/mobiles/news/vivo-originos-7-launch-android-17-jovi-ai-dynamic-glow-design-features-12079475"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-22T14:59:37.298Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab297db760fb23fa985f4db",
+    "content_hash": "53f53fadb9ee08bbca748422f8517300f105613ab580fcb2185a8b65c868b9bd",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790089179/threads-content-agent/threads-53f53fadb9ee08bbca74.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790089179/threads-content-agent/threads-53f53fadb9ee08bbca74.png"
+    ]
+  }
 }
