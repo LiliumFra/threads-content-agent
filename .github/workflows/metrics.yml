@@ -38,7 +38,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add jobs/results config/growth.json state/adaptive-tuning.jsonl
+          git add jobs/results config/growth.json
+          if [ -f state/adaptive-tuning.jsonl ]; then
+            git add state/adaptive-tuning.jsonl
+          fi
           if ! git diff --cached --quiet; then
             git commit -m "chore: refresh Threads metrics [skip ci]"
             for attempt in 1 2 3; do
