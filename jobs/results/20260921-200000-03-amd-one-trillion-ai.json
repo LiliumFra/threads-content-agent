@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-09-21T20:00:00-03:00",
   "action": "post",
   "topic": "AMD reaches $1 trillion valuation on AI demand",
@@ -36,5 +36,16 @@
       "https://www.marketscreener.com/news/amd-surpasses-1-trillion-valuation-becomes-seventh-chip-stock-to-do-so-ce785adbdf8ff520"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "published_at": "2026-09-22T04:46:13.449Z",
+    "provider": "buffer",
+    "provider_post_id": "6ab20817e2882add8db327ee",
+    "content_hash": "0d7b0efd704ea6cfa6e9c7ab2e56304d9dd1b9ba6d1aa422bedf07931f13b39f",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790052374/threads-content-agent/threads-0d7b0efd704ea6cfa6e9.png",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1790052374/threads-content-agent/threads-0d7b0efd704ea6cfa6e9.png"
+    ]
+  }
 }
