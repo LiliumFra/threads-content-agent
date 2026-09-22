@@ -29,7 +29,16 @@
     "breaking_news": {
       "publish_immediately_if_score_at_least": 90,
       "may_ignore_preferred_windows": true,
-      "never_ignore_hard_daily_cap": true
+      "never_ignore_hard_daily_cap": true,
+      "topic_selection_before_enqueue": true,
+      "topic_selection_priority": [
+        "specific_active_topic",
+        "specific_evergreen_topic",
+        "broad_relevant_topic",
+        "no_topic"
+      ],
+      "publish_at_policy": "earliest_policy_valid_time",
+      "do_not_wait_for_standard_spacing_if_minimum_spacing_is_satisfied": true
     },
     "dynamic_quality_thresholds": [
       {
@@ -93,7 +102,9 @@
       "no_topic"
     ],
     "avoid_forcing_irrelevant_topic": true,
-    "rationale": "Meta reports that posts with tagged topics generally receive more views than posts without topics. Default to a truthful relevant topic and reserve no-topic publishing for posts without a good topical match or a controlled experiment after enough account-specific data exists."
+    "rationale": "Meta reports that posts with tagged topics generally receive more views than posts without topics. Default to a truthful relevant topic and reserve no-topic publishing for posts without a good topical match or a controlled experiment after enough account-specific data exists.",
+    "research_before_enqueue": true,
+    "breaking_news_require_best_truthful_topic": true
   },
   "copy": {
     "max_characters": 500,
