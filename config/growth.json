@@ -4,7 +4,7 @@
   "cadence": {
     "target_posts_per_day": 5,
     "soft_max_posts_per_day": 8,
-    "hard_max_posts_per_day": 12,
+    "hard_max_posts_per_day": 16,
     "scan_every_hours": 1,
     "standard_spacing_minutes": 75,
     "minimum_spacing_minutes": 60,
@@ -60,6 +60,11 @@
         "posts_already_published_or_pending": "10-11",
         "minimum_score": 90,
         "rule": "breaking or exceptional novelty only"
+      },
+      {
+        "posts_already_published_or_pending": "12-15",
+        "minimum_score": 94,
+        "rule": "exceptional high-news day; independently verified breaking stories only"
       }
     ]
   },
@@ -311,7 +316,7 @@
       "Never publish a rejected candidate merely to satisfy volume targets.",
       "Never tune from immature metrics or a single outlier.",
       "Never alter language free-tier ceilings or the shared global daily hard cap automatically.",
-      "Never automatically raise the 12-post global hard cap."
+      "Never automatically raise the configured global hard cap; changes to it require explicit user authorization."
     ],
     "decision_rules": [
       "Tune only from mature account-specific metrics and repository history.",
@@ -350,7 +355,7 @@
       "style": "same-rich-dark-editorial",
       "require_new_angle_if_story_seen_in_other_language": true
     },
-    "shared_daily_hard_cap": 12,
+    "shared_daily_hard_cap": 16,
     "deduplicate_across_languages": true,
     "learning_segments": [
       "language",
@@ -407,7 +412,7 @@
     "principle": "Publishing capacity is not a quota. Increase volume only when independent high-quality opportunities exist.",
     "base_target": 5,
     "normal_capacity": 8,
-    "exceptional_capacity": 12,
+    "exceptional_capacity": 16,
     "no_filler": true,
     "count_pending_toward_capacity": true,
     "evidence_review_minimum_posts": 30,
