@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-09-22T20:00:00-03:00",
+  "action": "post",
+  "topic": "Apple ships new Mac mini and Mac Studio for local AI",
+  "language": "es",
+  "content": {
+    "text": "Apple empieza hoy a entregar sus nuevos Mac mini M6 y Mac Studio M5 Ultra, pero el ángulo más interesante no es solo la velocidad: está vendiendo IA local como alternativa al costo recurrente de la nube. El Mac Studio admite hasta 512 GB de memoria unificada y Apple mostró cuatro equipos ejecutando un modelo de un billón de parámetros. ¿IA local o pagar por tokens?",
+    "topic_tag": "Mac mini"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "Apple quiere llevar la IA al escritorio",
+    "subheadline": "Mac mini M6 · Mac Studio M5 Ultra · IA local",
+    "eyebrow": "APPLE SILICON",
+    "alt_text": "Tarjeta editorial oscura sobre la disponibilidad de los nuevos Mac mini M6 y Mac Studio M5 Ultra y el enfoque de Apple en ejecutar modelos de IA localmente."
+  },
+  "source_media": {
+    "kind": "news_image",
+    "image_url": "https://www.apple.com/newsroom/2026/08/apple-introduces-new-mac-studio-with-m5-max-and-m5-ultra/",
+    "source_url": "https://www.apple.com/newsroom/2026/08/apple-introduces-new-mac-studio-with-m5-max-and-m5-ultra/",
+    "credit": "Apple",
+    "rights_evidence_url": "https://www.apple.com/newsroom/2026/08/apple-introduces-new-mac-studio-with-m5-max-and-m5-ultra/",
+    "rights_evidence_type": "site_terms",
+    "rights_checked_at": "2026-09-22T19:10:00-03:00",
+    "decision_reason": "Official story-specific Apple newsroom imagery is available, but the bounded rights review did not establish an explicit social-republication license. Attribution alone is not permission; retain as reference_only and publish the original editorial card.",
+    "attribution_required": true,
+    "attribution_text": "Reference: Apple",
+    "rights": "reference_only",
+    "retrieved_at": "2026-09-22T19:10:00-03:00",
+    "publishable": false
+  },
+  "strategy": {
+    "hook_style": "availability-local-ai-cost-contrast",
+    "goal": "conversation",
+    "content_type": "breaking_news",
+    "candidate_score": 89,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 13,
+      "discussion_velocity": 12,
+      "source_quality": 15,
+      "account_fit": 14,
+      "novelty": 14,
+      "conversation_potential": 12,
+      "visual_potential": 9
+    },
+    "sources": [
+      "https://www.apple.com/newsroom/2026/08/apple-unveils-a-more-powerful-mac-mini-featuring-the-all-new-m6-and-m5-pro/",
+      "https://www.apple.com/newsroom/2026/08/apple-introduces-new-mac-studio-with-m5-max-and-m5-ultra/",
+      "https://www.reuters.com/business/retail-consumer/with-new-macs-apple-aims-take-microsoft-nvidia-rush-lower-ai-costs-2026-09-22/"
+    ]
+  },
+  "dry_run": false
+}
