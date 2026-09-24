@@ -10,6 +10,4 @@ runtime/
 .DS_Store
 state/*.json
 state/*.jsonl
-jobs/pending/*.json
-jobs/results/*.json
 config/storage.private.json
