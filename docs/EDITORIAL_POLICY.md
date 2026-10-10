@@ -12,11 +12,11 @@ The growth strategy is defined in `config/growth.json`. Runtime safety limits ar
 
 - Base target: 5 posts per day when enough strong independent stories exist.
 - Normal elastic capacity: up to 8 posts per day.
-- Exceptional hard maximum: 12 posts per day; this is capacity, never a quota.
+- Configured hard ceiling: 16 posts per day, exclusively when the effective policy and runtime gates agree. This is capacity, never a quota; posts 13–16 are reserved for genuinely exceptional independently verified news.
 - Scan for new developments every hour.
 - Standard spacing: about 75 minutes.
 - Runtime minimum spacing: 60 minutes.
-- The quality threshold rises with volume: score 72 through post 5, 78 through post 8, 84 through post 10, and 90 for posts 11-12.
+- The quality threshold rises with volume: score 72 through post 5, 78 through post 8, 84 through post 10, 90 for posts 11–12, and 94 for posts 13–16. Respect the strictest persisted policy/configuration; no automatic hard-cap increases.
 - Count pending jobs toward daily capacity so a busy scan cannot silently overbook later slots.
 - If mature matched samples show declining per-post quality, the adaptive controller should reduce target volume rather than defend a posting quota.
 - Breaking news scoring at least the configured breaking-news threshold may take the earliest policy-valid slot rather than waiting for a preferred window, but never bypasses the hard daily cap or API budgets.
