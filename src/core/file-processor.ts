@@ -7,7 +7,7 @@ import {
   RetryableBufferError
 } from "../buffer/provider.js";
 import { contentHash, jobSchema, type ThreadsJob } from "../domain/job.js";
-import { assertCloudinaryFreeCredits, CloudinaryBudgetError, uploadPng, uploadRemoteImage } from "../media/cloudinary.js";
+import { assertCloudinaryFreeCredits, CloudinaryBudgetError, uploadEditorialJpeg, uploadRemoteImage } from "../media/cloudinary.js";
 import { renderCard } from "../render/card.js";
 import {
   AmbiguousPublishError,
@@ -105,7 +105,15 @@ export class FileProcessor {
     for (const path of await listJson(this.resultsDir)) {
       try {
         const job = await readJob(path);
+        // A Buffer-accepted post still reserves a publishing slot until delivery is reconciled.
+        // This avoids duplicate posts or rate spikes while Buffer is "sending".
         if (job.status === "PUBLISHED") jobs.push(job);
+        else if (job.status === "DELIVERY_PENDING" || (job.status === "REVIEW" && job.result?.provider_post_id)) {
+          const reservedAt = job.result?.submitted_at ?? job.result?.published_at;
+          if (reservedAt) {
+            jobs.push({ ...job, result: { ...job.result!, published_at: reservedAt } });
+          }
+        }
       } catch {}
     }
     return jobs.sort((a, b) => {
@@ -231,7 +239,7 @@ export class FileProcessor {
           if (usedMediaUploads >= mediaCeiling) {
             return "queued:Cloudinary daily media ceiling reached";
           }
-          mediaUrl = await uploadPng(
+          mediaUrl = await uploadEditorialJpeg(
             png,
             "threads-" + hash.slice(0, 20),
             this.config.cloudinary
@@ -262,23 +270,38 @@ export class FileProcessor {
           }
         }
 
-        const publishedPost = await buffer.publish(job, mediaUrls);
-        const published: ThreadsJob = {
+        const bufferPost = await buffer.publish(job, mediaUrls);
+        const deliveryStatus = bufferPost.status;
+        const finalStatus: ThreadsJob["status"] = deliveryStatus === "sent"
+          ? "PUBLISHED"
+          : deliveryStatus === "error"
+            ? "FAILED"
+            : (deliveryStatus === "sending" || deliveryStatus === "scheduled")
+              ? "DELIVERY_PENDING"
+              : "REVIEW";
+        const recorded: ThreadsJob = {
           ...job,
-          status: "PUBLISHED",
+          status: finalStatus,
           result: {
-            status: "PUBLISHED",
-            published_at: now.toISOString(),
+            status: finalStatus,
+            submitted_at: now.toISOString(),
             provider: "buffer",
-            provider_post_id: publishedPost.id,
+            provider_status: deliveryStatus,
+            provider_post_id: bufferPost.id,
             content_hash: hash,
-            ...(publishedPost.externalUrl ? { external_url: publishedPost.externalUrl } : {}),
+            ...(finalStatus === "PUBLISHED"
+              ? { published_at: bufferPost.sentAt ?? now.toISOString() }
+              : {}),
+            ...(bufferPost.errorMessage ? { error: bufferPost.errorMessage.slice(0, 2000) } : {}),
+            ...(bufferPost.externalUrl ? { external_url: bufferPost.externalUrl } : {}),
             ...(mediaUrl ? { media_url: mediaUrl } : {}),
             ...(mediaUrls.length ? { media_urls: mediaUrls } : {})
           }
         };
-        await this.persistTerminal(path, published);
-        return "published:buffer";
+        await this.persistTerminal(path, recorded);
+        return finalStatus === "PUBLISHED" ? "published:buffer" :
+          finalStatus === "FAILED" ? "failed:buffer-delivery" :
+          finalStatus === "DELIVERY_PENDING" ? "awaiting:buffer-delivery" : "review:buffer-delivery-unverified";
       }
 
       const threads = this.threadsProvider();
@@ -293,7 +316,7 @@ export class FileProcessor {
 
       if (png) {
         if (!this.config.cloudinary) throw new Error("Image job requires Cloudinary secrets");
-        mediaUrl = await uploadPng(
+        mediaUrl = await uploadEditorialJpeg(
           png,
           "threads-" + hash.slice(0, 20),
           this.config.cloudinary
@@ -369,7 +392,7 @@ export class FileProcessor {
       try {
         const job = await readJob(path);
         const previousResult = job.result;
-        if (job.status !== "PUBLISHED" || !previousResult) {
+        if (!previousResult || !["PUBLISHED", "DELIVERY_PENDING", "REVIEW"].includes(job.status)) {
           results[basename(path)] = "skipped";
           continue;
         }
@@ -381,17 +404,33 @@ export class FileProcessor {
             continue;
           }
           const snapshot = await this.bufferProvider().getMetrics(postId);
-          const next: ThreadsJob = {
-            ...job,
-            result: {
-              ...previousResult,
-              metrics: snapshot.normalized,
-              provider_metrics: snapshot.raw,
-              metrics_updated_at: snapshot.updatedAt ?? new Date().toISOString()
-            }
+          const observed = snapshot.status ?? "unknown";
+          const status: ThreadsJob["status"] = observed === "sent" ? "PUBLISHED" :
+            observed === "error" ? "FAILED" :
+              (observed === "sending" || observed === "scheduled") ? "DELIVERY_PENDING" : "REVIEW";
+          const nextResult: NonNullable<ThreadsJob["result"]> = {
+            ...previousResult,
+            status,
+            provider_status: observed,
+            submitted_at: previousResult.submitted_at ?? previousResult.published_at ?? new Date().toISOString(),
+            ...(snapshot.externalUrl ? { external_url: snapshot.externalUrl } : {}),
+            ...(snapshot.errorMessage ? { error: snapshot.errorMessage.slice(0, 2000) } : {})
           };
+          if (status === "PUBLISHED") {
+            nextResult.published_at = snapshot.sentAt ?? previousResult.published_at ?? new Date().toISOString();
+            nextResult.metrics = snapshot.normalized;
+            nextResult.provider_metrics = snapshot.raw;
+            nextResult.metrics_updated_at = snapshot.updatedAt ?? new Date().toISOString();
+            delete nextResult.error;
+          } else {
+            delete nextResult.published_at;
+            delete nextResult.metrics;
+            delete nextResult.provider_metrics;
+            delete nextResult.metrics_updated_at;
+          }
+          const next: ThreadsJob = { ...job, status, result: nextResult };
           await writeJob(path, next);
-          results[basename(path)] = "updated:buffer";
+          results[basename(path)] = "buffer:" + observed;
           continue;
         }
 
