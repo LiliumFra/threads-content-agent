@@ -14,8 +14,10 @@ const metricsSchema = z.object({
 });
 
 const resultSchema = z.object({
-  status: z.enum(["PUBLISHED", "DRY_RUN", "FAILED", "REVIEW"]),
+  status: z.enum(["PUBLISHED", "DELIVERY_PENDING", "DRY_RUN", "FAILED", "REVIEW"]),
   published_at: z.string().optional(),
+  submitted_at: z.string().optional(),
+  provider_status: z.string().optional(),
   provider: z.enum(["buffer", "threads"]).optional(),
   provider_post_id: z.string().min(1).optional(),
   thread_id: z.string().min(1).optional(),
@@ -73,7 +75,7 @@ const contentTypeSchema = z.enum([
 
 export const jobSchema = z.object({
   schema_version: z.literal(1),
-  status: z.enum(["READY", "PUBLISHED", "FAILED", "DRY_RUN", "REVIEW"]).default("READY"),
+  status: z.enum(["READY", "PUBLISHED", "DELIVERY_PENDING", "FAILED", "DRY_RUN", "REVIEW"]).default("READY"),
   publish_at: z.string().datetime({ offset: true }),
   action: z.enum(["post", "reply", "quote"]).default("post"),
   relation_id: z.string().min(1).optional(),
