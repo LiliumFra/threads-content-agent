@@ -10,8 +10,8 @@
     "minimum_spacing_minutes": 60,
     "preferred_windows_local": [
       {
-        "start": "09:00",
-        "end": "10:30"
+        "start": "08:00",
+        "end": "11:30"
       },
       {
         "start": "12:00",
@@ -20,10 +20,6 @@
       {
         "start": "16:00",
         "end": "17:30"
-      },
-      {
-        "start": "20:00",
-        "end": "21:30"
       }
     ],
     "breaking_news": {
@@ -66,7 +62,104 @@
         "minimum_score": 94,
         "rule": "exceptional high-news day; independently verified breaking stories only"
       }
-    ]
+    ],
+    "audience_windows_local": {
+      "timezone": "America/Argentina/Jujuy",
+      "note": "Experimental local-time windows based on audience mornings, not guaranteed optimal times. Recalculate local offsets as UK/EU/US daylight saving time changes. A single global account has one shared 60-min hard spacing, so do not force a quota per window.",
+      "weekday_es": [
+        {
+          "start": "08:00",
+          "end": "11:30",
+          "priority": 1
+        },
+        {
+          "start": "12:00",
+          "end": "13:30",
+          "priority": 2
+        },
+        {
+          "start": "16:00",
+          "end": "17:30",
+          "priority": 3
+        }
+      ],
+      "weekend_es": [
+        {
+          "start": "09:00",
+          "end": "11:30",
+          "priority": 1
+        }
+      ],
+      "weekday_en_uk_europe": [
+        {
+          "start": "04:30",
+          "end": "07:30",
+          "priority": 1
+        }
+      ],
+      "weekday_en_us_eastern": [
+        {
+          "start": "10:00",
+          "end": "13:00",
+          "priority": 1
+        }
+      ],
+      "weekday_en_us_pacific": [
+        {
+          "start": "13:00",
+          "end": "16:00",
+          "priority": 2
+        }
+      ],
+      "weekend_en": [
+        {
+          "start": "10:00",
+          "end": "15:00",
+          "priority": 3
+        }
+      ],
+      "experimental_evening_es": [
+        {
+          "start": "19:30",
+          "end": "21:00",
+          "priority": 4
+        }
+      ],
+      "rules": [
+        "Weekday mid-mornings usually yield stronger median engagement than evenings; verify against this specific account before optimizing.",
+        "Never guarantee a certain count: empty/no verified candidates -> zero jobs.",
+        "Do not post the same story in multiple languages to satisfy quotas.",
+        "A true breaking story with score >=90 can use any hour subject to hard policy limits.",
+        "Do not set publish_at in the future solely to hit an exact slot: GitHub queue recovery is 6-hourly. Use due-now commits during the targeted hour.",
+        "Prefer one candidate at a time when language windows overlap; best relevance and evidence wins."
+      ]
+    },
+    "scheduling_experiment": {
+      "started_at": "2026-10-19",
+      "evaluation_days": 28,
+      "priority_days": [
+        "Wednesday",
+        "Thursday",
+        "Tuesday",
+        "Friday",
+        "Monday",
+        "Sunday",
+        "Saturday"
+      ],
+      "publish_decision": "news_quality > audience_fit > verified_time_window > frequency_targets",
+      "success_metrics": [
+        "confirmed_sent_rate",
+        "replies_per_1000_views",
+        "reposts_per_1000_views",
+        "views_per_post",
+        "engagement_rate"
+      ],
+      "minimum_confirmed_comparable_posts_per_segment": 20,
+      "no_policy_change_without_evidence": true,
+      "metrics_lag_hours": 24,
+      "evening_posts_control_only": true,
+      "baseline_source": "https://buffer.com/resources/the-best-time-to-post-on-threads/"
+    }
   },
   "content_mix": {
     "rolling_window_posts": 20,
