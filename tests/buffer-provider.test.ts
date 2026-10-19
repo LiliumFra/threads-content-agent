@@ -75,6 +75,7 @@ describe("BufferProvider", () => {
     const result = await provider.publish(baseJob, "https://cdn.example.com/card.png");
 
     expect(result.id).toBe("buffer-post-1");
+    expect(result.status).toBe("sent");
     expect(result.externalUrl).toContain("threads.net");
     expect(fetchMock).toHaveBeenCalledTimes(3);
 
@@ -148,4 +149,34 @@ describe("BufferProvider", () => {
     expect(snapshot.normalized.engagement_rate).toBe(7.5);
     expect(snapshot.raw.reactions).toBe(9);
   });
+  it("does not mistake an accepted sending post for a published Threads post", async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(json({ data: { account: { organizations: [{ id: "org-1" }] } } }))
+      .mockResolvedValueOnce(json({ data: { channels: [{
+        id: "thread-channel", service: "threads", isDisconnected: false, isLocked: false
+      }] } }))
+      .mockResolvedValueOnce(json({ data: { createPost: {
+        __typename: "PostActionSuccess",
+        post: { id: "pending-buffer-post", status: "sending", externalLink: null }
+      } } }));
+    vi.stubGlobal("fetch", fetchMock);
+    const result = await new BufferProvider("secret").publish(baseJob);
+    expect(result.id).toBe("pending-buffer-post");
+    expect(result.status).toBe("sending");
+    expect(result.externalUrl).toBeUndefined();
+  });
+
+  it("reads a failed Threads delivery and its actual Buffer error", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(json({ data: {
+      post: {
+        id: "post-1", status: "error", sentAt: null, externalLink: null,
+        error: { message: "Threads could not process the media" }, metrics: null
+      }
+    } }))));
+    const status = await new BufferProvider("secret").getMetrics("post-1");
+    expect(status.status).toBe("error");
+    expect(status.sentAt).toBeUndefined();
+    expect(status.errorMessage).toContain("process the media");
+  });
+
 });
