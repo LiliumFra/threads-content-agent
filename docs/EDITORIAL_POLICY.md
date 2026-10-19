@@ -13,7 +13,7 @@ The growth strategy is defined in `config/growth.json`. Runtime safety limits ar
 - Base target: 5 posts per day when enough strong independent stories exist.
 - Normal elastic capacity: up to 8 posts per day.
 - Configured hard ceiling: 16 posts per day, exclusively when the effective policy and runtime gates agree. This is capacity, never a quota; posts 13–16 are reserved for genuinely exceptional independently verified news.
-- Scan for new developments every hour.
+- Scan for new developments every hour at approximately minute 11 of each local hour. This is a discovery interval, not a required publishing interval.
 - Standard spacing: about 75 minutes.
 - Runtime minimum spacing: 60 minutes.
 - The quality threshold rises with volume: score 72 through post 5, 78 through post 8, 84 through post 10, 90 for posts 11–12, and 94 for posts 13–16. Respect the strictest persisted policy/configuration; no automatic hard-cap increases.
@@ -21,7 +21,26 @@ The growth strategy is defined in `config/growth.json`. Runtime safety limits ar
 - If mature matched samples show declining per-post quality, the adaptive controller should reduce target volume rather than defend a posting quota.
 - Breaking news scoring at least the configured breaking-news threshold may take the earliest policy-valid slot rather than waiting for a preferred window, but never bypasses the hard daily cap or API budgets.
 
-Preferred local windows are stored in `config/growth.json`. They are guidance for normal posts, not a reason to delay genuinely time-sensitive news.
+Preferred local windows are stored in `config/growth.json` under `cadence.audience_windows_local`, with overrides and quality rules in `config/automation.json`. They are guidance for normal posts, not a reason to delay genuinely time-sensitive news.
+
+### Audience-aware scheduling experiment (2026-10-19 onwards)
+
+Source-backed baseline: Buffer's 2026 comparison of 2.5 million Threads posts shows stronger median engagement during weekday mornings, especially Wednesday/Thursday. This is observational aggregate guidance; account-specific evidence still takes precedence. Source: https://buffer.com/resources/the-best-time-to-post-on-threads/
+
+All schedule windows below refer to `America/Argentina/Jujuy`, NOT a universal audience-local clock:
+
+- Spanish weekdays: 08:00–11:30, 12:00–13:30, optional 16:00–17:30; weekends: 09:00–11:30.
+- English Europe/UK weekday mornings: approximately 04:30–07:30 Argentina time.
+- English US Eastern weekday mornings: approximately 10:00–13:00 Argentina time.
+- English US Pacific weekday mornings: approximately 13:00–16:00 Argentina time.
+- Small evening Spanish exploratory control: 19:30–21:00 only if quality and remaining slots justify it.
+- UK/EU and US daylight-saving transitions change offsets. Prefer authoritative audience-local time calculations for each publishing decision, not a permanently fixed conversion.
+- English target is **up to three distinct high-quality posts per day** (not a quota), scored >=78 and not republishing the Spanish story in translation.
+- The preferred time window is a *secondary* decision after credibility, originality, relevance, and account-specific deduplication. When markets overlap, select the highest-value candidate; ES/EN share runtime spacing and provider budgets.
+- Non-breaking jobs should be created by commit with `publish_at` already due in the intended hour. GitHub Actions' push trigger then runs the queue; its six-hour fallback is **not** a precise future scheduler. Do not enqueue a future-dated job and promise delivery at that exact minute.
+- Score >=90 verified breaking news may publish at the earliest policy-valid time outside normal windows. Never bypass source checks, topic cooldowns, provider budgets, or the immutable 60-minute gap.
+- Investigate the chosen format: text-only for genuine technical discussion; informative visual/card/carrusel only when it adds verified information and is supported by the actual current schema. Do not pretend carousel support is built into the publisher.
+- Run a 28-day matched observational trial by language, weekday, category, hook and time; compare confirmed `sent` deliveries only, with >24h metric maturation. Do not force a conclusion when sample sizes are small. Do not raise the configured hard cap automatically.
 
 ## Content mix
 
@@ -86,7 +105,7 @@ The runtime content hash remains the final exact-duplicate defense.
 
 ## Copy contract
 
-Write in the language selected by config. The default daytime language is neutral Spanish; the configured nighttime experiment uses English. Never mechanically translate a story already used in the other language: require a materially different angle unless the event is exceptional.
+Write in the language selected by config. The primary language is neutral Spanish; experimental English windows target UK/European and US audience mornings, not an arbitrary Argentina nighttime slot. Never mechanically translate a story already used in the other language: require a materially different angle unless the event is exceptional.
 
 A normal Threads post should:
 
