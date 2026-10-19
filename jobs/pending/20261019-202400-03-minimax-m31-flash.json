@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-19T20:23:53-03:00",
+  "action": "post",
+  "topic": "artificial-intelligence",
+  "language": "es",
+  "content": {
+    "text": "MiniMax lanzó M3.1 Flash: US$0,15 por millón de tokens de entrada y US$0,60 de salida. Según la empresa, la inferencia es casi 3 veces más rápida y el costo de tareas con agentes baja un 70%; aún son cifras del fabricante, no una comparación independiente. Ya está disponible por API y MiniMax Code; los pesos llegarán después. ¿Qué pesa más al elegir un modelo: precio, velocidad o resultados?",
+    "topic_tag": "Inteligencia Artificial",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "MiniMax M3.1 Flash: nuevo modelo de IA",
+    "subheadline": "US$0,15 entrada · US$0,60 salida por 1 millón de tokens. Hasta 70% menos costo en tareas con agentes, según MiniMax.",
+    "eyebrow": "IA Y DESARROLLO",
+    "alt_text": "Tarjeta editorial sobre el lanzamiento de MiniMax M3.1 Flash, con precios anunciados de 0,15 dólares por millón de tokens de entrada y 0,60 por millón de tokens de salida. La reducción de costos es una estimación del fabricante."
+  },
+  "strategy": {
+    "hook_style": "verified-pricing-utility",
+    "goal": "inform-and-discuss",
+    "content_type": "data",
+    "candidate_score": 84,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 13,
+      "discussion_velocity": 8,
+      "source_quality": 15,
+      "account_fit": 14,
+      "novelty": 14,
+      "conversation_potential": 12,
+      "visual_potential": 8
+    },
+    "sources": [
+      "https://www.minimax.io/blog/minimax-m31f",
+      "https://www.reuters.com/world/asia-pacific/chinas-minimax-launches-updated-ai-model-m31-flash-claims-major-improvements-2026-10-19/"
+    ]
+  },
+  "dry_run": false
+}
