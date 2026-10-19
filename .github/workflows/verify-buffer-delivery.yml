@@ -23,7 +23,7 @@ jobs:
         run: |
           node --input-type=module <<'NODE'
           import { readFileSync } from "node:fs";
-          const path = "jobs/results/20261019-102700-03-amazon-torchneuron-trainium.json";
+          const path = "jobs/results/20261019-105445-03-amazon-torchneuron-jpeg-retry.json";
           const job = JSON.parse(readFileSync(path, "utf8"));
           const id = job.result?.provider_post_id;
           if (!id || job.result?.provider !== "buffer") {
@@ -66,6 +66,7 @@ jobs:
                 content_type: mediaResponse.headers.get("content-type"),
                 bytes: media.byteLength,
                 png_signature_valid: pngSignature,
+                jpeg_signature_valid: media.subarray(0, 3).toString("hex") === "ffd8ff",
                 width: pngSignature && media.length >= 26 ? media.readUInt32BE(16) : null,
                 height: pngSignature && media.length >= 26 ? media.readUInt32BE(20) : null,
                 png_color_type: pngSignature && media.length >= 26 ? media[25] : null
