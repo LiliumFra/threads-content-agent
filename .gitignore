@@ -11,3 +11,19 @@ runtime/
 state/*.json
 state/*.jsonl
 config/storage.private.json
+# Prevent accidental commits of credentials and local authentication state
+.npmrc
+.netrc
+*.pem
+*.p12
+*.pfx
+*.key
+*.jks
+*.keystore
+credentials.json
+secrets.json
+.secrets/
+.credentials/
+.auth/
+*.session
+*.cookie
