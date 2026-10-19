@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-19T10:54:45-03:00",
+  "action": "post",
+  "topic": "chips",
+  "language": "es",
+  "content": {
+    "text": "Amazon quiere que usar sus chips de IA no implique reescribir proyectos. Anunció TorchNeuron, un backend que facilita ejecutar PyTorch en Trainium con cambios mínimos de configuración. La competencia con NVIDIA no se juega solo en el hardware: también en el software que los desarrolladores ya conocen. ¿Qué priorizarías: compatibilidad, coste o rendimiento?",
+    "topic_tag": "Tecnología",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "Amazon acerca PyTorch a Trainium",
+    "subheadline": "TorchNeuron busca reducir el trabajo necesario para usar chips de IA de AWS sin reescribir proyectos.",
+    "eyebrow": "CHIPS E IA",
+    "alt_text": "Tarjeta editorial oscura sobre TorchNeuron, el nuevo backend PyTorch para los procesadores Trainium de Amazon."
+  },
+  "strategy": {
+    "hook_style": "utility-technology-shift",
+    "goal": "inform-and-discuss",
+    "content_type": "breaking_news",
+    "candidate_score": 85,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 8,
+      "source_quality": 15,
+      "account_fit": 14,
+      "novelty": 13,
+      "conversation_potential": 12,
+      "visual_potential": 8
+    },
+    "sources": [
+      "https://www.reuters.com/business/retail-consumer/amazon-says-its-ai-chips-will-work-with-popular-coding-language-challenging-2026-10-19/",
+      "https://events.linuxfoundation.org/pytorch-conference-north-america/program/schedule/?id=1298057"
+    ]
+  },
+  "dry_run": false
+}
