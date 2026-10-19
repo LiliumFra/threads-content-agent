@@ -53,7 +53,6 @@ type PostMetricsPayload = {
       unit?: string | null;
     }> | null;
     metricsUpdatedAt?: string | null;
-    externalLink?: string | null;
   } | null;
 };
 
