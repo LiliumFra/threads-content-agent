@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-10-19T17:26:50-03:00",
   "action": "post",
   "topic": "cybersecurity",
@@ -33,5 +33,15 @@
       "https://www.reuters.com/legal/government/how-one-hacker-used-ai-agents-few-thousand-dollars-break-into-scores-sites-2026-10-19/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "submitted_at": "2026-10-19T20:27:32.201Z",
+    "provider": "buffer",
+    "provider_status": "sent",
+    "provider_post_id": "6ad67d349060b48b23bb87e0",
+    "content_hash": "159aeb17030103fc1ed271f3ccea10b8058874424cd338f77a85b55e84390bf2",
+    "published_at": "2026-10-19T20:27:40.784Z",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DesHYDXGBQe"
+  }
 }
