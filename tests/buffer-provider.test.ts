@@ -172,7 +172,7 @@ describe("BufferProvider", () => {
         id: "post-1", status: "error", sentAt: null, externalLink: null,
         error: { message: "Threads could not process the media" }, metrics: null
       }
-    } }))));
+    } })));
     const status = await new BufferProvider("secret").getMetrics("post-1");
     expect(status.status).toBe("error");
     expect(status.sentAt).toBeUndefined();
