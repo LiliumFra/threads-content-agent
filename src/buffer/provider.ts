@@ -32,6 +32,8 @@ type CreatePostPayload = {
     post?: {
       id?: string;
       status?: string | null;
+      sentAt?: string | null;
+      error?: { message?: string | null } | null;
       externalLink?: string | null;
     } | null;
   } | null;
@@ -40,6 +42,10 @@ type CreatePostPayload = {
 type PostMetricsPayload = {
   post?: {
     id?: string;
+    status?: string | null;
+    sentAt?: string | null;
+    externalLink?: string | null;
+    error?: { message?: string | null } | null;
     metrics?: Array<{
       type?: string | null;
       name?: string | null;
@@ -58,6 +64,10 @@ export type BufferHealth = {
 };
 
 export type BufferMetricsSnapshot = {
+  status?: string;
+  sentAt?: string;
+  externalUrl?: string;
+  errorMessage?: string;
   normalized: ThreadsMetrics;
   raw: Record<string, number>;
   updatedAt?: string;
@@ -65,7 +75,10 @@ export type BufferMetricsSnapshot = {
 
 export type BufferPublishResult = {
   id: string;
+  status: string;
   externalUrl?: string;
+  sentAt?: string;
+  errorMessage?: string;
 };
 
 export class RetryableBufferError extends Error {
@@ -303,7 +316,9 @@ export class BufferProvider {
             post {
               id
               status
+              sentAt
               externalLink
+              error { message }
             }
           }
           ... on MutationError {
@@ -337,6 +352,9 @@ export class BufferProvider {
 
     return {
       id: postId,
+      status: result.post?.status ?? "unknown",
+      ...(result.post?.sentAt ? { sentAt: result.post.sentAt } : {}),
+      ...(result.post?.error?.message ? { errorMessage: result.post.error.message } : {}),
       ...(result.post?.externalLink ? { externalUrl: result.post.externalLink } : {})
     };
   }
@@ -346,7 +364,10 @@ export class BufferProvider {
       `query GetPostMetrics($input: PostInput!) {
         post(input: $input) {
           id
+          status
+          sentAt
           externalLink
+          error { message }
           metrics {
             type
             name
@@ -407,6 +428,10 @@ export class BufferProvider {
     return {
       normalized,
       raw,
+      ...(data.post?.status ? { status: data.post.status } : {}),
+      ...(data.post?.sentAt ? { sentAt: data.post.sentAt } : {}),
+      ...(data.post?.externalLink ? { externalUrl: data.post.externalLink } : {}),
+      ...(data.post?.error?.message ? { errorMessage: data.post.error.message } : {}),
       ...(data.post?.metricsUpdatedAt ? { updatedAt: data.post.metricsUpdatedAt } : {})
     };
   }
