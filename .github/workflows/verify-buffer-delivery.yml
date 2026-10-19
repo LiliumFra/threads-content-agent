@@ -37,7 +37,7 @@ jobs:
               "Authorization": "Bearer " + process.env.BUFFER_API_KEY
             },
             body: JSON.stringify({
-              query: "query VerifyDelivery($input: PostInput!) { post(input: $input) { id status sentAt externalLink } }",
+              query: "query VerifyDelivery($input: PostInput!) { post(input: $input) { id status sentAt externalLink error { message supportUrl } } }",
               variables: { input: { id } }
             })
           });
@@ -51,6 +51,8 @@ jobs:
             actual_status: post.status ?? "unknown",
             sent_at: post.sentAt ?? null,
             external_link: post.externalLink ?? null,
+            error_message: post.error?.message ?? null,
+            error_support_url: post.error?.supportUrl ?? null,
             confirmed_on_threads_by_buffer: post.status === "sent"
           };
           console.log("BUFFER_DELIVERY_AUDIT " + JSON.stringify(output));
