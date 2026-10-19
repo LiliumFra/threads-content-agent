@@ -65,14 +65,27 @@
   },
   "languages": {
     "default": "es",
-    "nighttime": "en",
-    "nighttime_window_local": {
-      "start": "22:30",
-      "end": "02:30"
-    },
-    "nighttime_target_posts": 3,
-    "nighttime_soft_max_posts": 3,
-    "nighttime_min_trend_score": 78,
-    "deduplicate_across_languages": true
+    "english": "en",
+    "english_target_posts_per_day": 3,
+    "english_soft_max_posts_per_day": 3,
+    "english_min_trend_score": 78,
+    "deduplicate_across_languages": true,
+    "windows_source": "config/growth.json -> cadence.audience_windows_local",
+    "scheduling_priority": "select verified story and audience; then choose earliest eligible post window, no quota-filling",
+    "avoid_literal_translation": true
+  },
+  "scheduling": {
+    "timezone": "America/Argentina/Jujuy",
+    "scanner": "once per hour at approximately HH:11 local; no extra scheduled task",
+    "publish_at_rule": "publish due now on a commit-triggered job within a preferred audience window; never prequeue a future-dated job solely to target a precise minute while the GitHub queue recovery remains every six hours",
+    "cross_language_spacing_minutes": 60,
+    "standard_spacing_minutes": 75,
+    "breaking_news": "score >= 90: first policy-valid time, including outside preferred windows",
+    "off_peak_scans": "lightweight triage unless a genuine breaking/exceptional story appears",
+    "weekend_scans": "same hourly frequency but fewer routine posts; breaking news unaffected",
+    "source_validation": "at least two independent reliable references and rights-cleared media or generated editorial JPEG",
+    "actual_publish_status_required": "sent",
+    "no_duplicate_after_failure_without_verified_reason": true,
+    "experimental_evening": "limited evidence-gathering only, not default volume"
   }
 }
