@@ -56,6 +56,25 @@ jobs:
             confirmed_on_threads_by_buffer: post.status === "sent"
           };
           console.log("BUFFER_DELIVERY_AUDIT " + JSON.stringify(output));
+          for (const mediaUrl of (job.result?.media_urls ?? []).slice(0, 2)) {
+            try {
+              const mediaResponse = await fetch(mediaUrl);
+              const media = Buffer.from(await mediaResponse.arrayBuffer());
+              const pngSignature = media.subarray(0, 8).toString("hex") === "89504e470d0a1a0a";
+              const meta = {
+                http_status: mediaResponse.status,
+                content_type: mediaResponse.headers.get("content-type"),
+                bytes: media.byteLength,
+                png_signature_valid: pngSignature,
+                width: pngSignature && media.length >= 26 ? media.readUInt32BE(16) : null,
+                height: pngSignature && media.length >= 26 ? media.readUInt32BE(20) : null,
+                png_color_type: pngSignature && media.length >= 26 ? media[25] : null
+              };
+              console.log("MEDIA_DELIVERY_AUDIT " + JSON.stringify(meta));
+            } catch (e) {
+              console.log("MEDIA_DELIVERY_AUDIT " + JSON.stringify({ error: String(e).slice(0, 200) }));
+            }
+          }
           if (post.status !== "sent") {
             console.log("Not confirmed: Buffer accepted this post, but has not reported it as sent.");
           }
