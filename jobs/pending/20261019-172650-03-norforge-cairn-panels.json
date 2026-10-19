@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-19T17:26:50-03:00",
+  "action": "post",
+  "topic": "cybersecurity",
+  "language": "es",
+  "content": {
+    "text": "NorForge identificó más de 20 paneles públicos de agentes de IA probablemente ligados a intrusiones. En 14 de ellos observó más de 1.100 proyectos de ataque contra sitios comerciales. El riesgo también está en los propios paneles: algunos dejaban expuestas credenciales. ¿Quién debería auditar los agentes autónomos que operan en producción?",
+    "topic_tag": "Ciberseguridad",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "none"
+  },
+  "strategy": {
+    "hook_style": "security-research-implications",
+    "goal": "inform-and-discuss",
+    "content_type": "breaking_news",
+    "candidate_score": 84,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 9,
+      "source_quality": 15,
+      "account_fit": 14,
+      "novelty": 14,
+      "conversation_potential": 12,
+      "visual_potential": 5
+    },
+    "sources": [
+      "https://norforge.com/blog/inside_cairn",
+      "https://www.reuters.com/legal/government/how-one-hacker-used-ai-agents-few-thousand-dollars-break-into-scores-sites-2026-10-19/"
+    ]
+  },
+  "dry_run": false
+}
