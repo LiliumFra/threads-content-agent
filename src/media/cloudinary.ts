@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import sharp from "sharp";
 
 export type CloudinaryConfig = {
   cloudName: string;
@@ -47,15 +48,31 @@ export async function assertCloudinaryFreeCredits(config: CloudinaryConfig): Pro
   }
 }
 
-export async function uploadPng(png: Buffer, publicId: string, config: CloudinaryConfig): Promise<string> {
+/**
+ * Convert the SVG-rendered RGBA PNG to baseline JPEG RGB/sRGB for compatibility
+ * with social-media processors. This is a new upload, never a Cloudinary transform.
+ */
+export async function uploadEditorialJpeg(png: Buffer, publicId: string, config: CloudinaryConfig): Promise<string> {
+  const metadata = await sharp(png).metadata();
+  if (metadata.width !== 1080 || metadata.height !== 1350) {
+    throw new Error("Unexpected editorial card dimensions; expected 1080x1350");
+  }
+  const jpeg = await sharp(png)
+    .flatten({ background: "#0D1220" })
+    .toColourspace("srgb")
+    .jpeg({ quality: 90, mozjpeg: true })
+    .toBuffer();
+  if (jpeg.byteLength > 8 * 1024 * 1024) {
+    throw new Error("Editorial JPEG exceeds the 8 MB media ceiling");
+  }
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const folder = config.folder ?? "threads-content-agent";
   const signed = ["folder=" + folder, "public_id=" + publicId, "timestamp=" + timestamp].sort().join("&");
   const signature = createHash("sha1").update(signed + config.apiSecret).digest("hex");
 
-  const arrayBuffer = png.buffer.slice(png.byteOffset, png.byteOffset + png.byteLength) as ArrayBuffer;
+  const arrayBuffer = jpeg.buffer.slice(jpeg.byteOffset, jpeg.byteOffset + jpeg.byteLength) as ArrayBuffer;
   const form = new FormData();
-  form.set("file", new Blob([arrayBuffer], { type: "image/png" }), publicId + ".png");
+  form.set("file", new Blob([arrayBuffer], { type: "image/jpeg" }), publicId + ".jpg");
   form.set("api_key", config.apiKey);
   form.set("timestamp", timestamp);
   form.set("folder", folder);
