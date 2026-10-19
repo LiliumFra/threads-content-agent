@@ -1,0 +1,439 @@
+{
+  "version": 1,
+  "objective": "Grow a technology and AI Threads account through timely original reporting, useful context, conversation, topic discovery and performance learning.",
+  "cadence": {
+    "target_posts_per_day": 5,
+    "soft_max_posts_per_day": 8,
+    "hard_max_posts_per_day": 16,
+    "scan_every_hours": 1,
+    "standard_spacing_minutes": 75,
+    "minimum_spacing_minutes": 60,
+    "preferred_windows_local": [
+      {
+        "start": "09:00",
+        "end": "10:30"
+      },
+      {
+        "start": "12:00",
+        "end": "13:30"
+      },
+      {
+        "start": "16:00",
+        "end": "17:30"
+      },
+      {
+        "start": "20:00",
+        "end": "21:30"
+      }
+    ],
+    "breaking_news": {
+      "publish_immediately_if_score_at_least": 90,
+      "may_ignore_preferred_windows": true,
+      "never_ignore_hard_daily_cap": true,
+      "topic_selection_before_enqueue": true,
+      "topic_selection_priority": [
+        "specific_active_topic",
+        "specific_evergreen_topic",
+        "broad_relevant_topic",
+        "no_topic"
+      ],
+      "publish_at_policy": "earliest_policy_valid_time",
+      "do_not_wait_for_standard_spacing_if_minimum_spacing_is_satisfied": true
+    },
+    "dynamic_quality_thresholds": [
+      {
+        "posts_already_published_or_pending": "0-4",
+        "minimum_score": 72,
+        "rule": "normal quality threshold"
+      },
+      {
+        "posts_already_published_or_pending": "5-7",
+        "minimum_score": 78,
+        "rule": "strong incremental story"
+      },
+      {
+        "posts_already_published_or_pending": "8-9",
+        "minimum_score": 84,
+        "rule": "high-news-cycle story with clear novelty"
+      },
+      {
+        "posts_already_published_or_pending": "10-11",
+        "minimum_score": 90,
+        "rule": "breaking or exceptional novelty only"
+      },
+      {
+        "posts_already_published_or_pending": "12-15",
+        "minimum_score": 94,
+        "rule": "exceptional high-news day; independently verified breaking stories only"
+      }
+    ]
+  },
+  "content_mix": {
+    "rolling_window_posts": 20,
+    "targets_percent": {
+      "breaking_news": 45,
+      "explainer": 20,
+      "discussion": 15,
+      "data": 10,
+      "light": 10
+    },
+    "guidance": "Use the mix as a directional target, not a quota. A strong current story always beats filler."
+  },
+  "native_topics": {
+    "required_when_supported": true,
+    "max_one_per_post": true,
+    "prefer_specific_active_topic_over_generic": true,
+    "generic_examples": [
+      "InteligenciaArtificial",
+      "Tecnología"
+    ],
+    "max_same_topic_per_day": 2,
+    "cooldown_hours": 3,
+    "avoid_using_same_generic_topic_for_consecutive_posts": true,
+    "default_mode": "with_topic",
+    "expected_usage_rate": ">=90%",
+    "topicless_policy": {
+      "allowed_when_no_relevant_topic_exists": true,
+      "allowed_for_control_experiment": true,
+      "minimum_published_sample_before_control": 30,
+      "control_rate_after_minimum_sample": 0.1,
+      "never_use_topicless_control_for_breaking_news": true,
+      "require_matched_comparison": true
+    },
+    "selection_priority": [
+      "specific_active_topic",
+      "specific_evergreen_topic",
+      "broad_relevant_topic",
+      "no_topic"
+    ],
+    "avoid_forcing_irrelevant_topic": true,
+    "rationale": "Meta reports that posts with tagged topics generally receive more views than posts without topics. Default to a truthful relevant topic and reserve no-topic publishing for posts without a good topical match or a controlled experiment after enough account-specific data exists.",
+    "research_before_enqueue": true,
+    "breaking_news_require_best_truthful_topic": true
+  },
+  "copy": {
+    "max_characters": 500,
+    "neutral_spanish": true,
+    "factual_hook_first": true,
+    "include_useful_context": true,
+    "natural_question_when_useful": true,
+    "avoid_engagement_bait": true,
+    "avoid_excessive_hashtags": true,
+    "avoid_generic_ctas": true,
+    "avoid_copying_viral_phrasing": true
+  },
+  "visuals": {
+    "default": "rich-dark-editorial-card",
+    "aspect_ratio": "4:5",
+    "add_information_not_duplicate_copy": true,
+    "rotate_palette_by_topic": true,
+    "show_native_topic_badge": true,
+    "require_alt_text": true,
+    "use_native_chatgpt_image_when_automatic_handoff_is_available": true,
+    "fallback_renderer": "src/render/card.ts",
+    "source_news_image": {
+      "enabled": true,
+      "role": "additional_asset",
+      "max_per_post": 1,
+      "priority": [
+        "primary_source_newsroom",
+        "official_press_kit",
+        "reputable_reporting"
+      ],
+      "require_story_specific": true,
+      "require_source_url": true,
+      "require_image_url": true,
+      "require_attribution": true,
+      "require_rights_metadata": true,
+      "unclear_reuse_rights": "reference_only_do_not_republish",
+      "never_remove_watermarks": true,
+      "never_bypass_access_controls": true,
+      "fallback": "generated_editorial_visual_informed_by_reference_without_copying_protected_expression",
+      "count_upload_against_free_tier_governor": true,
+      "rights_resolution": {
+        "enabled": true,
+        "max_resolution_steps": 6,
+        "ordered_checks": [
+          "primary_source_press_terms",
+          "official_press_kit",
+          "explicit_reuse_license",
+          "image_credit_metadata",
+          "photographer_or_agency_terms",
+          "source_site_terms"
+        ],
+        "publish_when": [
+          "official_press_asset",
+          "licensed_reusable",
+          "public_domain",
+          "permission_granted"
+        ],
+        "attribution_required_when_applicable": true,
+        "unknown_after_resolution": "reference_only",
+        "never_treat_credit_as_permission": true
+      }
+    }
+  },
+  "performance_learning": {
+    "lookback_posts": 30,
+    "minimum_sample_before_strategy_tuning": 20,
+    "metrics_expected_lag_hours": 24,
+    "dimensions": [
+      "language",
+      "content_type",
+      "topic_tag",
+      "hook_style",
+      "publish_hour",
+      "visual_mode",
+      "audience_source_when_available",
+      "consumer_relevance",
+      "conversion_class"
+    ],
+    "optimize_for": [
+      "replies",
+      "reposts",
+      "quotes",
+      "engagement_rate",
+      "views",
+      "follower_growth_when_available",
+      "profile_visits_when_available",
+      "followers_gained_when_available"
+    ],
+    "rules": [
+      "Do not copy a winning hook verbatim.",
+      "Prefer patterns supported by multiple posts.",
+      "Do not change the strategy from one outlier.",
+      "Prioritize conversation quality over raw posting volume.",
+      "Evaluate frequency using per-post quality and total account growth together; never optimize raw post count alone."
+    ],
+    "breakout_learning": {
+      "enabled": true,
+      "manual_signal_path": "state/manual-breakouts.json",
+      "breakout_view_multiplier_vs_median": 3,
+      "classify_independently": [
+        "distribution_breakout",
+        "engagement_breakout",
+        "conversation_breakout",
+        "conversion_breakout"
+      ],
+      "rules": [
+        "Do not treat high views alone as high engagement.",
+        "When views are high but replies/profile/follower conversion are low, classify as distribution breakout and learn distribution traits separately.",
+        "Use manual screenshot signals as hypothesis seeds until account API sync confirms comparable metrics.",
+        "Run matched follow-up tests on structural traits instead of copying wording, brand, or artwork.",
+        "Prefer broad consumer relevance, immediate user utility, recognizable product identity, and a concrete user-priority question when testing consumer-product news. Keep account-specific breakout evidence in private runtime state."
+      ]
+    }
+  },
+  "engagement": {
+    "aim_for_conversation_not_bait": true,
+    "response_strategy": "When Buffer exposes stable comment-reply operations for this channel, reply with useful context or a genuine follow-up question. Until then, surface posts with meaningful comment activity for manual response.",
+    "avoid_empty_replies": true,
+    "reply_opportunity_scoring": {
+      "enabled": true,
+      "metric": "replies",
+      "surface_for_manual_engagement_when_replies_at_least": 3,
+      "reason": "Conversation is a primary Threads growth surface; do not fabricate unsupported automated replies."
+    }
+  },
+  "api_budget": {
+    "buffer": {
+      "free_monthly_requests": 3000,
+      "operational_monthly_ceiling": 2400,
+      "conservative_daily_ceiling": 80,
+      "estimated_requests_per_single_post_workflow": 3,
+      "daily_metrics_request_ceiling": 30,
+      "rationale": "Buffer Free provides 10 scheduled slots per channel and 3,000 API requests/month. Keep two queue slots in reserve and retain conservative request ceilings.",
+      "free_queue_slots_per_channel": 10,
+      "operational_queue_ceiling": 8,
+      "reserved_queue_slots": 2
+    },
+    "cloudinary": {
+      "free_credits": 25,
+      "hard_new_images_per_day": 12,
+      "rationale": "Up to one generated visual per published post; a second source image is optional and must be omitted before free-tier headroom is threatened."
+    }
+  },
+  "adaptive_control": {
+    "enabled": true,
+    "mode": "bounded_auto_tuning",
+    "evaluation_interval_hours": 24,
+    "minimum_published_posts_before_tuning": 20,
+    "minimum_posts_per_segment": 5,
+    "metrics_maturity_hours": 24,
+    "change_cooldown_hours": 48,
+    "max_parameter_changes_per_cycle": 3,
+    "rollback_lookback_days": 7,
+    "objective_priority": [
+      "conversation_quality",
+      "engagement_rate",
+      "reposts_quotes",
+      "views",
+      "posting_efficiency"
+    ],
+    "tunable_parameters": {
+      "min_trend_score": {
+        "min": 68,
+        "max": 80,
+        "max_step": 2
+      },
+      "strong_incremental_threshold": {
+        "min": 78,
+        "max": 88,
+        "max_step": 2
+      },
+      "batch_spacing_minutes": {
+        "min": 60,
+        "max": 180,
+        "max_step": 15
+      },
+      "target_posts_per_day": {
+        "min": 3,
+        "max": 7,
+        "max_step": 1
+      },
+      "soft_max_posts_per_day": {
+        "min": 5,
+        "max": 10,
+        "max_step": 1
+      },
+      "content_mix_target_percent": {
+        "max_step_percentage_points": 5
+      },
+      "preferred_windows_local": {
+        "max_shift_minutes": 60
+      },
+      "native_topic_cooldown_hours": {
+        "min": 2,
+        "max": 8,
+        "max_step": 1
+      }
+    },
+    "immutable_guardrails": [
+      "Never exceed policy.max_posts_per_day.",
+      "Never reduce policy.min_interval_minutes.",
+      "Never weaken source verification, deduplication, editorial, political-exclusion, secret-handling, provider-budget, or media safety rules.",
+      "Never raise provider budgets automatically.",
+      "Never publish a rejected candidate merely to satisfy volume targets.",
+      "Never tune from immature metrics or a single outlier.",
+      "Never alter language free-tier ceilings or the shared global daily hard cap automatically.",
+      "Never automatically raise the configured global hard cap; changes to it require explicit user authorization."
+    ],
+    "decision_rules": [
+      "Tune only from mature account-specific metrics and repository history.",
+      "Require repeated directional evidence across multiple posts before changing a parameter.",
+      "Prefer one small reversible change over broad simultaneous changes.",
+      "Record previous value, new value, evidence, timestamp and reason for every automatic change.",
+      "Automatically roll back a recent change when mature post-change evidence materially degrades the primary objectives without a clear news-cycle explanation.",
+      "Treat platform/API capability changes as configuration migrations: adopt them only after documentation or runtime validation."
+    ],
+    "audit_log_path": "state/adaptive-tuning.jsonl"
+  },
+  "language_strategy": {
+    "mode": "bilingual_timeboxed",
+    "timezone": "America/Argentina/Jujuy",
+    "daytime": {
+      "language": "es",
+      "windows_local": [
+        {
+          "start": "09:00",
+          "end": "21:30"
+        }
+      ],
+      "target_posts": 4
+    },
+    "nighttime": {
+      "language": "en",
+      "windows_local": [
+        {
+          "start": "22:30",
+          "end": "02:30"
+        }
+      ],
+      "target_posts": 3,
+      "soft_max_posts": 3,
+      "min_candidate_score": 78,
+      "style": "same-rich-dark-editorial",
+      "require_new_angle_if_story_seen_in_other_language": true
+    },
+    "shared_daily_hard_cap": 16,
+    "deduplicate_across_languages": true,
+    "learning_segments": [
+      "language",
+      "content_type",
+      "topic_tag",
+      "hook_style",
+      "publish_hour",
+      "visual_mode"
+    ],
+    "audience_time_learning": {
+      "enabled": true,
+      "static_windows_are_priors_not_truth": true,
+      "dimensions": [
+        "language",
+        "target_region",
+        "weekday",
+        "audience_local_hour"
+      ],
+      "general_prior": "Weekday audience-local mornings are a strong generic prior, but account-specific mature metrics override the prior.",
+      "nighttime_english_is_controlled_experiment": true
+    }
+  },
+  "free_tier_governor": {
+    "enabled": true,
+    "fail_closed": true,
+    "reserve_fraction": 0.2,
+    "buffer": {
+      "daily_request_ceiling": 80,
+      "monthly_request_ceiling": 2400,
+      "estimated_requests_per_publish": 3,
+      "metrics_daily_ceiling": 30,
+      "free_queue_slots_per_channel": 10,
+      "operational_queue_ceiling": 8,
+      "reserved_queue_slots": 2,
+      "queue_usage_mode": "github_pending_then_buffer_shareNow",
+      "buffer_scheduled_queue_is_current_bottleneck": false
+    },
+    "cloudinary": {
+      "max_new_images_per_day": 12
+    },
+    "rules": [
+      "Share budgets across all languages.",
+      "Never raise provider ceilings through adaptive tuning.",
+      "Queue rather than publish when the estimated operation would exceed a ceiling or reserve.",
+      "Do not render or upload media for rejected candidates.",
+      "Count pending jobs before allocating new publication slots.",
+      "Optional source/news image uploads consume the same Cloudinary/media budget; omit the optional image before approaching a provider ceiling.",
+      "Higher daily publication capacity does not authorize higher provider request ceilings.",
+      "Current runtime publishes due jobs with Buffer shareNow, so Buffer's 10 scheduled-slot limit is informational unless schedulingType changes in the future."
+    ]
+  },
+  "frequency_strategy": {
+    "mode": "opportunity_elastic",
+    "principle": "Publishing capacity is not a quota. Increase volume only when independent high-quality opportunities exist.",
+    "base_target": 5,
+    "normal_capacity": 8,
+    "exceptional_capacity": 16,
+    "no_filler": true,
+    "count_pending_toward_capacity": true,
+    "evidence_review_minimum_posts": 30,
+    "saturation_checks": [
+      "median_views_per_post",
+      "median_engagement_rate",
+      "replies_per_post",
+      "follower_growth_when_available"
+    ],
+    "reduce_volume_if": [
+      "median_views_per_post materially declines across mature matched samples",
+      "engagement quality declines across mature matched samples",
+      "provider headroom becomes constrained"
+    ]
+  },
+  "experiments": {
+    "multi_post_threads": {
+      "enabled": false,
+      "status": "runtime_validation_required",
+      "rationale": "Current Buffer Free supports multi-post Threads, but enable only after provider payload support is implemented and validated. Long-form formats may improve reach but should not be enabled by config alone.",
+      "max_scheduled_threaded_posts_on_free_queue": 1
+    }
+  }
+}

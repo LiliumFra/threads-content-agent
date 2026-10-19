@@ -1,0 +1,78 @@
+{
+  "enabled": true,
+  "publish_mode": "live",
+  "language": "es",
+  "scan_interval_hours": 1,
+  "daily_target_posts": 5,
+  "daily_soft_max_posts": 8,
+  "max_jobs_per_scan": 3,
+  "max_posts_per_batch": 3,
+  "batch_spacing_minutes": 75,
+  "min_trend_score": 72,
+  "breaking_news_min_score": 90,
+  "freshness_hours": 12,
+  "minimum_sources": 2,
+  "default_visual_mode": "card",
+  "exclude_politics": true,
+  "growth_config_path": "config/growth.json",
+  "categories": [
+    "artificial-intelligence",
+    "android",
+    "chips",
+    "robotics",
+    "software",
+    "cybersecurity",
+    "big-tech"
+  ],
+  "weights": {
+    "freshness": 15,
+    "discussion_velocity": 15,
+    "source_quality": 15,
+    "account_fit": 15,
+    "novelty": 15,
+    "conversation_potential": 15,
+    "visual_potential": 10
+  },
+  "volume_thresholds": [
+    {
+      "through_post": 5,
+      "min_score": 72
+    },
+    {
+      "through_post": 8,
+      "min_score": 78
+    },
+    {
+      "through_post": 10,
+      "min_score": 84
+    },
+    {
+      "through_post": 12,
+      "min_score": 90
+    },
+    {
+      "through_post": 16,
+      "min_score": 94
+    }
+  ],
+  "api_budget": {
+    "buffer_conservative_daily_request_budget": 80,
+    "buffer_monthly_request_budget": 2400,
+    "cloudinary_max_new_images_per_day": 12,
+    "shared_across_languages": true,
+    "buffer_free_queue_slots_per_channel": 10,
+    "buffer_operational_queue_ceiling": 8
+  },
+  "languages": {
+    "default": "es",
+    "nighttime": "en",
+    "nighttime_window_local": {
+      "start": "22:30",
+      "end": "02:30"
+    },
+    "nighttime_target_posts": 3,
+    "nighttime_soft_max_posts": 3,
+    "nighttime_min_trend_score": 78,
+    "deduplicate_across_languages": true
+  }
+}

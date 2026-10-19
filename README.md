@@ -1,103 +1,47 @@
 # Threads Content Agent
 
-Production-oriented automation for discovering, preparing and publishing original Threads content while keeping **ChatGPT normal** as the editorial brain.
+Production-oriented automation for researching, preparing and publishing original Threads content while keeping **ChatGPT normal** as the editorial brain.
 
 ## Architecture
 
-```
-ChatGPT normal
-  -> GitHub Issue (structured Threads job)
-  -> GitHub Actions
-  -> validation / dedup / rate limits
-  -> deterministic visual renderer
-  -> public media uploader
-  -> official Meta Threads API
-  -> post + metrics
-  -> GitHub Issue result
-```
+ChatGPT normal -> Git commit with jobs/pending/<job>.json -> GitHub Actions -> validation / policy / rendering -> Buffer API -> Threads -> jobs/results/<job>.json -> metrics refresh.
 
-No OpenAI API, Codex, Work, browser automation or Threads cookies are required.
+No OpenAI API, Codex, Work, browser automation, Threads cookies or Meta Developer app are required for the primary path.
+
+## Primary provider
+
+Buffer is the default publisher. The worker authenticates with BUFFER_API_KEY, discovers the connected Threads channel automatically, publishes through Buffer's GraphQL API and reads per-post performance metrics back through Buffer.
+
+The direct Threads API implementation remains available as a fallback provider.
 
 ## Current scope
 
-- Structured jobs carried by GitHub Issues.
-- Official Threads API publisher for text and image posts.
-- Replies and quote posts supported by the job contract.
-- Deterministic 1080x1350 visual cards rendered locally with SVG + Sharp.
+- Event-driven queue through versioned JSON jobs.
+- Low-cost scheduled recovery every six hours.
+- Buffer publishing for Threads text and generated-image posts.
+- Deterministic 1080x1350 editorial cards rendered with SVG + Sharp.
 - Signed Cloudinary upload adapter for public image hosting.
-- Content hashing and idempotency.
-- Daily publication cap, minimum publication interval and topic cooldown.
-- Scheduled queue processing.
-- Scheduled post-insights collection.
-- Dry-run mode for safe commissioning.
-- Tests and strict TypeScript.
+- Content hashing, idempotency, daily cap, minimum interval and topic cooldown.
+- Buffer post metrics for the 30 most recent result files once per day.
+- Dry-run commissioning mode.
+- Strict TypeScript, reproducible npm lockfile and CI tests.
 
-## Required GitHub Actions secrets
+## Required GitHub Actions secret
 
-For publishing:
+Text publishing:
 
-- `THREADS_ACCESS_TOKEN` — long-lived Threads user token with the required permissions.
+- BUFFER_API_KEY
 
-For generated image posts:
+Generated image posts additionally require:
 
-- `CLOUDINARY_CLOUD_NAME`
-- `CLOUDINARY_API_KEY`
-- `CLOUDINARY_API_SECRET`
+- CLOUDINARY_CLOUD_NAME
+- CLOUDINARY_API_KEY
+- CLOUDINARY_API_SECRET
 
-Until `THREADS_ACCESS_TOKEN` exists, leave `dry_run: true` in jobs.
+Optional repository variables:
 
-## Threads permissions
+- BUFFER_CHANNEL_ID — only required when the Buffer account has multiple active Threads channels.
+- BUFFER_ORGANIZATION_ID — optional discovery shortcut.
+- CLOUDINARY_FOLDER
 
-The Meta app/user token should include the permissions needed by the features you use, including `threads_basic`, `threads_content_publish`, and for metrics `threads_manage_insights`.
-
-## Creating a job
-
-Create an Issue whose title starts with `[Threads Job]` and whose body contains one fenced JSON object:
-
-```json
-{
-  "schema_version": 1,
-  "status": "READY",
-  "publish_at": "2026-09-19T15:00:00-03:00",
-  "action": "post",
-  "topic": "artificial-intelligence",
-  "language": "es",
-  "content": {
-    "text": "Texto final para Threads.",
-    "topic_tag": "IA",
-    "reply_control": "everyone"
-  },
-  "visual": {
-    "mode": "card",
-    "headline": "La idea principal",
-    "subheadline": "Contexto breve que aporte valor",
-    "eyebrow": "TECNOLOGÍA",
-    "alt_text": "Tarjeta editorial que resume la idea principal."
-  },
-  "strategy": {
-    "hook_style": "curiosity",
-    "goal": "conversation",
-    "sources": ["https://example.com/source"]
-  },
-  "dry_run": true
-}
-```
-
-The event workflow evaluates the issue immediately. Future-dated jobs remain queued and the scheduled queue workflow picks them up when due.
-
-## Safety model
-
-Publishing is intentionally fail-closed:
-
-- malformed jobs do not publish;
-- duplicate content does not publish;
-- jobs above configured rate limits do not publish;
-- image jobs fail if public media hosting is unavailable;
-- missing Threads credentials fail or remain dry-run;
-- the same issue cannot publish twice.
-
-See `docs/OPERATIONS.md` for commissioning and secret setup.
-
-## Status
-
-Initial production scaffold. Start in dry-run, validate at least one text job and one image job, then enable live publishing.
+See docs/BUFFER_SETUP.md before enabling live publishing.

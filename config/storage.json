@@ -1,0 +1,16 @@
+{
+  "github": {
+    "store_generated_media": false,
+    "store_downloaded_media": false,
+    "reason": "Keep the repository small and avoid consuming Actions/artifact/storage quota with binary media."
+  },
+  "google_drive": {
+    "role": "optional private curated media library and archive; identifiers and URLs must be supplied outside version control",
+    "configuration": "private runtime configuration only; do not commit folder IDs or URLs"
+  },
+  "production_media": {
+    "default": "deterministic editorial card rendered by GitHub Actions",
+    "public_host": "Cloudinary",
+    "web_images": "Only use a real external image when it materially improves the post and usage rights/source are clear. Never hotlink arbitrary search-result images."
+  }
+}

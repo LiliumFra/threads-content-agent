@@ -1,0 +1,2 @@
+request=2026-09-19T14:12:00Z
+purpose=verify Cloudinary credentials and public image upload without publishing

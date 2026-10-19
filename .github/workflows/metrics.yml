@@ -1,0 +1,56 @@
+name: Refresh Threads metrics
+
+on:
+  schedule:
+    - cron: "41 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: threads-state-writer
+  cancel-in-progress: true
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: "24"
+          package-manager-cache: false
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - name: Refresh recent post insights
+        env:
+          PUBLISH_PROVIDER: buffer
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_CHANNEL_ID: ${{ vars.BUFFER_CHANNEL_ID }}
+          BUFFER_ORGANIZATION_ID: ${{ vars.BUFFER_ORGANIZATION_ID }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+        run: node dist/src/cli/worker.js metrics
+      - name: Run bounded adaptive tuning
+        run: node dist/src/cli/worker.js tune
+      - name: Persist metric updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add jobs/results config/growth.json
+          if [ -f state/adaptive-tuning.jsonl ]; then
+            git add state/adaptive-tuning.jsonl
+          fi
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: refresh Threads metrics [skip ci]"
+            for attempt in 1 2 3; do
+              git pull --rebase origin main
+              if git push origin HEAD:main; then
+                exit 0
+              fi
+              sleep $((attempt * 2))
+            done
+            echo "Failed to persist metric state after retries" >&2
+            exit 1
+          fi
