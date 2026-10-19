@@ -1,4 +1,4 @@
-import { uploadPng } from "../media/cloudinary.js";
+import { uploadEditorialJpeg } from "../media/cloudinary.js";
 import { renderCard } from "../render/card.js";
 import type { ThreadsJob } from "../domain/job.js";
 
@@ -41,7 +41,7 @@ async function main(): Promise<void> {
 
   const png = await renderCard(job);
   const suffix = Date.now().toString(36);
-  const url = await uploadPng(
+  const url = await uploadEditorialJpeg(
     png,
     "health-" + suffix,
     { cloudName, apiKey, apiSecret, folder }
