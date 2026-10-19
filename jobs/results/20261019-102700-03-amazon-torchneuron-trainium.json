@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "PUBLISHED",
+  "status": "FAILED",
   "publish_at": "2026-10-19T10:27:00-03:00",
   "action": "post",
   "topic": "chips",
@@ -39,14 +39,16 @@
   },
   "dry_run": false,
   "result": {
-    "status": "PUBLISHED",
-    "published_at": "2026-10-19T13:30:26.904Z",
+    "status": "FAILED",
     "provider": "buffer",
     "provider_post_id": "6ad61b76a9028f9035643d2a",
     "content_hash": "50ac5d250777c4edb4854a6e31fec583b80c981aebeeda237299ccd0db7481a9",
     "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1792416629/threads-content-agent/threads-50ac5d250777c4edb485.png",
     "media_urls": [
       "https://res.cloudinary.com/g6b2gmnj/image/upload/v1792416629/threads-content-agent/threads-50ac5d250777c4edb485.png"
-    ]
+    ],
+    "provider_status": "error",
+    "submitted_at": "2026-10-19T13:30:26.904Z",
+    "error": "Threads is having issues with processing the attached media. Please check to ensure the media fits the recommended image specifications and retry the post."
   }
 }
