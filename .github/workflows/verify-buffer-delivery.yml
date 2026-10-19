@@ -1,0 +1,59 @@
+name: Verify Buffer delivery (read only)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/verify-buffer-delivery.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Read actual Buffer status without reposting
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync } from "node:fs";
+          const path = "jobs/results/20261019-102700-03-amazon-torchneuron-trainium.json";
+          const job = JSON.parse(readFileSync(path, "utf8"));
+          const id = job.result?.provider_post_id;
+          if (!id || job.result?.provider !== "buffer") {
+            throw new Error("No Buffer post ID to verify");
+          }
+          if (!process.env.BUFFER_API_KEY) throw new Error("Buffer API credential unavailable");
+          const response = await fetch("https://api.buffer.com", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + process.env.BUFFER_API_KEY
+            },
+            body: JSON.stringify({
+              query: "query VerifyDelivery($input: PostInput!) { post(input: $input) { id status sentAt externalLink } }",
+              variables: { input: { id } }
+            })
+          });
+          if (!response.ok) throw new Error("Buffer query failed: HTTP " + response.status);
+          const payload = await response.json();
+          if (payload.errors?.length) throw new Error("Buffer GraphQL query failed: " + payload.errors.map(e => e.message).join("; "));
+          const post = payload.data?.post;
+          if (!post || post.id !== id) throw new Error("Buffer post not found or ID mismatch");
+          const output = {
+            buffer_post_id: id,
+            actual_status: post.status ?? "unknown",
+            sent_at: post.sentAt ?? null,
+            external_link: post.externalLink ?? null,
+            confirmed_on_threads_by_buffer: post.status === "sent"
+          };
+          console.log("BUFFER_DELIVERY_AUDIT " + JSON.stringify(output));
+          if (post.status !== "sent") {
+            console.log("Not confirmed: Buffer accepted this post, but has not reported it as sent.");
+          }
+          NODE
