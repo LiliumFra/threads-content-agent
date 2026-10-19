@@ -1,4 +1,5 @@
 name: Verify Buffer delivery (read only)
+# Reads Buffer status only; never sends or queues a social-media post.
 
 on:
   workflow_dispatch:
