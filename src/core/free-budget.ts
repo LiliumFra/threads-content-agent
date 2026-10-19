@@ -26,8 +26,8 @@ const names: Record<string, WindowSeconds> = {
 export function readBufferRateWindows(header: string | null, now = Date.now()): BufferRateWindow[] {
   if (!header) return [];
   const windows: BufferRateWindow[] = [];
-  for (const segment of header.split(/,\\s*(?=")/)) {
-    const match = segment.trim().match(/^"(\\d+)-in-(15min|1day|30days)";\\s*r=(\\d+);\\s*t=(\\d+)/);
+  for (const segment of header.split(/,\s*(?=")/)) {
+    const match = segment.trim().match(/^"(\d+)-in-(15min|1day|30days)";\s*r=(\d+);\s*t=(\d+)/);
     if (!match) continue;
     const windowSeconds = names[match[2]!];
     const allowed = Number(match[1]);
