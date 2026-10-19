@@ -7,7 +7,7 @@ import {
   RetryableBufferError
 } from "../buffer/provider.js";
 import { contentHash, jobSchema, type ThreadsJob } from "../domain/job.js";
-import { uploadPng, uploadRemoteImage } from "../media/cloudinary.js";
+import { assertCloudinaryFreeCredits, CloudinaryBudgetError, uploadPng, uploadRemoteImage } from "../media/cloudinary.js";
 import { renderCard } from "../render/card.js";
 import {
   AmbiguousPublishError,
@@ -214,6 +214,11 @@ export class FileProcessor {
       const provider = this.providerName();
 
       if (provider === "buffer") {
+        if (png) {
+          if (!this.config.cloudinary) return "queued:Cloudinary secrets required for an image post";
+          // Verify rolling 30-day credits BEFORE consuming Buffer requests or uploading.
+          await assertCloudinaryFreeCredits(this.config.cloudinary);
+        }
         const buffer = this.bufferProvider();
         await buffer.healthCheck();
 
@@ -243,6 +248,8 @@ export class FileProcessor {
           usedMediaUploads < mediaCeiling
         ) {
           try {
+            // Optional source image may be omitted if total account credits are uncertain.
+            await assertCloudinaryFreeCredits(this.config.cloudinary);
             const sourceUrl = await uploadRemoteImage(
               source.image_url,
               "threads-source-" + hash.slice(0, 20),
@@ -310,6 +317,9 @@ export class FileProcessor {
       await this.persistTerminal(path, published);
       return "published:threads";
     } catch (error) {
+      if (error instanceof CloudinaryBudgetError) {
+        return "queued:" + error.message;
+      }
       if (error instanceof RetryableBufferError || error instanceof RetryableThreadsError) {
         return "queued:" + error.message;
       }

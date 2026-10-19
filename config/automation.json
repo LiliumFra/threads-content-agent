@@ -58,7 +58,7 @@
   "api_budget": {
     "buffer_conservative_daily_request_budget": 80,
     "buffer_monthly_request_budget": 2400,
-    "cloudinary_max_new_images_per_day": 12,
+    "cloudinary_max_new_images_per_day": 8,
     "shared_across_languages": true,
     "buffer_free_queue_slots_per_channel": 10,
     "buffer_operational_queue_ceiling": 8

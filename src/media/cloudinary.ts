@@ -7,6 +7,46 @@ export type CloudinaryConfig = {
   folder?: string;
 };
 
+/**
+ * Cloudinary Free: 25 shared credits across rolling-30-day transformations,
+ * delivery bandwidth and current storage. Upload count is NOT a credit count.
+ * Admin /usage may lag; reserve 20% and independently cap new uploads daily.
+ */
+export class CloudinaryBudgetError extends Error {
+  override readonly name = "CloudinaryBudgetError";
+}
+
+export async function assertCloudinaryFreeCredits(config: CloudinaryConfig): Promise<void> {
+  const endpoint = "https://api.cloudinary.com/v1_1/" + encodeURIComponent(config.cloudName) + "/usage";
+  let response: Response;
+  try {
+    response = await fetch(endpoint, {
+      headers: { Authorization: "Basic " + Buffer.from(config.apiKey + ":" + config.apiSecret).toString("base64") }
+    });
+  } catch {
+    throw new CloudinaryBudgetError("Cloudinary credit usage could not be verified");
+  }
+  if (!response.ok) {
+    throw new CloudinaryBudgetError("Cloudinary credit usage unavailable (HTTP " + response.status + ")");
+  }
+  let payload: { credits?: { usage?: number; limit?: number } };
+  try {
+    payload = await response.json() as typeof payload;
+  } catch {
+    throw new CloudinaryBudgetError("Cloudinary usage response was invalid");
+  }
+  const used = payload.credits?.usage;
+  const limit = payload.credits?.limit;
+  if (typeof used !== "number" || typeof limit !== "number" ||
+      !Number.isFinite(used) || !Number.isFinite(limit) || used < 0 || limit <= 0) {
+    throw new CloudinaryBudgetError("Cloudinary credit totals missing; media upload deferred");
+  }
+  const operatingLimit = Math.min(20, limit * 0.8);
+  if (used >= operatingLimit) {
+    throw new CloudinaryBudgetError("Cloudinary rolling-30-day credit reserve reached; media upload deferred");
+  }
+}
+
 export async function uploadPng(png: Buffer, publicId: string, config: CloudinaryConfig): Promise<string> {
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const folder = config.folder ?? "threads-content-agent";

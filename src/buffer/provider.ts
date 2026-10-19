@@ -1,4 +1,5 @@
 import type { ThreadsJob, ThreadsMetrics } from "../domain/job.js";
+import { assessBufferBudget, readBufferRateWindows, type BufferRateWindow } from "../core/free-budget.js";
 
 type GraphQLError = {
   message?: string;
@@ -93,6 +94,7 @@ function isRateLimit(errors: GraphQLError[]): boolean {
 
 export class BufferProvider {
   private cachedHealth?: BufferHealth;
+  private rateWindows?: BufferRateWindow[];
 
   constructor(
     private readonly apiKey: string,
@@ -106,6 +108,10 @@ export class BufferProvider {
     variables: Record<string, unknown> = {},
     mutation = false
   ): Promise<T> {
+    if (this.rateWindows) {
+      const budgetBlock = assessBufferBudget(this.rateWindows);
+      if (budgetBlock) throw new RetryableBufferError(budgetBlock);
+    }
     let response: Response;
     try {
       response = await fetch(this.endpoint, {
@@ -128,8 +134,18 @@ export class BufferProvider {
     }
 
     if (response.status === 429) {
-      throw new RetryableBufferError("Buffer API rate limit reached");
+      throw new RetryableBufferError("Buffer API rate limit reached; wait for Retry-After");
     }
+
+    // All Buffer GraphQL responses are documented to include three RateLimit windows.
+    // Never log the token or dump response headers, and never blindly retry a mutation.
+    const windows = readBufferRateWindows(response.headers.get("ratelimit"));
+    if (windows.length !== 3) {
+      const reason = "Buffer did not supply complete rolling rate-limit headers";
+      if (mutation) throw new AmbiguousBufferPublishError(reason + " during createPost");
+      throw new RetryableBufferError(reason);
+    }
+    this.rateWindows = windows;
 
     if (!response.ok) {
       const detail = await response.text();

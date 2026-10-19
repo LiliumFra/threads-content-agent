@@ -249,7 +249,7 @@
     },
     "cloudinary": {
       "free_credits": 25,
-      "hard_new_images_per_day": 12,
+      "hard_new_images_per_day": 8,
       "rationale": "Up to one generated visual per published post; a second source image is optional and must be omitted before free-tier headroom is threatened."
     }
   },
@@ -391,10 +391,14 @@
       "operational_queue_ceiling": 8,
       "reserved_queue_slots": 2,
       "queue_usage_mode": "github_pending_then_buffer_shareNow",
-      "buffer_scheduled_queue_is_current_bottleneck": false
+      "buffer_scheduled_queue_is_current_bottleneck": false,
+      "window_enforcement": "RateLimit response headers, rolling windows, 20% reserve"
     },
     "cloudinary": {
-      "max_new_images_per_day": 12
+      "max_new_images_per_day": 8,
+      "operating_credit_limit": 20,
+      "provider_credit_limit": 25,
+      "usage_enforcement": "Admin API /usage before production media upload; lagging data, approximate"
     },
     "rules": [
       "Share budgets across all languages.",

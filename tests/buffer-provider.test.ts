@@ -30,7 +30,7 @@ const baseJob: ThreadsJob = {
 function json(data: unknown): Response {
   return new Response(JSON.stringify(data), {
     status: 200,
-    headers: { "Content-Type": "application/json" }
+    headers: { "Content-Type": "application/json", "RateLimit": '"100-in-15min";r=90;t=880, "250-in-1day";r=230;t=80000, "3000-in-30days";r=2900;t=2000000' }
   });
 }
 
