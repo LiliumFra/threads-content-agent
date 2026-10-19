@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "DELIVERY_PENDING",
   "publish_at": "2026-10-19T10:54:45-03:00",
   "action": "post",
   "topic": "chips",
@@ -37,5 +37,17 @@
       "https://events.linuxfoundation.org/pytorch-conference-north-america/program/schedule/?id=1298057"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "DELIVERY_PENDING",
+    "submitted_at": "2026-10-19T13:55:21.472Z",
+    "provider": "buffer",
+    "provider_status": "sending",
+    "provider_post_id": "6ad6214b3e5fb9f3ab961f7c",
+    "content_hash": "50ac5d250777c4edb4854a6e31fec583b80c981aebeeda237299ccd0db7481a9",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1792418122/threads-content-agent/threads-50ac5d250777c4edb485.jpg",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1792418122/threads-content-agent/threads-50ac5d250777c4edb485.jpg"
+    ]
+  }
 }
