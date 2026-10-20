@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-10-20T08:13:57-03:00",
   "action": "post",
   "topic": "software",
@@ -37,5 +37,19 @@
       "https://www.reuters.com/world/asia-pacific/sea-plans-ipo-financial-services-arm-monee-memo-says-2026-10-20/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "submitted_at": "2026-10-20T11:14:28.101Z",
+    "provider": "buffer",
+    "provider_status": "sent",
+    "provider_post_id": "6ad74d1531ed850c40dd7d98",
+    "content_hash": "57c62620de4ffab1e5a02ded221c8081b8084f741bdc7785f56688dca4f97d4e",
+    "published_at": "2026-10-20T11:14:39.361Z",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/Dets4XAFXxG",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1792494869/threads-content-agent/threads-57c62620de4ffab1e5a0.jpg",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1792494869/threads-content-agent/threads-57c62620de4ffab1e5a0.jpg"
+    ]
+  }
 }
