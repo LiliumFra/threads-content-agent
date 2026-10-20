@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-20T12:09:00-03:00",
+  "action": "post",
+  "topic": "chips",
+  "language": "en",
+  "content": {
+    "text": "Reuters reports ByteDance, Alibaba and Tencent ordered over 3 million NVIDIA RTX PRO 5500 GPUs, worth more than $35B at list prices. These are 84GB workstation cards, not NVIDIA’s top data-center chips. Crucially, orders aren't shipments: the report says NVIDIA cannot guarantee supply. For AI infrastructure, availability may matter as much as raw performance.",
+    "topic_tag": "NVIDIA",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "Reuters: $35B+ in RTX PRO 5500 orders",
+    "subheadline": "More than 3 million GPUs reportedly ordered. Supply is not guaranteed; orders are not deliveries.",
+    "eyebrow": "AI HARDWARE · REPORTED",
+    "alt_text": "Original editorial card summarizing a Reuters report: ByteDance, Alibaba and Tencent reportedly ordered more than $35 billion of NVIDIA RTX PRO 5500 GPUs; deliveries are not guaranteed."
+  },
+  "strategy": {
+    "hook_style": "verified-number-context",
+    "goal": "inform",
+    "content_type": "data",
+    "candidate_score": 82,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 15,
+      "novelty": 15,
+      "conversation_potential": 14,
+      "visual_potential": 8
+    },
+    "sources": [
+      "https://www.reuters.com/business/retail-consumer/bytedance-alibaba-tencent-place-over-35-billion-worth-nvidia-chip-orders-2026-10-20/",
+      "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5500/"
+    ]
+  },
+  "dry_run": false
+}
