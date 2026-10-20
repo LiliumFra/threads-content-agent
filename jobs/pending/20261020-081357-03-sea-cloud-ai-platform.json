@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-20T08:13:57-03:00",
+  "action": "post",
+  "topic": "software",
+  "language": "es",
+  "content": {
+    "text": "La empresa detrás de Shopee y Garena anunció Sea Cloud: planea ofrecer a otras compañías la infraestructura que lleva más de 10 años usando internamente, ahora adaptada para aplicaciones de IA. Según su director ejecutivo, unas 500 personas trabajaron durante dos años en esa transformación. No es otro chatbot: es una apuesta por vender infraestructura empresarial. ¿Qué tendría que ofrecer para competir con las grandes nubes?",
+    "topic_tag": "Tecnología",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "Sea Cloud: una nueva apuesta por la nube para IA",
+    "subheadline": "La matriz de Shopee y Garena planea ofrecer su infraestructura a otras empresas tras dos años de adaptación.",
+    "eyebrow": "INFRAESTRUCTURA · IA",
+    "alt_text": "Tarjeta editorial original sobre Sea Cloud. Sea, la empresa de Shopee y Garena, anunció que planea ofrecer a terceros su infraestructura empresarial orientada a IA, reconstruida durante dos años por unas 500 personas."
+  },
+  "strategy": {
+    "hook_style": "contrast",
+    "goal": "inform_and_discuss",
+    "content_type": "explainer",
+    "candidate_score": 78,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 13,
+      "novelty": 14,
+      "conversation_potential": 13,
+      "visual_potential": 8
+    },
+    "sources": [
+      "https://www.sec.gov/Archives/edgar/data/1703399/000119312526425639/d181814dex991.htm",
+      "https://www.reuters.com/world/asia-pacific/sea-plans-ipo-financial-services-arm-monee-memo-says-2026-10-20/"
+    ]
+  },
+  "dry_run": false
+}
