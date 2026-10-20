@@ -57,6 +57,32 @@ function dayKey(date: Date, timezone: string): string {
   return [value.year, value.month, value.day].join("-");
 }
 
+/**
+ * Count distinct Cloudinary assets created on the current policy day.
+ * FAILED/REVIEW deliveries can still have incurred a media upload.
+ * Reused URLs across failed-and-retried jobs must not be double-counted.
+ * Unknown timestamps on recorded uploads are unsafe: defer new media.
+ */
+export function countDailyMediaUploads(jobs: ThreadsJob[], now: Date, timezone: string): number {
+  const today = dayKey(now, timezone);
+  const uploaded = new Set<string>();
+
+  for (const job of jobs) {
+    const result = job.result;
+    if (!result) continue;
+    const urls = result.media_urls?.length ? result.media_urls : result.media_url ? [result.media_url] : [];
+    if (urls.length === 0) continue;
+    const recordedAt = result.submitted_at ?? result.published_at;
+    const timestamp = recordedAt ? new Date(recordedAt) : null;
+    if (!timestamp || Number.isNaN(timestamp.getTime())) {
+      throw new CloudinaryBudgetError("Daily Cloudinary upload history has an unknown timestamp; media uploads deferred");
+    }
+    if (dayKey(timestamp, timezone) !== today) continue;
+    for (const url of urls) uploaded.add(url);
+  }
+  return uploaded.size;
+}
+
 export class FileProcessor {
   private readonly pendingDir: string;
   private readonly resultsDir: string;
@@ -136,16 +162,17 @@ export class FileProcessor {
   }
 
   private async mediaUploadsToday(now: Date): Promise<number> {
-    const today = dayKey(now, this.config.policy.timezone);
-    let count = 0;
-    for (const job of await this.publishedJobs()) {
-      const at = job.result?.published_at;
-      if (!at || dayKey(new Date(at), this.config.policy.timezone) !== today) continue;
-      const urls = job.result?.media_urls;
-      if (urls?.length) count += urls.length;
-      else if (job.result?.media_url) count += 1;
+    const jobs: ThreadsJob[] = [];
+    for (const path of await listJson(this.resultsDir)) {
+      try {
+        jobs.push(await readJob(path));
+      } catch {
+        throw new CloudinaryBudgetError(
+          "Daily Cloudinary upload history could not be verified; media uploads deferred"
+        );
+      }
     }
-    return count;
+    return countDailyMediaUploads(jobs, now, this.config.policy.timezone);
   }
 
   private async persistTerminal(pendingPath: string, job: ThreadsJob): Promise<void> {
