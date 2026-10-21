@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-21T10:15:58-03:00",
+  "action": "post",
+  "topic": "cybersecurity",
+  "language": "es",
+  "content": {
+    "text": "Un WordPress actualizado no garantiza que el PHP del servidor esté protegido. El equipo de PHP anunció parches para dos fallos críticos (CVSS 9,2) hoy a las 14:00 UTC (11:00 en Argentina); aún no confirmó qué versiones están afectadas. Si administrás un sitio, verificá quién actualiza PHP en el hosting y prepará la instalación. CERT-EU recomienda aislar sistemas expuestos que no puedan corregirse a tiempo.",
+    "topic_tag": "Ciberseguridad",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "none"
+  },
+  "strategy": {
+    "hook_style": "security-action",
+    "goal": "actionable-risk-context",
+    "content_type": "explainer",
+    "candidate_score": 80,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 15,
+      "novelty": 15,
+      "conversation_potential": 14,
+      "visual_potential": 6
+    },
+    "sources": [
+      "https://news-web.php.net/php.announce/509",
+      "https://www.reuters.com/world/asia-pacific/eu-agency-warns-websites-may-need-be-taken-offline-php-prepares-patches-2026-10-21/",
+      "https://www.ncsc.gov.uk/news/critical-security-issue-affecting-php"
+    ]
+  },
+  "dry_run": false
+}
