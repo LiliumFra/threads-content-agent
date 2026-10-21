@@ -218,3 +218,51 @@ A post may be:
 The Samsung One UI 9 manual insight snapshot is the first explicit distribution-breakout benchmark for this account: 8,063 views from 4,929 viewers, 18 likes, 0 replies, 2 profile visits and 0 followers gained. Most reach came through Instagram rather than the Threads home surface. Treat this as evidence that broad consumer relevance and cross-surface distribution can create reach without proportional conversation or conversion.
 
 Do not copy its wording or over-publish Samsung. Instead test structural traits on genuinely timely comparable stories: large installed-base products, rollout/availability changes, direct user utility, a recognizable product identity, and a concrete question about what users value most. Require repeated matched evidence before changing content mix or cadence.
+
+## Quality upgrade — evidence-first Threads posts (2026-10-21)
+
+This is an editorial decision guide, **not** a change to runtime caps, automation frequency, credentials, provider calls or live scheduler. Apply the stricter of this guide, AGENTS.md, code and configuration. Do not enqueue solely because a candidate passes a copywriting checklist.
+
+### Verify the central claim, not just the bibliography
+
+For each candidate create a short internal claim ledger: (1) the specific news event and announcement time, (2) the strongest publishable claim, (3) who asserts it, (4) primary evidence for that claim, (5) a genuinely independent corroborating report or clearly explain its absence, (6) what is unverified. An official specification validates the specification; it does **not** independently corroborate a third-party order, shipment, security incident or claimed benchmark. Likewise, a newspaper article about a company's unrelated business is not corroboration of its new product.
+
+Require the configured minimum of two reliable, **claim-relevant** source URLs for a production job, with different editorial origins when feasible. If both sources cannot support the central news event, hold the candidate or narrow the central claim to what is actually established; never pad strategy.sources with an unrelated URL. Attribute vendor-funded numbers, unreplicated benchmarks, future availability, preorder values, estimates, predictions, allegations and nonfinal regulatory plans. Distinguish announced vs shipped, demo vs released, API availability vs open weights, vulnerability reports vs confirmed exploits and nominal price vs real cost.
+
+### 3-part post structure and varied endings
+
+Before drafting, explicitly choose **one reader benefit**: does the post change what a user can do, buy, configure, secure, understand or compare? The first sentence should contain the most useful supported fact or contrast; the second should supply a concrete caveat or real-world consequence. The ending should *earn* its space. A question is optional; avoid the habitual generic endings "What do you think?", "Price, speed or quality?" or one more broad question on every article. When a genuine decision exists, ask a specific informed tradeoff question. Otherwise finish with an implication, verification status, practical action, caveat, availability, or measured comparison.
+
+Diversify hooks without inventing data:
+- **User impact:** "This Android update changes [specific behavior] for [eligible devices]; here's the rollout limit..."
+- **Numerical contrast:** "[Verified numerator] vs [verified comparator]—but both figures cover [different conditions]..."
+- **Security action:** "[Confirmed issue] affects [versions/exposure]; [verified mitigation] is available from [date]..."
+- **Developer utility:** "[New support] removes [documented integration step], with [documented limitation]..."
+- **Evidence check:** "The company reports [claimed gain], but [independent benchmark] has not yet tested [scenario]..."
+- **Meaningful discussion:** end with a narrow question only when readers can contribute concrete first-hand experience or make a real technical choice; never fabricate personal experience for the account.
+
+For editorial variety, compare the **last ten confirmed sent posts** before choosing a hook. Avoid repeating the same question template, opening ("X announced...") or closely related category just to reach the daily target. Useful original English posts need independent audience relevance, not translation of an ES story. Optional working-length preference: ~180–360 characters where the core claim fits, while the true supported limit remains 500 Unicode characters.
+
+### Scoring and confidence calibration
+
+Use the seven *exact* fields and maximum weights in `config/automation.json` (15+15+15+15+15+15+10 = 100). Record scores only for observable editorial evidence. In particular, `discussion_velocity` is **zero if reliable, timed conversation observations are missing**; never infer velocity from how notable a brand is, the age of an article or a model's prediction. `candidate_score` must equal the sum of the seven recorded values. Source quality must reflect independence, credibility, relevance to the **central claim** and direct access to evidence; two links alone are not an automatic 15/15. If factual uncertainty is material, reject rather than compensating with other high dimensions. Apply the effective ES/EN and daily escalating thresholds, hard gaps, cooldowns and budgets without modification.
+
+### Informative visuals rather than decorative repetition
+
+Current implemented visual modes are **card** and **none**, not carousel or generative video. Use a card when it clarifies a verified quantity, before/after, product compatibility, security scope or decision matrix and has descriptive `alt_text`. Keep card headline and subheadline complementary to, rather than duplicating, the main post; no fabricated figures, decorative stock photos or clipped screenshots. For highly technical nuance or low media quota, choose intentional text-only `none`. Any external asset requires explicit reuse permission and documented rights; attribution by itself does not grant that permission. Do not spend Cloudinary credits on repeated assets or degrade a validated card automatically when usage cannot be confirmed.
+
+### Adaptive measurement: do not mistake exposure for community
+
+Compare only provider-confirmed `sent` posts with at least 24 hours of metric maturation (also compare 72 hours if available). Track **distribution** (views), **engagement** (likes/reposts/quotes per 1,000 views), **conversation** (replies per 1,000 views), and **conversion** (profile/follow metrics only when available), separately. A post with high views and no replies or follows is a *distribution* result, not proof that its hook grows community. Undefined denominators (0 views) are N/A, not zero engagement. Do not count pending, scheduled, sending, failed or review statuses as published and do not treat a saved PUBLISHED flag without provider `sent` as delivery.
+
+Keep comparisons matched by language, topic, hook, format, audience-local time and age. Account-specific clock times must use real destination time zones and DST. With fewer than 20 comparable mature posts per segment, record only hypotheses; do not promote winning templates, change the global cadence or claim significance from one outlier. Preserve the existing 28-day experiment beginning 2026-10-19 and daily metrics workflow; do not create another scheduled analytics run.
+
+### Conversation after publishing
+
+Buffer's observational Threads dataset found stronger engagement in posts where account owners replied to their comments, but does not establish causation (https://buffer.com/resources/threads-comments-engagement/). When genuine questions are received, prepare a **manual-response opportunity**, with context and evidence, rather than adding an unsupported bot-reply action or making engagement-bait questions. The objective is helpful discussion and trust, not artificial comment volume.
+
+### External research baselines (not account-specific promises)
+
+- Buffer 2026 analysis of 52M+ cross-platform posts: Threads median engagement differed substantially by video/image/text/link format, while formats overlap and observational results should not be treated as causal: https://buffer.com/resources/state-of-social-media-engagement-2026/
+- Buffer 2026, 2.5M Threads posts: weekday mornings and midweek were stronger in the sample, but local-audience tests take precedence: https://buffer.com/resources/the-best-time-to-post-on-threads/
+- Meta's official Threads topics update: tagged-topic posts generally received more views in Meta's data, not a guarantee for each account: https://about.fb.com/news/2025/03/new-threads-features-more-personalized-experience-you-control/
