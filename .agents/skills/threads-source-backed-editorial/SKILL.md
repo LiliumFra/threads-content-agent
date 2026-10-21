@@ -19,3 +19,16 @@ Read `AGENTS.md`, `config/automation.json`, `config/growth.json`, `config/policy
 
 ## Output
 Verified story, source dates/URLs, novelty/dedupe decision, configured score calculation, target language/topic, acceptable visual rights, eligible slot, proposed job path, and publisher confirmation only if actual downstream result IDs exist.
+
+## Editorial quality gates (2026-10-21)
+
+Apply the detailed claim-ledger, style-variation and learning rules in `docs/EDITORIAL_POLICY.md` before drafting any production job. These gates refine content quality only; they do not modify runtime policy, job schema, schedules or provider budgets.
+
+1. **Central-claim verification:** Require >=2 reliable claim-relevant source URLs and identify what each actually proves. A manufacturer spec sheet does not corroborate a separate order claim; an unrelated Reuters company report does not substantiate a product announcement. Hold or narrow unsupported stories. Distinguish company claims from independently tested outcomes.
+2. **No invented momentum:** Seven score_breakdown keys must match exactly the seven weighted dimensions in `config/automation.json`, each within its configured maximum; their sum equals candidate_score. Give discussion_velocity **0** in the absence of real timed conversation evidence. Do not pad source_quality because two URLs exist.
+3. **Audience utility first:** Choose one concrete consequence or decision for the target reader. Rotate supported opening styles (user impact, numeric contrast, security action, developer utility, evidence check), based on the last ten confirmed sent posts. Avoid repeating formulaic broad closing questions: a specific informed question is optional, not required.
+4. **Format selection:** Use schema-supported card only when it conveys additional verified context (scope, number, comparison, eligibility); otherwise use intentional text-only mode. No imaginary native carousel or video feature. Describe images with alt text, honor rights and quotas.
+5. **Safe learning:** Classify mature provider-sent metrics as distribution, engagement, conversation and conversion. Use >=24h maturity; 0-view denominator => unavailable ratio. Wait for >=20 matched mature posts per segment before changing guidance; never infer a guaranteed lift or automatically increase frequency.
+6. **Human conversation:** Where comments exist, identify substantiated reply opportunities for a person to review; never invent an automated replies integration. Preserve exact existing publish windows, dedupe, topic cooldown, spacing, daily caps and delivery confirmation.
+
+Reference research: https://buffer.com/resources/state-of-social-media-engagement-2026/ ; https://buffer.com/resources/threads-comments-engagement/ ; https://buffer.com/resources/the-best-time-to-post-on-threads/ ; https://about.fb.com/news/2025/03/new-threads-features-more-personalized-experience-you-control/
