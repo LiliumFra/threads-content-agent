@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-21T15:12:02-03:00",
+  "action": "post",
+  "topic": "chips",
+  "language": "en",
+  "content": {
+    "text": "NVIDIA says its DSX POD could shrink AI data-center setup at a prepared site from six months to as little as 14 days. Vera Rubin systems would arrive factory-wired, tested and housed in modular containers. That's a company projection, not a measured rollout: partners expect deliveries in early 2027. Sites still need power, cooling and networking ready.",
+    "topic_tag": "NVIDIA",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "none"
+  },
+  "strategy": {
+    "hook_style": "qualified-numeric-contrast",
+    "goal": "inform",
+    "content_type": "data",
+    "candidate_score": 80,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 14,
+      "novelty": 15,
+      "conversation_potential": 14,
+      "visual_potential": 7
+    },
+    "sources": [
+      "https://nvidianews.nvidia.com/news/nvidia-introduces-dsx-pod-ai-factories-to-accelerate-europes-infrastructure-deployment",
+      "https://www.theregister.com/on-prem/2026/10/21/nvidias-grand-plan-for-speeding-up-datacenter-deployments-ai-trailer-parks/5304303",
+      "https://apnews.com/article/jensen-huang-ai-gtc-berlin-nvidia-a320db64110d99297381912605ebdc57"
+    ]
+  },
+  "dry_run": false
+}
