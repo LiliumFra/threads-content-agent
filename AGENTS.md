@@ -36,3 +36,15 @@ Before a due-now job: read HEAD; check results/pending for repeated event, cross
 After enqueue, inspect the **push-triggered** queue run and `jobs/results/<id>.json`; only Buffer `provider_status:sent`, real `provider_post_id`, and `external_url` (when supplied) count as delivered. Report that exact permalink when available. A failed attempt, missing result, missing URL, or GitHub commit alone must not be described as publication. Preserve the existing single hourly task and its timing; never disable it because one scan is blocked.
 
 A consumer unable to see a post should first compare the Buffer permalink and connected Threads account handle; provider `sent` is evidence of provider-confirmed delivery, **not direct inspection of the signed-in Threads timeline**. The task's ChatGPT notification settings are independent of provider publishing and should never be inferred from queue success.
+
+## Publication commit trigger integrity
+
+The queue workflow is triggered by a `main` push that changes `jobs/pending/*.json`, but GitHub Actions **does not run push workflows for commits whose messages contain CI-skip directives**. This caused a confirmed 2026-10-21 incident: DSX POD was queued in commit `cf2ebf5` with `[skip ci]`; it was sent only when the six-hour recovery processed it, 3h32m after the intended audience slot.
+
+**Strict commit-message split:**
+- **New approved READY publication job:** commit message must be `content(threads): queue <verified-story-short-title>` or equivalent, **without** `[skip ci]`, `[ci skip]`, `[no ci]`, `[skip actions]`, or any CI-suppression marker, including in trailers. Read back commit message and new file after creation.
+- **Docs, pure research, metric/result persistence:** may use `[skip ci]` when appropriate to avoid needless Actions, but never mix these with a new pending JSON in one commit.
+- **Before pushing:** ensure the confirmed delivery gap, native topic and category cooldowns, verified sources, due-now `publish_at`, time window, score and provider headroom are valid; avoid a pending job that would be published much later by recovery.
+- **After pushing:** check whether the expected push-triggered queue run exists and the corresponding job moved to `jobs/results`. If no run appeared or results are ambiguous, label as `ENQUEUED_NOT_CONFIRMED`, never `PUBLISHED`; do not enqueue another just to wake a stalled job or retry a delivery blindly. Reconcile the existing pending job safely first. If GitHub denies edits, report an explicit bounded blocker and leave the hourly discovery task enabled.
+
+The hourly scan is a **research opportunity**, not a promise of one published post per hour. The five-per-day setting is an evidence-dependent target, never a reason to lower the existing gates or post filler. A low count should be diagnosed as: candidates found/verified, candidates blocked by quality/time/cooldown, GitHub write/trigger failures, and provider-confirmed deliveries. Preserve the existing task/schedule and all budgets.
