@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-10-21T10:15:58-03:00",
   "action": "post",
   "topic": "cybersecurity",
@@ -34,5 +34,15 @@
       "https://www.ncsc.gov.uk/news/critical-security-issue-affecting-php"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "submitted_at": "2026-10-21T13:16:11.933Z",
+    "provider": "buffer",
+    "provider_status": "sent",
+    "provider_post_id": "6ad8bb1c88865f7e6d319e0c",
+    "content_hash": "95949884c567120aa36c25dfe89af5e47eca18dc67bc0405a35b0f0b53050e8c",
+    "published_at": "2026-10-21T13:16:20.986Z",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DewfmotnO3v"
+  }
 }
