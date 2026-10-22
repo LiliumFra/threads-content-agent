@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-22T16:12:29-03:00",
+  "action": "post",
+  "topic": "software",
+  "language": "es",
+  "content": {
+    "text": "Arc dejará de funcionar en macOS y Windows el 22 de diciembre. The Browser Company confirmó hoy el cierre: ya no admite cuentas nuevas y el 23 de noviembre desactivará la sincronización y las funciones de IA en móviles. Si usás Arc, exportá tus datos antes del cierre (en escritorio: Ajustes → Avanzado → Exportar datos). Dia será su reemplazo, pero también podés elegir otro navegador.",
+    "topic_tag": "Tecnología"
+  },
+  "visual": {
+    "mode": "none"
+  },
+  "strategy": {
+    "hook_style": "direct_utility_deadline",
+    "goal": "inform_users_to_export_before_shutdown",
+    "content_type": "breaking_news",
+    "candidate_score": 86,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 14,
+      "discussion_velocity": 9,
+      "source_quality": 15,
+      "account_fit": 14,
+      "novelty": 15,
+      "conversation_potential": 13,
+      "visual_potential": 6
+    },
+    "sources": [
+      "https://arc.net/",
+      "https://www.theverge.com/tech/1016832/arc-browser-shutting-down"
+    ]
+  },
+  "dry_run": false
+}
