@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-23T07:10:21-03:00",
+  "action": "post",
+  "topic": "big-tech",
+  "language": "en",
+  "content": {
+    "text": "Apple's first foldable iPhone goes on sale today in 70+ markets. The iPhone Duo has a 5.4-inch cover screen, a 7.6-inch inner display and a $1,999 US starting price. Apple has confirmed limited walk-in stock in several countries, including the UK and US. Check your local store before travelling: launch day doesn't mean guaranteed availability.",
+    "topic_tag": "Apple",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "IPHONE DUO GOES ON SALE",
+    "subheadline": "OCT 23 · 5.4-IN OUTER / 7.6-IN INNER · FROM $1,999 (US)",
+    "eyebrow": "SMARTPHONES",
+    "alt_text": "Original dark editorial card reporting the October 23 launch of Apple's first foldable iPhone, with a 5.4-inch outer display, 7.6-inch inner display, and US starting price of $1,999. Source: Apple."
+  },
+  "strategy": {
+    "hook_style": "consumer_launch_utility",
+    "goal": "useful_context",
+    "content_type": "explainer",
+    "candidate_score": 81,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 15,
+      "novelty": 14,
+      "conversation_potential": 13,
+      "visual_potential": 9
+    },
+    "sources": [
+      "https://www.apple.com/newsroom/2026/10/iphone-duo-arrives-at-apple-store-locations-worldwide/",
+      "https://www.apple.com/newsroom/2026/09/apple-unveils-iphone-duo/",
+      "https://9to5mac.com/2026/10/22/greg-joswiak-talks-iphone-duo-in-store-availability-and-demand-ahead-of-launch/"
+    ]
+  },
+  "dry_run": false
+}
