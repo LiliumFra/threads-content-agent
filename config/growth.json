@@ -567,5 +567,81 @@
       "rationale": "Current Buffer Free supports multi-post Threads, but enable only after provider payload support is implemented and validated. Long-form formats may improve reach but should not be enabled by config alone.",
       "max_scheduled_threaded_posts_on_free_queue": 1
     }
+  },
+  "editorial_execution": {
+    "version": 2,
+    "purpose": "Improve opportunity capture, audience timing and informative production without loosening runtime gates or promising a daily quota.",
+    "scan_plan": {
+      "active_window_distinct_lanes_min": 3,
+      "active_window_distinct_lanes_max": 4,
+      "lanes": [
+        "Android and widely used consumer software releases or discontinuations",
+        "AI/model/API launches with access, prices and limitations verified",
+        "Chips, GPUs and robotics with independently corroborated availability",
+        "Actionable cybersecurity advisories with confirmed affected versions and mitigation"
+      ],
+      "advance_to_independent_verification_top_candidates": 2,
+      "publish_decision": "Best newly verified eligible story; normally at most one due-now job per scan. If best fails a material gate, evaluate the next independent lane instead of treating the entire scan as empty.",
+      "off_peak": "Only lightweight exceptional-breaking triage and pending/result reconciliation; no ordinary posts or future-dated READY jobs.",
+      "lane_rotation": "Diversify across policy.topic_cooldown_hours and last 18h of confirmed sent, pending, review, failed, delivery_pending jobs.",
+      "no_invented_claims_or_metrics": true
+    },
+    "timing_priority": {
+      "evidence": "Buffer 2026 observational study of 2.5 million Threads posts, audience-local median engagement; baseline only, not causal or account-specific.",
+      "source_url": "https://buffer.com/resources/the-best-time-to-post-on-threads/",
+      "weekday_es_priority_hours_local": {
+        "monday": [
+          12,
+          9
+        ],
+        "tuesday": [
+          10,
+          9
+        ],
+        "wednesday": [
+          12,
+          9
+        ],
+        "thursday": [
+          9,
+          10
+        ],
+        "friday": [
+          10,
+          9
+        ]
+      },
+      "interpretation": "Prefer investigating strong stories ahead of these windows within the existing allowed Jujuy intervals. The hourly HH:11 scan posts only due-now, never artificially at an exact HH:00 nor later using future-dated jobs.",
+      "target_timezones": [
+        "America/Argentina/Jujuy",
+        "Europe/London",
+        "America/New_York",
+        "America/Los_Angeles"
+      ],
+      "daylight_saving": "Resolve target-local clock and UTC offsets on every scan. Do not treat listed Jujuy EN ranges as permanent substitutes for actual UK/US morning.",
+      "competing_audiences": "A single global account; choose strongest independently relevant original ES/EN story and maintain one 60-minute global cooldown.",
+      "learning_requirement": "Do not automatically move or expand windows until at least 20 comparable sent/mature posts per segment; existing 28-day experiment remains active."
+    },
+    "informative_visuals": {
+      "default_decision": "Prefer a genuine 1080x1350 editorial card when it adds a verified datum, deadline, price, compatibility range, availability restriction, action step or meaningful comparison.",
+      "card_spec": "headline concise, subheadline complementary (not copy/paste), verified source hostname, useful relevant category and descriptive alt_text; no fabricated data.",
+      "text_only_when": "A deliberate exception for precise nuance, conversation-led formats, or unavailable safe media budget/rights; explain reason in editorial decision notes, not as an unsupported schema field.",
+      "media_budget": "Apply Cloudinary /usage and current shared daily upload ceiling; if insufficient, do not silently downgrade an image-dependent story or use unauthorized external images.",
+      "no_fake_capabilities": [
+        "carousel",
+        "generative video"
+      ]
+    },
+    "copy_quality": {
+      "preferred_chars": [
+        170,
+        360
+      ],
+      "mandatory": "One accurately sourced central fact plus who is affected or what changes, caveat if needed, and concrete reader utility. Optional genuine question only.",
+      "source_ledger": "Each central claim must be independently substantiated by at least two directly relevant reliable URLs, stored in strategy.sources. Never reuse an unrelated article as corroboration.",
+      "variation": "Compare last ten confirmed-sent copy openings, entities, native topics and visual formats; avoid repeating generic CTA or recycled angle.",
+      "no_score_inflation": "All seven score_breakdown terms bounded by automation.json weights; discussion_velocity=0 when there is no external evidence.",
+      "avoid_filler": true
+    }
   }
 }
