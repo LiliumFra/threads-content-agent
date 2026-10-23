@@ -5,7 +5,7 @@ description: Research, fact-check, score and prepare safe original tech-news pos
 # Threads source-backed editorial
 
 ## Prerequisites
-Read `AGENTS.md`, `config/automation.json`, `config/growth.json`, `config/policy.json`, `docs/EDITORIAL_POLICY.md` and current `jobs/pending`/`jobs/results` before proposing production jobs. Prefer source/config over copied historical thresholds.
+Read `AGENTS.md`, `config/automation.json`, `config/growth.json`, `config/policy.json`, `docs/EDITORIAL_POLICY.md`, `docs/EDITORIAL_EXECUTION_PLAYBOOK.md` and current `jobs/pending`/`jobs/results` before proposing production jobs. Prefer source/config over copied historical thresholds.
 
 ## Procedure
 1. Identify genuinely recent nonpolitical technology news within the configured freshness window. Verify each material factual claim against at least the configured number of independent credible sources, preferably a primary authority plus professional reporting. Do not use recycled Threads posts as factual evidence.
@@ -32,3 +32,13 @@ Apply the detailed claim-ledger, style-variation and learning rules in `docs/EDI
 6. **Human conversation:** Where comments exist, identify substantiated reply opportunities for a person to review; never invent an automated replies integration. Preserve exact existing publish windows, dedupe, topic cooldown, spacing, daily caps and delivery confirmation.
 
 Reference research: https://buffer.com/resources/state-of-social-media-engagement-2026/ ; https://buffer.com/resources/threads-comments-engagement/ ; https://buffer.com/resources/the-best-time-to-post-on-threads/ ; https://about.fb.com/news/2025/03/new-threads-features-more-personalized-experience-you-control/
+
+## Active-window throughput and media calibration (2026-10-23)
+
+Apply `config/growth.json.editorial_execution` and the operating playbook while leaving all configured safety limits intact.
+
+1. During a normal eligible window, do not stop after one generic discovery query: scan 3–4 independent lanes, deep-verify the two most promising **different events**, and consider the second if the first fails. Off-hours are reserved for bounded >=90 breaking checks and delivery reconciliation.
+2. Prefer audience-local high-engagement morning periods *within existing windows*, using each target's real timezone and DST. The hourly scanner's HH:11 is not a precise scheduled posting hour; due-now only, no scheduled READY backlog or CI skip markers on publication commits.
+3. For deadline, product availability, device eligibility, numeric comparison or patch-action stories, try to create a genuinely informative `card` with accessible alt text, accurate short headline and complementary subheadline. `none` is deliberate when nuance/conversation is better or verified media headroom is unavailable, not an automatic low-effort default.
+4. Target useful original content, not a higher count at any cost: strong single factual claim; what changes, who is affected, what action follows, and necessary limitations. Use a relevant native topic and vary framing against the last ten confirmed-sent posts.
+5. Never claim a publication from `status=PUBLISHED` alone. Count only provider `sent` plus post ID; use metrics snapshots collected >=24 hours after delivery and >=20 comparable posts per segment for adaptive timing/format decisions.
