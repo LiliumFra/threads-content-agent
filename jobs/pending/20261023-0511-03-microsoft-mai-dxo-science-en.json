@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-23T05:11:50-03:00",
+  "action": "post",
+  "topic": "artificial-intelligence",
+  "language": "en",
+  "content": {
+    "text": "Instead of seeing a full case upfront, Microsoft's MAI-DxO asks follow-up questions and selects tests step by step. In a newly published Science study, it scored 83% on complex teaching cases versus 36% for generalist doctors using references. The catch: a controlled, text-only benchmark isn't evidence of better real-world patient care. Prospective hospital testing is next.",
+    "topic_tag": "Artificial Intelligence",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "83% vs 36%",
+    "subheadline": "304 complex cases. Controlled text-only benchmark, not a clinical trial.",
+    "eyebrow": "AI + HEALTH · STUDY",
+    "alt_text": "Original editorial comparison card: Microsoft's MAI-DxO achieved 83% diagnostic accuracy versus 36% for generalist physicians using references on 304 complex teaching cases. These were controlled text-only benchmark results, not real-world clinical outcomes."
+  },
+  "strategy": {
+    "hook_style": "stepwise-method-and-benchmark-caveat",
+    "goal": "inform",
+    "content_type": "data",
+    "candidate_score": 80,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 14,
+      "novelty": 12,
+      "conversation_potential": 14,
+      "visual_potential": 10
+    },
+    "sources": [
+      "https://microsoft.ai/news/building-medical-superintelligence/",
+      "https://www.reuters.com/business/healthcare-pharmaceuticals/microsoft-develops-ai-tool-that-can-diagnose-sequentially-like-doctor-2026-10-23/",
+      "https://www.science.org/doi/10.1126/science.aeh7930"
+    ]
+  },
+  "dry_run": false
+}
