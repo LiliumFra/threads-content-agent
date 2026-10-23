@@ -92,13 +92,26 @@ export async function adaptiveTune() {
   if (!c?.enabled) return { status: "disabled" };
 
   const manualBreakouts = await loadManualBreakouts();
+  // Only provider-confirmed delivery is eligible for growth learning.
   const jobs = (await loadJobs()).filter(
-    (j) => j.status === "PUBLISHED" && j.result?.metrics && j.result?.published_at
+    (j) => j.status === "PUBLISHED" &&
+      j.result?.provider_status === "sent" &&
+      typeof j.result?.provider_post_id === "string" &&
+      j.result.provider_post_id.length > 0 &&
+      j.result?.metrics &&
+      j.result?.published_at
   );
   const now = Date.now();
-  const mature = jobs.filter(
-    (j) => now - Date.parse(j.result.published_at) >= c.metrics_maturity_hours * 3_600_000
-  );
+  const maturityMs = c.metrics_maturity_hours * 3_600_000;
+  // An early snapshot must not become "mature" merely because the post aged.
+  const mature = jobs.filter((j) => {
+    const publishedAt = Date.parse(j.result.published_at);
+    const measuredAt = Date.parse(j.result.metrics_updated_at ?? "");
+    return Number.isFinite(publishedAt) &&
+      Number.isFinite(measuredAt) &&
+      now - publishedAt >= maturityMs &&
+      measuredAt - publishedAt >= maturityMs;
+  });
 
   if (mature.length < c.minimum_published_posts_before_tuning) {
     return {
