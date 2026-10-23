@@ -23,6 +23,16 @@ Read actual source and current runtime configuration before editing. This reposi
 - Do not trigger or rerun GitHub Actions, publish to Threads/Buffer, change live limits or deploy without express user authorization. A saved JSON job is not a confirmed published post.
 - Run only appropriate local validations when authorized; report actual evidence and never claim a run was performed when it was not.
 
+## Editorial operations quality upgrade (2026-10-23)
+
+The concrete active-window research, audience-hour priorities, cards-versus-text decision, confirmation and metrics requirements are in `docs/EDITORIAL_EXECUTION_PLAYBOOK.md` and `config/growth.json.editorial_execution`. Read them **before candidate selection**, after the immutable policy/schema preflight. This is a documented improvement to existing hourly scans, **not** a new scheduler and not a license to increase provider ceilings, lower score thresholds or post filler.
+
+- During an otherwise eligible slot, investigate 3–4 distinct technology lanes and verify the best two *different* events. If the first event fails, investigate the next lane before declaring zero opportunities. The five-post daily goal remains conditional.
+- Use the audience-local 2026 Buffer timing baseline only to prioritize stories **within** already approved windows; resolve `Europe/London`, `America/New_York` and `America/Los_Angeles` offsets with DST, and publish only due-now within the valid window.
+- Prefer `visual.mode: "card"` when a factual deadline, availability, exact figure, software version or action step adds value. Never choose `none` merely to save effort: it must be an intentional editorial decision. Honour Cloudinary /usage fail-closed and media caps.
+- Vary the actual substance: one precise claim, its scope/limitation and what the reader can do; avoid formulaic generic questions or copying a previous angle. Score the seven configured terms accurately, with unproven discussion velocity set to 0.
+- Compute learning **only** from provider-confirmed sent posts with metrics observed after >=24h; preserve >=20 comparable per segment before adapting windows. In blocked or ambiguous cases, leave the hourly task enabled without manually dispatching Actions.
+
 ## Hourly editorial execution — avoid false empty scans
 
 The hourly ChatGPT task is the **discovery controller**; queue.yml only processes JSON already committed. A successful empty-queue Action does not indicate a publication attempt. Do not confuse the six-hour queue recovery cron with an hourly news scout.
