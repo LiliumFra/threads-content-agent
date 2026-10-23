@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "DELIVERY_PENDING",
   "publish_at": "2026-10-23T07:10:21-03:00",
   "action": "post",
   "topic": "big-tech",
@@ -38,5 +38,17 @@
       "https://9to5mac.com/2026/10/22/greg-joswiak-talks-iphone-duo-in-store-availability-and-demand-ahead-of-launch/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "DELIVERY_PENDING",
+    "submitted_at": "2026-10-23T10:10:53.971Z",
+    "provider": "buffer",
+    "provider_status": "sending",
+    "provider_post_id": "6adb32b040662d30d7bb16a1",
+    "content_hash": "f3fe7fad2ffe74afeaead3e0a6c51d2bc08a4a8c5a0b31d32381bdcd5b436229",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1792750255/threads-content-agent/threads-f3fe7fad2ffe74afeaea.jpg",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1792750255/threads-content-agent/threads-f3fe7fad2ffe74afeaea.jpg"
+    ]
+  }
 }
