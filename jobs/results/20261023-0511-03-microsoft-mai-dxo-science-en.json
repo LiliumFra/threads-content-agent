@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-10-23T05:11:50-03:00",
   "action": "post",
   "topic": "artificial-intelligence",
@@ -38,5 +38,19 @@
       "https://www.science.org/doi/10.1126/science.aeh7930"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "submitted_at": "2026-10-23T08:12:04.776Z",
+    "provider": "buffer",
+    "provider_status": "sent",
+    "provider_post_id": "6adb16d70b4dd2dd0c0b8b4a",
+    "content_hash": "c04752e83498a7cc15d0922f81633c0a70daa41d88e3c6049a7e5d74e26fb47e",
+    "published_at": "2026-10-23T08:12:16.671Z",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/De1GZLtlZmW",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1792743126/threads-content-agent/threads-c04752e83498a7cc15d0.jpg",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1792743126/threads-content-agent/threads-c04752e83498a7cc15d0.jpg"
+    ]
+  }
 }
