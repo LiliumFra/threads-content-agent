@@ -35,12 +35,29 @@
   "dry_run": false,
   "result": {
     "status": "PUBLISHED",
-    "submitted_at": "2026-10-22T19:13:05.177Z",
-    "provider": "buffer",
-    "provider_status": "sent",
-    "provider_post_id": "6ada60419a872e86219ce4bf",
-    "content_hash": "de67b662cd375aabff43b3e773084d801daca2bc1cbb45ea9f2f183e6b5a4313",
     "published_at": "2026-10-22T19:13:13.512Z",
-    "external_url": "https://www.threads.com/@_itsmelilium/post/DeztPZqGMeC"
+    "submitted_at": "2026-10-22T19:13:05.177Z",
+    "provider_status": "sent",
+    "provider": "buffer",
+    "provider_post_id": "6ada60419a872e86219ce4bf",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DeztPZqGMeC",
+    "content_hash": "de67b662cd375aabff43b3e773084d801daca2bc1cbb45ea9f2f183e6b5a4313",
+    "metrics": {
+      "likes": 0,
+      "replies": 0,
+      "engagement_rate": 0,
+      "views": 24,
+      "quotes": 0,
+      "reposts": 0
+    },
+    "provider_metrics": {
+      "reactions": 0,
+      "comments": 0,
+      "engagementRate": 0,
+      "views": 24,
+      "quotes": 0,
+      "reposts": 0
+    },
+    "metrics_updated_at": "2026-10-23T02:54:09.921Z"
   }
 }
