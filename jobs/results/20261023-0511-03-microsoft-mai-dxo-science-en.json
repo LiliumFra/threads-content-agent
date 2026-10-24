@@ -56,7 +56,7 @@
       "likes": 0,
       "replies": 0,
       "engagement_rate": 0,
-      "views": 0,
+      "views": 2,
       "quotes": 0,
       "reposts": 0
     },
@@ -64,10 +64,10 @@
       "reactions": 0,
       "comments": 0,
       "engagementRate": 0,
-      "views": 0,
+      "views": 2,
       "quotes": 0,
       "reposts": 0
     },
-    "metrics_updated_at": "2026-10-23T08:12:17.905Z"
+    "metrics_updated_at": "2026-10-24T01:55:38.075Z"
   }
 }
