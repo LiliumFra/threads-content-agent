@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-24T09:18:29.068-03:00",
+  "action": "post",
+  "topic": "artificial-intelligence",
+  "language": "es",
+  "content": {
+    "text": "Kimi K3.1 Pro llega con una decisión de seguridad: Moonshot dice que retiró datos vinculados a ciberseguridad de dos etapas del entrenamiento para limitar usos ofensivos. La reducción se midió en una prueba interna, sin verificación independiente. El modelo ya funciona en sus apps y API; los pesos descargables están previstos para el 4 de noviembre.",
+    "topic_tag": "Inteligencia Artificial",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "KIMI K3.1 PRO: EL FILTRO",
+    "subheadline": "90,5 % sin filtrado → 81,0 % con filtrado\nPrueba interna; pesos previstos: 4 de noviembre",
+    "eyebrow": "IA · SEGURIDAD",
+    "alt_text": "Tarjeta editorial sobre Kimi K3.1 Pro. Según una prueba interna de Moonshot AI, un modelo sin filtrado de datos de ciberseguridad resolvió el 90,5 % de las tareas de explotación, frente al 81,0 % del modelo final filtrado. No hay verificación independiente. Pesos descargables previstos para el 4 de noviembre de 2026."
+  },
+  "strategy": {
+    "hook_style": "safety_tradeoff_with_caveat",
+    "goal": "explain_verified_ai_safety_tradeoff",
+    "content_type": "data",
+    "candidate_score": 77,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 10,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 14,
+      "novelty": 15,
+      "conversation_potential": 14,
+      "visual_potential": 9
+    },
+    "sources": [
+      "https://www.kimi.ai/blog/kimi-k3-1-pro",
+      "https://www.reuters.com/technology/moonshot-curbs-hacking-ability-new-kimi-model-fears-grow-over-ai-powered-2026-10-24/",
+      "https://thenextweb.com/news/moonshot-kimi-k3-1-pro-open-weight-cyber"
+    ]
+  },
+  "dry_run": false
+}
