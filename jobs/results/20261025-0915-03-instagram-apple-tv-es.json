@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-10-25T09:15:25-03:00",
   "action": "post",
   "topic": "software",
@@ -38,5 +38,19 @@
       "https://new.qore.com/tecnologia/instagram-llega-a-apple-tv-con-reels-y-videos-largos/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "submitted_at": "2026-10-25T12:15:57.274Z",
+    "provider": "buffer",
+    "provider_status": "sent",
+    "provider_post_id": "6addf2ff3d5b27036bcffc92",
+    "content_hash": "0aa48b214cc1c7b92685ad6eb5f98e22bd26b2c212cd4703568bb1a5c91b272f",
+    "published_at": "2026-10-25T12:16:09.641Z",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/De6r5GwFe8b",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1792930559/threads-content-agent/threads-0aa48b214cc1c7b92685.jpg",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1792930559/threads-content-agent/threads-0aa48b214cc1c7b92685.jpg"
+    ]
+  }
 }
