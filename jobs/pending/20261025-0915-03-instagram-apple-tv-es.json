@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-25T09:15:25-03:00",
+  "action": "post",
+  "topic": "software",
+  "language": "es",
+  "content": {
+    "text": "Instagram ya tiene app oficial para Apple TV: permite ver Reels, videos largos y transmisiones en vivo, además de retomar la reproducción entre pantallas. Es gratuita y requiere tvOS 26 o posterior. Si tenés Apple TV, podés buscar Instagram directamente en su App Store.",
+    "topic_tag": "Instagram",
+    "reply_control": "everyone"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "INSTAGRAM LLEGA A APPLE TV",
+    "subheadline": "Reels, videos largos y directos · Requiere tvOS 26+",
+    "eyebrow": "APPS Y STREAMING",
+    "alt_text": "Tarjeta editorial sobre la disponibilidad oficial de Instagram en Apple TV. Indica que incluye Reels, videos largos y transmisiones en vivo y requiere tvOS 26 o posterior."
+  },
+  "strategy": {
+    "hook_style": "user_impact",
+    "goal": "utility",
+    "content_type": "breaking_news",
+    "candidate_score": 76,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 10,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 14,
+      "novelty": 15,
+      "conversation_potential": 12,
+      "visual_potential": 10
+    },
+    "sources": [
+      "https://apps.apple.com/us/app/instagram/id389801252?platform=tv",
+      "https://www.macrumors.com/2026/10/25/instagram-launches-apple-tv-app/",
+      "https://new.qore.com/tecnologia/instagram-llega-a-apple-tv-con-reels-y-videos-largos/"
+    ]
+  },
+  "dry_run": false
+}
