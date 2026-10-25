@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "DELIVERY_PENDING",
+  "status": "PUBLISHED",
   "publish_at": "2026-10-24T09:18:29.068-03:00",
   "action": "post",
   "topic": "artificial-intelligence",
@@ -40,15 +40,34 @@
   },
   "dry_run": false,
   "result": {
-    "status": "DELIVERY_PENDING",
+    "status": "PUBLISHED",
     "submitted_at": "2026-10-24T12:18:50.436Z",
+    "provider_status": "sent",
     "provider": "buffer",
-    "provider_status": "sending",
     "provider_post_id": "6adca22d3d5b27036b82aec7",
     "content_hash": "9ec8b3e3db7c86238db8c66b13bbeb1b3eda54d2b924140fc359b2b59c5bc8c1",
     "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1792844333/threads-content-agent/threads-9ec8b3e3db7c86238db8.jpg",
     "media_urls": [
       "https://res.cloudinary.com/g6b2gmnj/image/upload/v1792844333/threads-content-agent/threads-9ec8b3e3db7c86238db8.jpg"
-    ]
+    ],
+    "external_url": "https://www.threads.com/@_itsmelilium/post/De4HbjBkdwm",
+    "published_at": "2026-10-24T12:19:05.599Z",
+    "metrics": {
+      "likes": 0,
+      "replies": 0,
+      "engagement_rate": 0,
+      "views": 20,
+      "quotes": 0,
+      "reposts": 0
+    },
+    "provider_metrics": {
+      "reactions": 0,
+      "comments": 0,
+      "engagementRate": 0,
+      "views": 20,
+      "quotes": 0,
+      "reposts": 0
+    },
+    "metrics_updated_at": "2026-10-25T00:56:16.370Z"
   }
 }
