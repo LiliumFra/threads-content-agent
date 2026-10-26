@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   isMatureProviderSent,
   matchedLearningSegment,
+  matchedLearningSegments,
   observationBand,
   segmentKey,
   type MetricsLearningJob
@@ -14,17 +15,19 @@ function post({
   status = "PUBLISHED",
   language = "es",
   visual = "card",
+  topic = "artificial-intelligence",
   type = "explainer",
   age = 30,
   published = "2026-10-23T12:00:00Z"
 }: {
   id?: number; provider?: string; status?: string; language?: string;
-  visual?: string; type?: string; age?: number; published?: string;
+  visual?: string; topic?: string; type?: string; age?: number; published?: string;
 } = {}): MetricsLearningJob {
   const measuredAt = new Date(Date.parse(published) + age * 3_600_000).toISOString();
   return {
     status,
     language,
+    topic,
     visual: { mode: visual },
     strategy: { content_type: type },
     result: {
@@ -68,15 +71,21 @@ describe("metrics learning gates", () => {
     const base = Array.from({ length: 19 }, (_, i) => post({ id: i }));
     expect(matchedLearningSegment([...base, ...Array.from({ length: 20 }, (_, i) => post({ id: 100 + i, visual: "none" }))])).toBeNull();
     expect(matchedLearningSegment([...base, ...Array.from({ length: 20 }, (_, i) => post({ id: 200 + i, age: 80 }))])).toBeNull();
-    expect(segmentKey(post({ language: "en", visual: "none" }))).toBe("en|explainer|none|24-48h");
+    expect(segmentKey(post({ language: "en", visual: "none" }))).toBe("en|artificial-intelligence|explainer|none|24-48h");
   });
+  it("does not confuse two different topics within the same language and format", () => {
+    const oneTopic = Array.from({ length: 20 }, (_, id) => post({ id: 200 + id, topic: "android" }));
+    const otherTopic = Array.from({ length: 20 }, (_, id) => post({ id: 300 + id, topic: "cybersecurity" }));
+    expect(matchedLearningSegments([...oneTopic, ...otherTopic])).toHaveLength(0);
+  });
+
   it("selects 20+20 separate historical and recent snapshots of the same cohort", () => {
     const posts = Array.from({ length: 40 }, (_, i) => {
       const published = new Date(Date.parse("2026-08-01T12:00:00Z") + i * 86_400_000).toISOString();
       return post({ id: i + 1, published });
     });
     const matched = matchedLearningSegment(posts);
-    expect(matched?.key).toBe("es|explainer|card|24-48h");
+    expect(matched?.key).toBe("es|artificial-intelligence|explainer|card|24-48h");
     expect(matched?.baseline).toHaveLength(20);
     expect(matched?.recent).toHaveLength(20);
     expect(matched?.baseline[0]?.result?.provider_post_id).toBe("1");
