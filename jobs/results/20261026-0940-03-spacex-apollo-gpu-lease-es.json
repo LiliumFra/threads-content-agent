@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "DELIVERY_PENDING",
   "publish_at": "2026-10-26T09:39:30-03:00",
   "action": "post",
   "topic": "chips",
@@ -37,5 +37,17 @@
       "https://www.reuters.com/business/media-telecom/spacex-enters-40-billion-deal-with-apollo-ai-chip-financing-2026-10-26/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "DELIVERY_PENDING",
+    "submitted_at": "2026-10-26T12:40:04.662Z",
+    "provider": "buffer",
+    "provider_status": "sending",
+    "provider_post_id": "6adf4a27322a47148a748dc0",
+    "content_hash": "a9131bf5854ff6fa6fec8e1e77a64dd585eae9321a7a681b7049a107764e3079",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793018406/threads-content-agent/threads-a9131bf5854ff6fa6fec.jpg",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793018406/threads-content-agent/threads-a9131bf5854ff6fa6fec.jpg"
+    ]
+  }
 }
