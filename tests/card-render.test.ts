@@ -31,6 +31,11 @@ describe("editorial card quality", () => {
   it("refuses to silently clip exceptionally long unbreakable words", async () => {
     await expect(renderCard(card("X".repeat(38), "Subtítulo verificable"))).rejects.toThrow("cannot fit legibly");
   });
+  it("rejects wide uppercase glyphs that fit the character limit but overflow the card width", async () => {
+    await expect(renderCard(card("W".repeat(26), "Subtítulo legible")))
+      .rejects.toThrow("cannot fit legibly");
+  });
+
   it("refuses to drop the second half of an excessively long subheadline", async () => {
     await expect(renderCard(card(
       "Aviso de seguridad",
