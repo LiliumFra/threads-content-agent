@@ -90,6 +90,8 @@ export const jobSchema = z.object({
   source_media: sourceMediaSchema.optional(),
   strategy: z.object({
     hook_style: z.string().min(1).max(50),
+    // Event-level identity is stable across translations, rewrites and visual variants.
+    event_key: z.string().min(8).max(160).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).optional(),
     goal: z.string().min(1).max(50),
     content_type: contentTypeSchema.optional(),
     candidate_score: z.number().min(0).max(100).optional(),
