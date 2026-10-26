@@ -6,30 +6,48 @@ function escapeXml(value: string): string {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 }
 
-function wrap(text: string, max: number): string[] {
-  const words = text.trim().split(/\s+/);
+// Conservative Arial-like glyph widths protect mobile cards from clipping.
+// The canvas has 864px of horizontal room; retain a 12px inner margin.
+function estimatedEm(ch: string): number {
+  if (/\\s/u.test(ch)) return 0.32;
+  if (/[ilI1.,:;'|!]/u.test(ch)) return 0.34;
+  if (/[MW@%&]/u.test(ch)) return 0.94;
+  if (/[A-ZÁÉÍÓÚÑÜ]/u.test(ch)) return 0.72;
+  if (/[0-9]/u.test(ch)) return 0.62;
+  // Accented lower-case letters occupy essentially the same width as base.
+  if (/[^\\x00-\\x7F]/u.test(ch)) return 0.76;
+  return 0.59;
+}
+
+function estimatedWidth(text: string, fontSize: number): number {
+  return Array.from(text).reduce((sum, ch) => sum + estimatedEm(ch), 0) * fontSize * 1.06;
+}
+
+function wrapToWidth(text: string, fontSize: number, width: number): string[] | null {
+  const words = text.trim().split(/\\s+/u).filter(Boolean);
   const lines: string[] = [];
-  let current = "";
+  let line = "";
   for (const word of words) {
-    const candidate = current ? current + " " + word : word;
-    if (candidate.length > max && current) {
-      lines.push(current);
-      current = word;
+    if (estimatedWidth(word, fontSize) > width) return null;
+    const candidate = line ? line + " " + word : word;
+    if (estimatedWidth(candidate, fontSize) > width && line) {
+      lines.push(line);
+      line = word;
     } else {
-      current = candidate;
+      line = candidate;
     }
   }
-  if (current) lines.push(current);
+  if (line) lines.push(line);
   return lines;
 }
 
-/** Never silently truncate a factual headline or deadline on a public card. */
-function wrapForCard(text: string, limits: number[], maxLines: number, field: string): { lines: string[]; level: number } {
-  for (let level = 0; level < limits.length; level++) {
-    const limit = limits[level]!;
-    const lines = wrap(text, limit);
-    if (lines.length <= maxLines && lines.every((line) => line.length <= limit)) {
-      return { lines, level };
+/** Fit every word within the actual card width, or reject before publishing. */
+function wrapForCard(text: string, fontSizes: number[], maxLines: number, field: string):
+  { lines: string[]; fontSize: number } {
+  for (const fontSize of fontSizes) {
+    const lines = wrapToWidth(text, fontSize, 852);
+    if (lines && lines.length > 0 && lines.length <= maxLines) {
+      return { lines, fontSize };
     }
   }
   throw new Error("Card " + field + " cannot fit legibly; shorten copy rather than clipping verified facts");
@@ -56,12 +74,12 @@ function palette(seed: string): { a: string; b: string; c: string } {
 export async function renderCard(job: ThreadsJob): Promise<Buffer> {
   if (job.visual.mode !== "card") throw new Error("renderCard requires visual.mode=card");
 
-  const headlineLayout = wrapForCard(job.visual.headline, [20, 23, 26, 30], 4, "headline");
-  const subheadlineLayout = wrapForCard(job.visual.subheadline, [38, 42, 46, 50], 4, "subheadline");
+  const headlineLayout = wrapForCard(job.visual.headline, [80, 72, 64, 56, 48], 3, "headline");
+  const subheadlineLayout = wrapForCard(job.visual.subheadline, [39, 35, 31, 28], 4, "subheadline");
   const headline = headlineLayout.lines;
   const subheadline = subheadlineLayout.lines;
-  const headlineFont = [86, 76, 65, 57][headlineLayout.level]!;
-  const subheadlineFont = [39, 36, 33, 30][subheadlineLayout.level]!;
+  const headlineFont = headlineLayout.fontSize;
+  const subheadlineFont = subheadlineLayout.fontSize;
   const source = job.strategy.sources[0]
     ? new URL(job.strategy.sources[0]).hostname.replace(/^www\./, "")
     : "fuente verificada";
