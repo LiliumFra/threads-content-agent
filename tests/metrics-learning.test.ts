@@ -79,6 +79,25 @@ describe("metrics learning gates", () => {
     expect(matchedLearningSegments([...oneTopic, ...otherTopic])).toHaveLength(0);
   });
 
+  it("requires two separately replicated topic cohorts before account-wide tuning", () => {
+    const android = Array.from({ length: 40 }, (_, id) => post({
+      id: id + 1,
+      topic: "android",
+      published: new Date(Date.parse("2026-08-01T12:00:00Z") + id * 86_400_000).toISOString()
+    }));
+    const security = Array.from({ length: 40 }, (_, id) => post({
+      id: id + 101,
+      topic: "cybersecurity",
+      published: new Date(Date.parse("2026-08-01T12:00:00Z") + id * 86_400_000).toISOString()
+    }));
+    const matched = matchedLearningSegments([...android, ...security]);
+    expect(matched).toHaveLength(2);
+    expect(matched.map(item => item.key)).toEqual(expect.arrayContaining([
+      "es|android|explainer|card|24-48h",
+      "es|cybersecurity|explainer|card|24-48h"
+    ]));
+  });
+
   it("selects 20+20 separate historical and recent snapshots of the same cohort", () => {
     const posts = Array.from({ length: 40 }, (_, i) => {
       const published = new Date(Date.parse("2026-08-01T12:00:00Z") + i * 86_400_000).toISOString();
