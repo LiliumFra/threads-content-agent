@@ -98,19 +98,22 @@ export async function adaptiveTune() {
   // Prefer the immutable 24h capture over a later cumulative/lifetime total.
   // Only use a 72h snapshot when a 24h capture is missing; the observation
   // age band keeps those populations separated for comparisons.
-  const jobs = storedJobs.map((j) => {
+  const jobs = storedJobs.flatMap((j) => {
     const snapshots: Any[] = Array.isArray(j.result?.metrics_snapshots) ? j.result.metrics_snapshots : [];
     const fixed = snapshots.find((item) => item.window === "24h") ??
       snapshots.find((item) => item.window === "72h");
-    if (!fixed || !j.result) return j;
-    return {
+    // A historical cumulative sample taken 5 days or 5 weeks after publication
+    // is not comparable to a fixed-window observation. Preserve the raw job
+    // in results for auditing, but EXCLUDE it from automatic tuning.
+    if (!fixed || !j.result) return [];
+    return [{
       ...j,
       result: {
         ...j.result,
         metrics: fixed.metrics,
         metrics_updated_at: fixed.observed_at
       }
-    };
+    }];
   });
   // Never auto-tune from screenshots, a PUBLISHED flag alone, or
   // metric snapshots taken before the 24-hour maturity threshold.
@@ -122,6 +125,8 @@ export async function adaptiveTune() {
     return {
       status: "insufficient_sample",
       mature: mature.length,
+      snapshot_covered: jobs.length,
+      legacy_without_comparable_snapshot: storedJobs.length - jobs.length,
       required: c.minimum_published_posts_before_tuning,
       by_language: languageDiagnostics(mature),
       breakouts: breakoutDiagnostics(mature, g.performance_learning?.breakout_learning?.breakout_view_multiplier_vs_median ?? 3),
