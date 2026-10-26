@@ -1,6 +1,7 @@
 /** Read-only, provider-grounded eligibility and matched-segment selection for adaptive learning. */
 export interface MetricsLearningJob {
   status?: string;
+  topic?: string;
   language?: string;
   visual?: { mode?: string };
   strategy?: { content_type?: string };
@@ -48,12 +49,26 @@ export function isMatureProviderSent(job: MetricsLearningJob, nowMs: number, min
 export function segmentKey(job: MetricsLearningJob): string | null {
   const band = observationBand(job);
   if (!band) return null;
-  return [job.language || "unknown", job.strategy?.content_type || "unknown", job.visual?.mode || "unknown", band].join("|");
+  return [
+    job.language || "unknown",
+    job.topic || "unknown",
+    job.strategy?.content_type || "unknown",
+    job.visual?.mode || "unknown",
+    band
+  ].join("|");
 }
 
-export function matchedLearningSegment<T extends MetricsLearningJob>(
+export type MatchedLearningSegment<T> = {
+  key: string;
+  baseline: T[];
+  recent: T[];
+  sample: number;
+};
+
+/** Require independent news categories, not merely one lucky brand breakout. */
+export function matchedLearningSegments<T extends MetricsLearningJob>(
   matureJobs: T[], minimumPerPeriod = 20
-): { key: string; baseline: T[]; recent: T[]; sample: number } | null {
+): MatchedLearningSegment<T>[] {
   const min = Math.max(20, Math.ceil(minimumPerPeriod));
   const groups = new Map<string, T[]>();
   for (const job of matureJobs) {
@@ -63,17 +78,23 @@ export function matchedLearningSegment<T extends MetricsLearningJob>(
     bucket.push(job);
     groups.set(key, bucket);
   }
-  const eligible = [...groups.entries()]
+  return [...groups.entries()]
     .filter(([, entries]) => entries.length >= 2 * min)
-    .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
-  if (!eligible.length) return null;
-  const [key, entries] = eligible[0]!;
-  const ordered = [...entries].sort((a, b) =>
-    Date.parse(a.result?.published_at ?? "") - Date.parse(b.result?.published_at ?? ""));
-  return {
-    key,
-    baseline: ordered.slice(-2 * min, -min),
-    recent: ordered.slice(-min),
-    sample: ordered.length
-  };
+    .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]))
+    .map(([key, entries]) => {
+      const ordered = [...entries].sort((a, b) =>
+        Date.parse(a.result?.published_at ?? "") - Date.parse(b.result?.published_at ?? ""));
+      return {
+        key,
+        baseline: ordered.slice(-2 * min, -min),
+        recent: ordered.slice(-min),
+        sample: ordered.length
+      };
+    });
+}
+
+export function matchedLearningSegment<T extends MetricsLearningJob>(
+  matureJobs: T[], minimumPerPeriod = 20
+): MatchedLearningSegment<T> | null {
+  return matchedLearningSegments(matureJobs, minimumPerPeriod)[0] ?? null;
 }
