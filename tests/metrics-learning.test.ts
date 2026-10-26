@@ -44,7 +44,9 @@ describe("metrics learning gates", () => {
     expect(isMatureProviderSent(post({ status: "DELIVERY_PENDING" }), now)).toBe(false);
     expect(isMatureProviderSent(post({ age: 12 }), now)).toBe(false);
     expect(isMatureProviderSent({ ...post(), result: { ...post().result, provider_post_id: "" } }, now)).toBe(false);
-    expect(isMatureProviderSent({ ...post(), result: { ...post().result, metrics_updated_at: undefined } }, now)).toBe(false);
+    const withoutTimestamp = post();
+    if (withoutTimestamp.result) delete withoutTimestamp.result.metrics_updated_at;
+    expect(isMatureProviderSent(withoutTimestamp, now)).toBe(false);
   });
   it("rejects observations created in the future", () => {
     expect(isMatureProviderSent(post({ published: "2026-10-25T08:00:00Z", age: 30 }), now)).toBe(false);
