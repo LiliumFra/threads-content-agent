@@ -23,6 +23,18 @@ function wrap(text: string, max: number): string[] {
   return lines;
 }
 
+/** Never silently truncate a factual headline or deadline on a public card. */
+function wrapForCard(text: string, limits: number[], maxLines: number, field: string): { lines: string[]; level: number } {
+  for (let level = 0; level < limits.length; level++) {
+    const limit = limits[level]!;
+    const lines = wrap(text, limit);
+    if (lines.length <= maxLines && lines.every((line) => line.length <= limit)) {
+      return { lines, level };
+    }
+  }
+  throw new Error("Card " + field + " cannot fit legibly; shorten copy rather than clipping verified facts");
+}
+
 function tspans(lines: string[], x: number, startY: number, lineHeight: number): string {
   return lines.map((line, index) =>
     '<tspan x="' + x + '" y="' + (startY + index * lineHeight) + '">' + escapeXml(line) + "</tspan>"
@@ -44,8 +56,12 @@ function palette(seed: string): { a: string; b: string; c: string } {
 export async function renderCard(job: ThreadsJob): Promise<Buffer> {
   if (job.visual.mode !== "card") throw new Error("renderCard requires visual.mode=card");
 
-  const headline = wrap(job.visual.headline, 20).slice(0, 4);
-  const subheadline = wrap(job.visual.subheadline, 38).slice(0, 4);
+  const headlineLayout = wrapForCard(job.visual.headline, [20, 23, 26, 30], 4, "headline");
+  const subheadlineLayout = wrapForCard(job.visual.subheadline, [38, 42, 46, 50], 4, "subheadline");
+  const headline = headlineLayout.lines;
+  const subheadline = subheadlineLayout.lines;
+  const headlineFont = [86, 76, 65, 57][headlineLayout.level]!;
+  const subheadlineFont = [39, 36, 33, 30][subheadlineLayout.level]!;
   const source = job.strategy.sources[0]
     ? new URL(job.strategy.sources[0]).hostname.replace(/^www\./, "")
     : "fuente verificada";
@@ -79,7 +95,7 @@ export async function renderCard(job: ThreadsJob): Promise<Buffer> {
     '<circle cx="141" cy="141" r="7" fill="' + p.b + '"/>',
     '<text x="162" y="151" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="800" letter-spacing="2.1" fill="#F8FAFC">' + escapeXml(job.visual.eyebrow.toUpperCase()) + '</text>',
 
-    '<text x="108" y="316" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="900" fill="#F8FAFC" letter-spacing="-2.2">' + tspans(headline, 108, 316, 96) + '</text>',
+    '<text x="108" y="316" font-family="Arial,Helvetica,sans-serif" font-size="' + headlineFont + '" font-weight="900" fill="#F8FAFC" letter-spacing="-2.2">' + tspans(headline, 108, 316, 96) + '</text>',
 
     '<g opacity=".95">',
     '<circle cx="856" cy="672" r="96" fill="' + p.a + '" fill-opacity=".13" stroke="' + p.a + '" stroke-width="2"/>',
@@ -91,7 +107,7 @@ export async function renderCard(job: ThreadsJob): Promise<Buffer> {
     '</g>',
 
     '<line x1="108" y1="770" x2="972" y2="770" stroke="#FFFFFF" stroke-opacity=".13"/>',
-    '<text x="108" y="842" font-family="Arial,Helvetica,sans-serif" font-size="39" font-weight="500" fill="#CBD5E1">' + tspans(subheadline, 108, 842, 55) + '</text>',
+    '<text x="108" y="842" font-family="Arial,Helvetica,sans-serif" font-size="' + subheadlineFont + '" font-weight="500" fill="#CBD5E1">' + tspans(subheadline, 108, 842, 55) + '</text>',
 
     '<rect x="108" y="1094" width="420" height="64" rx="18" fill="#FFFFFF" fill-opacity=".07" stroke="#FFFFFF" stroke-opacity=".1"/>',
     '<text x="134" y="1136" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#E2E8F0">TEMA · ' + escapeXml(topic) + '</text>',
