@@ -569,7 +569,7 @@
     }
   },
   "editorial_execution": {
-    "version": 2,
+    "version": 3,
     "purpose": "Improve opportunity capture, audience timing and informative production without loosening runtime gates or promising a daily quota.",
     "scan_plan": {
       "active_window_distinct_lanes_min": 3,
@@ -584,7 +584,8 @@
       "publish_decision": "Best newly verified eligible story; normally at most one due-now job per scan. If best fails a material gate, evaluate the next independent lane instead of treating the entire scan as empty.",
       "off_peak": "Only lightweight exceptional-breaking triage and pending/result reconciliation; no ordinary posts or future-dated READY jobs.",
       "lane_rotation": "Diversify across policy.topic_cooldown_hours and last 18h of confirmed sent, pending, review, failed, delivery_pending jobs.",
-      "no_invented_claims_or_metrics": true
+      "no_invented_claims_or_metrics": true,
+      "event_dedupe": "Use strategy.event_key (entity + product/version + date + specific announcement) for all new jobs; same event across ES/EN/format is not fresh. Crosscheck legacy results and all statuses manually."
     },
     "timing_priority": {
       "evidence": "Buffer 2026 observational study of 2.5 million Threads posts, audience-local median engagement; baseline only, not causal or account-specific.",
@@ -641,7 +642,53 @@
       "source_ledger": "Each central claim must be independently substantiated by at least two directly relevant reliable URLs, stored in strategy.sources. Never reuse an unrelated article as corroboration.",
       "variation": "Compare last ten confirmed-sent copy openings, entities, native topics and visual formats; avoid repeating generic CTA or recycled angle.",
       "no_score_inflation": "All seven score_breakdown terms bounded by automation.json weights; discussion_velocity=0 when there is no external evidence.",
-      "avoid_filler": true
+      "avoid_filler": true,
+      "proven_reader_value_examples": [
+        "affected model/OS eligibility",
+        "patch action and scope",
+        "confirmed prices and units",
+        "release rollout date",
+        "real user decision/tradeoff"
+      ]
+    },
+    "screenshot_evidence_2026_10_25": {
+      "source": "state/manual-breakouts.json",
+      "interpretation": "Descriptive mixed-age screenshot evidence. DO NOT use as provider metrics, automatically change hard caps, scores, posting schedule, or claim causal lift.",
+      "visible_unique_posts": 52,
+      "median_visible_views": 23.5,
+      "under_40_views": 35,
+      "high_distribution_examples": [
+        {
+          "topic": "One UI 9 Android rollout",
+          "approximate_views": 8100,
+          "reader_value": "rollout/compatibility",
+          "signal": "distribution_not_conversation"
+        },
+        {
+          "topic": "PHP patch/security advisory",
+          "approximate_views": 1100,
+          "reader_value": "immediate mitigation",
+          "signal": "distribution_and_shares"
+        }
+      ],
+      "evaluation_priors": [
+        "Consumer installed-base releases with confirmed availability, supported regions/devices, and user impact",
+        "Actionable security advisories with concrete affected versions, credible severity evidence, and actual mitigation",
+        "Recognizable developer tooling with measured or precisely qualified practical benefits",
+        "Well-scoped AI access/pricing/compatibility rather than generic model publicity"
+      ],
+      "low_priority_when_unsubstantiated": [
+        "Vendor announcements without real user consequence",
+        "Unqualified model claims or price/unit comparisons",
+        "Generic speculative takes framed as breaking",
+        "A repeated news event rewritten for another language or media format"
+      ],
+      "no_arbitrary_score_bonus": true,
+      "no_suppression_of_other_tech_lanes": true,
+      "verify_native_topic_against_story": true,
+      "require_event_key_for_new_jobs": true,
+      "require_post_age_matched_analysis": true,
+      "screenshot_signal_used_for_causal_adjustment": false
     }
   }
 }
