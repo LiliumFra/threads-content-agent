@@ -1,5 +1,6 @@
 import { readFile, readdir, writeFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
+import { isMatureProviderSent, matchedLearningSegment } from "./metrics-learning.js";
 
 type Any = Record<string, any>;
 const growthPath = "config/growth.json";
@@ -92,26 +93,13 @@ export async function adaptiveTune() {
   if (!c?.enabled) return { status: "disabled" };
 
   const manualBreakouts = await loadManualBreakouts();
-  // Only provider-confirmed delivery is eligible for growth learning.
-  const jobs = (await loadJobs()).filter(
-    (j) => j.status === "PUBLISHED" &&
-      j.result?.provider_status === "sent" &&
-      typeof j.result?.provider_post_id === "string" &&
-      j.result.provider_post_id.length > 0 &&
-      j.result?.metrics &&
-      j.result?.published_at
-  );
   const now = Date.now();
-  const maturityMs = c.metrics_maturity_hours * 3_600_000;
-  // An early snapshot must not become "mature" merely because the post aged.
-  const mature = jobs.filter((j) => {
-    const publishedAt = Date.parse(j.result.published_at);
-    const measuredAt = Date.parse(j.result.metrics_updated_at ?? "");
-    return Number.isFinite(publishedAt) &&
-      Number.isFinite(measuredAt) &&
-      now - publishedAt >= maturityMs &&
-      measuredAt - publishedAt >= maturityMs;
-  });
+  const jobs = await loadJobs();
+  // Never auto-tune from screenshots, a PUBLISHED flag alone, or
+  // metric snapshots taken before the 24-hour maturity threshold.
+  const mature = jobs.filter((j) =>
+    isMatureProviderSent(j, now, Math.max(24, Number(c.metrics_maturity_hours ?? 24)))
+  );
 
   if (mature.length < c.minimum_published_posts_before_tuning) {
     return {
@@ -139,12 +127,27 @@ export async function adaptiveTune() {
     return { status: "cooldown", by_language: languageDiagnostics(mature), breakouts: breakoutDiagnostics(mature, g.performance_learning?.breakout_learning?.breakout_view_multiplier_vs_median ?? 3), manual_breakout_signals: manualBreakouts };
   }
 
-  const recentSize = Math.min(10, mature.length);
-  const recent = mature.slice(-recentSize);
-  const prior = mature.slice(0, -recentSize);
-  if (prior.length < c.minimum_posts_per_segment) {
-    return { status: "insufficient_baseline", by_language: languageDiagnostics(mature), breakouts: breakoutDiagnostics(mature, g.performance_learning?.breakout_learning?.breakout_view_multiplier_vs_median ?? 3), manual_breakout_signals: manualBreakouts };
+  // Do not confuse an older English card's lifetime views with a
+  // recent Spanish text post: compare language, content type, format and
+  // measured-post-age bands. At least 20 observations on EACH side.
+  const minComparable = Math.max(
+    20,
+    Number(g.cadence?.scheduling_experiment?.minimum_confirmed_comparable_posts_per_segment ?? 20)
+  );
+  const matched = matchedLearningSegment(mature, minComparable);
+  if (!matched) {
+    return {
+      status: "insufficient_matched_segments",
+      mature: mature.length,
+      required_per_period: minComparable,
+      required_per_segment: minComparable * 2,
+      by_language: languageDiagnostics(mature),
+      breakouts: breakoutDiagnostics(mature, g.performance_learning?.breakout_learning?.breakout_view_multiplier_vs_median ?? 3),
+      manual_breakout_signals: manualBreakouts
+    };
   }
+  const recent = matched.recent;
+  const prior = matched.baseline;
 
   const recentMedian = median(recent.map(score));
   const baselineMedian = median(prior.map(score));
