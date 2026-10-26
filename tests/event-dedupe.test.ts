@@ -44,6 +44,25 @@ function job(language: string): ThreadsJob {
 }
 
 describe("queue cross-status event dedupe", () => {
+
+  it("keeps the earliest of two same-event READY files and reviews only the later one", async () => {
+    const root = await mkdtemp(join(tmpdir(), "threads-event-"));
+    tempDirs.push(root);
+    const pendingDir = join(root, "pending");
+    const resultsDir = join(root, "results");
+    await Promise.all([mkdir(pendingDir), mkdir(resultsDir)]);
+    await writeFile(join(pendingDir, "001-original.json"), JSON.stringify(job("en")));
+    await writeFile(join(pendingDir, "002-rewrite.json"), JSON.stringify(job("es")));
+
+    const processor = new FileProcessor({ policy, pendingDir, resultsDir });
+    const outcome = await processor.processQueue();
+    expect(outcome["001-original.json"]).toBe("dry-run");
+    expect(outcome["002-rewrite.json"]).toBe("review:duplicate-news-event");
+    const first = JSON.parse(await readFile(join(resultsDir, "001-original.json"), "utf8"));
+    const second = JSON.parse(await readFile(join(resultsDir, "002-rewrite.json"), "utf8"));
+    expect(first.status).toBe("DRY_RUN");
+    expect(second.status).toBe("REVIEW");
+  });
   it("moves a repeated failed event to REVIEW without calling the provider", async () => {
     const root = await mkdtemp(join(tmpdir(), "threads-event-"));
     tempDirs.push(root);
