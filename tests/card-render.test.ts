@@ -28,6 +28,14 @@ describe("editorial card quality", () => {
     expect(metadata.height).toBe(1350);
     expect(metadata.format).toBe("png");
   });
+  it("accepts legible multiword headlines with accented characters", async () => {
+    const result = await renderCard(card(
+      "Actualización disponible para Android",
+      "Comprueba la versión, los equipos compatibles y el calendario oficial"
+    ));
+    expect((await sharp(result).metadata()).width).toBe(1080);
+  });
+
   it("refuses to silently clip exceptionally long unbreakable words", async () => {
     await expect(renderCard(card("X".repeat(38), "Subtítulo verificable"))).rejects.toThrow("cannot fit legibly");
   });
