@@ -15,6 +15,7 @@ import {
   ThreadsProvider
 } from "../threads/provider.js";
 import { evaluatePolicy, type Policy } from "./policy.js";
+import { captureMetricSnapshots } from "./metrics-snapshots.js";
 
 export type FileProcessorConfig = {
   policy: Policy;
@@ -488,6 +489,14 @@ export class FileProcessor {
             nextResult.metrics = snapshot.normalized;
             nextResult.provider_metrics = snapshot.raw;
             nextResult.metrics_updated_at = snapshot.updatedAt ?? new Date().toISOString();
+            // Store bounded, immutable 24h/72h readings from the existing
+            // daily fetch. Never synthesize historical data from lifetime views.
+            nextResult.metrics_snapshots = captureMetricSnapshots(
+              previousResult.metrics_snapshots,
+              snapshot.normalized,
+              nextResult.published_at,
+              nextResult.metrics_updated_at
+            );
             delete nextResult.error;
           } else {
             delete nextResult.published_at;
