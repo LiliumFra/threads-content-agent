@@ -58,3 +58,11 @@ One UI representa aproximadamente **72,1 %** de la suma de las 52 observaciones 
 - Buffer 2026, respuestas: https://buffer.com/resources/threads-comments-engagement/ (asociación observacional, no instrucción de generar engagement bait).
 
 **Sin cambios a:** `config/policy.json`, presupuesto Buffer/Cloudinary, horarios de la automatización, `queue.yml`, `metrics.yml`, límite de 60 minutos o programación de tareas. No se envía ningún post por este análisis.
+
+## Conciliación adicional con los resultados del repositorio (`main`, 2026-10-25)
+
+La lectura individual de los 14 archivos existentes en `jobs/results` dio **13 entregas con `provider_status=sent` e ID de Buffer**, **un `FAILED`**, y ningún `DELIVERY_PENDING` abierto. Entre las 13 entregadas: 9 tarjetas y 4 solo texto; 9 publicaciones en español y 4 en inglés. Hay 12 con `result.metrics.views`: mediana **23** vistas (foto de métricas de distinta edad, NO comparación causal). Diez de estas tienen más de 36 h de observación; el registro de Kimi tenía una muestra tomada a 13 h y no es maduro, mientras Instagram Apple TV aún no mostraba métricas en el JSON. Para el corte de maduración `>=24 h` son **11** observaciones técnicamente elegibles; todavía muy pocas para cohortes 20+20 por idioma/formato/tipo/edad.
+
+**Cruce significativo:** la alerta PHP de 23/10 tenía **1.100 vistas** en el JSON de Buffer, compatible con la cifra redondeada **1,1K** de la captura. NVIDIA aparece con ~110 vistas en Buffer y ~111 en captura: la pequeña diferencia puede explicarse por fecha de la instantánea. No sobrescribir el JSON con datos de captura ni sumar ambos como publicaciones distintas.
+
+Conclusión operacional: las capturas amplían la historia disponible, pero el repositorio aún no tiene 40 ejemplos maduros del **mismo** segmento para autoajuste fiable. Registrar resultados de distribución por separado de interacción/seguidores y mantener la selección editorial por evidencia verificable.
