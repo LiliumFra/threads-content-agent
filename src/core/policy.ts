@@ -41,9 +41,20 @@ export type PolicyDecision =
 
 export function evaluatePolicy(candidate: ThreadsJob, published: ThreadsJob[], policy: Policy, now = new Date()): PolicyDecision {
   const hash = contentHash(candidate);
-  const recent = published.slice(0, policy.duplicate_lookback);
+  // Filesystem result names are not guaranteed newest-first; use the most recent
+  // delivery/submission evidence before applying the lookback.
+  const recent = [...published]
+    .sort((a, b) => Date.parse(b.result?.published_at ?? b.result?.submitted_at ?? "1970-01-01") -
+      Date.parse(a.result?.published_at ?? a.result?.submitted_at ?? "1970-01-01"))
+    .slice(0, policy.duplicate_lookback);
   if (recent.some((job) => job.result?.content_hash === hash)) {
     return { ok: false, retryable: false, reason: "Duplicate content hash" };
+  }
+  // A stable newsroom event ID must dedupe even when language, hook or card
+  // differs. Keep this independent from the 18-hour category cooldown.
+  const eventKey = candidate.strategy.event_key;
+  if (eventKey && recent.some((job) => job.strategy.event_key === eventKey)) {
+    return { ok: false, retryable: false, reason: "Duplicate verified news event" };
   }
 
   const withDates = published
