@@ -194,7 +194,13 @@ export class FileProcessor {
         if (otherPath === currentPath) continue;
         // Unreadable history is an uncertainty, not proof that a retry is safe.
         const other = await readJob(otherPath);
-        if (other.strategy.event_key === eventKey) return basename(otherPath);
+        if (other.strategy.event_key !== eventKey) continue;
+        // Results ALWAYS block a replay. Between two queued READY jobs,
+        // only the lexicographically first file may proceed. Otherwise
+        // each would see the other and BOTH would be rejected.
+        if (dir === this.resultsDir || basename(otherPath) < basename(currentPath)) {
+          return basename(otherPath);
+        }
       }
     }
     return null;
