@@ -9,13 +9,13 @@ function escapeXml(value: string): string {
 // Conservative Arial-like glyph widths protect mobile cards from clipping.
 // The canvas has 864px of horizontal room; retain a 12px inner margin.
 function estimatedEm(ch: string): number {
-  if (/\\s/u.test(ch)) return 0.32;
+  if (/\s/u.test(ch)) return 0.32;
   if (/[ilI1.,:;'|!]/u.test(ch)) return 0.34;
   if (/[MW@%&]/u.test(ch)) return 0.94;
   if (/[A-ZÁÉÍÓÚÑÜ]/u.test(ch)) return 0.72;
   if (/[0-9]/u.test(ch)) return 0.62;
   // Accented lower-case letters occupy essentially the same width as base.
-  if (/[^\\x00-\\x7F]/u.test(ch)) return 0.76;
+  if (/[^\x00-\x7F]/u.test(ch)) return 0.76;
   return 0.59;
 }
 
@@ -24,7 +24,7 @@ function estimatedWidth(text: string, fontSize: number): number {
 }
 
 function wrapToWidth(text: string, fontSize: number, width: number): string[] | null {
-  const words = text.trim().split(/\\s+/u).filter(Boolean);
+  const words = text.trim().split(/\s+/u).filter(Boolean);
   const lines: string[] = [];
   let line = "";
   for (const word of words) {
