@@ -47,6 +47,16 @@ After enqueue, inspect the **push-triggered** queue run and `jobs/results/<id>.j
 
 A consumer unable to see a post should first compare the Buffer permalink and connected Threads account handle; provider `sent` is evidence of provider-confirmed delivery, **not direct inspection of the signed-in Threads timeline**. The task's ChatGPT notification settings are independent of provider publishing and should never be inferred from queue success.
 
+## Screenshot-grounded performance learning (2026-10-25)
+
+The owner supplied eight Threads Insights screenshots showing 52 visually distinct posts (median ~23.5 views, 35 under 40, One UI 9 ~8.1K and a practical PHP advisory ~1.1K). Read `docs/THREADS_SCREENSHOT_PERFORMANCE_AUDIT_2026-10-25.md` and `state/manual-breakouts.json` when researching opportunities. These are **manual, mixed-age observations**, not Buffer-confirmed metrics and **not** evidence that a particular format, time or brand causes reach. Do not feed them into automatic tuning, change cadence from one outlier, or cherry-pick high view counts as proof of conversation or follower conversion.
+
+Use the data as *prioritized hypotheses* only: favor truly important consumer software/device rollouts, actual affected models or versions, useful security steps, and clearly scoped new capabilities. Keep coverage in other technology lanes. Deliver concrete consequences, limits and original reporting, not formulaic brand PR. Avoid repeating the same news in a new language or copy variation.
+
+**Canonical event dedupe:** The schema now supports `strategy.event_key`. For each new news job, generate a stable lowercase hyphenated key identifying the **specific event** (entity + product/version + dated event), and reuse the same key across languages or alternate headlines. Check exact event and angle against pending, sent, failed, review and ambiguous results even when legacy records lack keys. Never call a later correction a new event without independently verifying what materially changed. Existing jobs lacking `event_key` remain parseable.
+
+**Safer growth learning:** `src/core/metrics-learning.ts` prevents automatic trend comparisons across mixed language, format, type and observation age; at least 20 comparable observations are needed on *both* sides. `src/render/card.ts` now rejects unrenderable card text instead of silently removing verified clauses. An image is useful only when legible and informative; it is not a promise of reach.
+
 ## Publication commit trigger integrity
 
 The queue workflow is triggered by a `main` push that changes `jobs/pending/*.json`, but GitHub Actions **does not run push workflows for commits whose messages contain CI-skip directives**. This caused a confirmed 2026-10-21 incident: DSX POD was queued in commit `cf2ebf5` with `[skip ci]`; it was sent only when the six-hour recovery processed it, 3h32m after the intended audience slot.
