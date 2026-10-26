@@ -58,6 +58,21 @@
       "quotes": 0,
       "reposts": 0
     },
-    "metrics_updated_at": "2026-10-25T00:56:16.370Z"
+    "metrics_updated_at": "2026-10-25T23:57:20.494Z",
+    "metrics_snapshots": [
+      {
+        "window": "72h",
+        "observed_at": "2026-10-25T23:57:20.494Z",
+        "age_hours": 76.73527277777778,
+        "metrics": {
+          "likes": 0,
+          "replies": 0,
+          "engagement_rate": 0,
+          "views": 26,
+          "quotes": 0,
+          "reposts": 0
+        }
+      }
+    ]
   }
 }
