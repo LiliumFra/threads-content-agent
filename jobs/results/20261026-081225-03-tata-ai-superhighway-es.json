@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-10-26T08:12:25-03:00",
   "action": "post",
   "topic": "big-tech",
@@ -37,5 +37,19 @@
       "https://www.reuters.com/business/media-telecom/indias-tata-communications-spend-450-million-ai-connectivity-infrastructure-2026-10-26/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "submitted_at": "2026-10-26T11:12:42.170Z",
+    "provider": "buffer",
+    "provider_status": "sent",
+    "provider_post_id": "6adf35ac551b0b514a63aad9",
+    "content_hash": "92805c077fb8fe941062264e7206a1dfbcd4f3da2d545156b5450c61c1fbfc5f",
+    "published_at": "2026-10-26T11:12:52.756Z",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/De9JcsClX56",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793013163/threads-content-agent/threads-92805c077fb8fe941062.jpg",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793013163/threads-content-agent/threads-92805c077fb8fe941062.jpg"
+    ]
+  }
 }
