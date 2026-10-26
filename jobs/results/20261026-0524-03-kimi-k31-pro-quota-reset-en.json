@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-10-26T05:24:07.682-03:00",
   "action": "post",
   "topic": "artificial-intelligence",
@@ -33,5 +33,15 @@
       "https://pandaily.com/kimi-apologizes-k3-1-pro-rate-limits-resets-25-percent-monthly-quota-fewer-sub-agent-calls"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "submitted_at": "2026-10-26T08:24:25.137Z",
+    "provider": "buffer",
+    "provider_status": "sent",
+    "provider_post_id": "6adf0e3a09f30424bdd8faf4",
+    "content_hash": "1dbc00f460babaf0ed206fc3b1f1fbc97c091e6a3bd8309a4366291f97f8fbe5",
+    "published_at": "2026-10-26T08:24:33.911Z",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/De82L5-lYvg"
+  }
 }
