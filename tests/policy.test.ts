@@ -95,4 +95,35 @@ describe("policy", () => {
     expect(decision.ok).toBe(false);
     if (!decision.ok) expect(decision.reason).toContain("daily cap");
   });
+  it("blocks the same newsroom event across languages even with different copy", () => {
+    const original = job("One UI 9 starts rolling out", "android");
+    original.language = "en";
+    original.strategy.event_key = "samsung-one-ui-9-2026-10-10-rollout";
+    const next = job("Samsung: nuevos equipos compatibles con One UI 9", "software");
+    next.strategy.event_key = original.strategy.event_key;
+    const decision = evaluatePolicy(
+      next,
+      [published(original, "2026-09-18T12:00:00-03:00")],
+      { ...policy, min_interval_minutes: 0, topic_cooldown_hours: 0 },
+      new Date("2026-09-19T15:00:00-03:00")
+    );
+    expect(decision.ok).toBe(false);
+    if (!decision.ok) {
+      expect(decision.retryable).toBe(false);
+      expect(decision.reason).toContain("Duplicate verified news event");
+    }
+  });
+
+  it("uses newest results for lookback even if input history is oldest-first", () => {
+    const old = published(job("old event", "old-topic"), "2026-09-01T08:00:00-03:00");
+    const fresh = published(job("fresh event", "different-topic"), "2026-09-18T08:00:00-03:00");
+    const next = job("old event", "old-topic");
+    const decision = evaluatePolicy(
+      next, [old, fresh],
+      { ...policy, duplicate_lookback: 1, min_interval_minutes: 0, topic_cooldown_hours: 0 },
+      new Date("2026-09-19T15:00:00-03:00")
+    );
+    expect(decision.ok).toBe(true);
+  });
+
 });
