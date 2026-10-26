@@ -181,6 +181,24 @@ export class FileProcessor {
     await unlink(pendingPath);
   }
 
+  /** A repeated event cannot be re-queued under a new title, language or image.
+   * Include FAILED/REVIEW/sending results and other pending jobs; none imply
+   * delivery, but all require reconciliation before a replay.
+   */
+  private async recordedEventDuplicate(candidate: ThreadsJob, currentPath: string): Promise<string | null> {
+    const eventKey = candidate.strategy.event_key;
+    if (!eventKey) return null;
+    for (const dir of [this.resultsDir, this.pendingDir]) {
+      for (const otherPath of await listJson(dir)) {
+        if (otherPath === currentPath) continue;
+        // Unreadable history is an uncertainty, not proof that a retry is safe.
+        const other = await readJob(otherPath);
+        if (other.strategy.event_key === eventKey) return basename(otherPath);
+      }
+    }
+    return null;
+  }
+
   async healthCheck(): Promise<Record<string, unknown>> {
     if (this.providerName() === "buffer") {
       const health = await this.bufferProvider().healthCheck();
@@ -208,6 +226,28 @@ export class FileProcessor {
 
     if (job.status !== "READY") return "ignored:status";
     if (new Date(job.publish_at).getTime() > now.getTime()) return "queued:not-due";
+
+    // Stop cross-language event reuse even after a FAILED or uncertain Buffer
+    // delivery. REVIEW is non-delivered and never retried automatically.
+    let previouslyRecorded: string | null;
+    try {
+      previouslyRecorded = await this.recordedEventDuplicate(job, path);
+    } catch {
+      return "queued:event-history-unverifiable";
+    }
+    if (previouslyRecorded) {
+      const review: ThreadsJob = {
+        ...job,
+        status: "REVIEW",
+        result: {
+          status: "REVIEW",
+          content_hash: contentHash(job),
+          error: "Event key already recorded in " + previouslyRecorded + "; verify delivery and distinct claim before a new job."
+        }
+      };
+      await this.persistTerminal(path, review);
+      return "review:duplicate-news-event";
+    }
 
     const decision = evaluatePolicy(job, await this.publishedJobs(), this.config.policy, now);
     if (!decision.ok) {
