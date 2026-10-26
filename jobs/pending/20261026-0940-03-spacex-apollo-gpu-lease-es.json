@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-26T09:39:30-03:00",
+  "action": "post",
+  "topic": "chips",
+  "language": "es",
+  "content": {
+    "text": "SpaceX firmó una carta vinculante para arrendar módulos de GPU y equipos de centros de datos mediante una entidad gestionada por Apollo. El plan contempla unos US$40.000 millones en pagos de capital a lo largo de los contratos, no una compra ya ejecutada. El arrendamiento definitivo aún debe cerrarse y las entregas están previstas para el primer semestre de 2027.",
+    "topic_tag": "Semiconductores"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "SPACEX: GPU EN ARRENDAMIENTO",
+    "subheadline": "≈US$40.000 millones en pagos de capital previstos. Entregas de equipos en 2027, si se cierra el acuerdo.",
+    "eyebrow": "CHIPS E INFRAESTRUCTURA",
+    "alt_text": "Tarjeta editorial sobre el arrendamiento financiero de equipos de GPU previsto por SpaceX con una entidad gestionada por Apollo. Se estiman unos 40.000 millones de dólares en pagos de capital durante los contratos, sujetos a un cierre definitivo. Las entregas comenzarían en el primer semestre de 2027."
+  },
+  "strategy": {
+    "hook_style": "contraste-financiacion",
+    "event_key": "spacex-apollo-gpu-lease-20261026-sec-filing",
+    "goal": "explicar-arrendamiento-gpu",
+    "content_type": "data",
+    "candidate_score": 81,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 13,
+      "novelty": 15,
+      "conversation_potential": 14,
+      "visual_potential": 9
+    },
+    "sources": [
+      "https://www.sec.gov/Archives/edgar/data/1181412/000110465926118614/tm2628247d1_8k.htm",
+      "https://www.reuters.com/business/media-telecom/spacex-enters-40-billion-deal-with-apollo-ai-chip-financing-2026-10-26/"
+    ]
+  },
+  "dry_run": false
+}
