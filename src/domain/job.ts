@@ -26,6 +26,12 @@ const resultSchema = z.object({
   media_url: z.string().url().optional(),
   media_urls: z.array(z.string().url()).max(20).optional(),
   metrics: metricsSchema.optional(),
+  metrics_snapshots: z.array(z.object({
+    window: z.enum(["24h", "72h"]),
+    observed_at: z.string().datetime({ offset: true }),
+    age_hours: z.number().nonnegative(),
+    metrics: metricsSchema
+  })).max(2).optional(),
   provider_metrics: z.record(z.string(), z.number()).optional(),
   metrics_updated_at: z.string().optional(),
   error: z.string().max(2000).optional()
