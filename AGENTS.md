@@ -57,6 +57,14 @@ Use the data as *prioritized hypotheses* only: favor truly important consumer so
 
 **Safer growth learning:** `src/core/metrics-learning.ts` prevents automatic trend comparisons across mixed language, format, type and observation age; at least 20 comparable observations are needed on *both* sides. `src/render/card.ts` now rejects unrenderable card text instead of silently removing verified clauses. An image is useful only when legible and informative; it is not a promise of reach.
 
+## Source change CI validation
+
+Source and test modifications (`src/**`, `tests/**`, `package.json`, `tsconfig.json`) **must** be checked by the existing automatic CI push workflow before claiming they are production-ready. Do not place `[skip ci]` on the final verification-triggering code/test commit. CI uses Node 24, `npm ci`, TypeScript compilation and Vitest, without manually dispatching an Action and without touching `jobs/pending`. The Vitest config excludes duplicate compiled suites in `dist`.
+
+On 2026-10-26, the first regression run caught an incorrect word-wrap regex in the card renderer; after correction, automatic CI run https://github.com/LiliumFra/threads-content-agent/actions/runs/40264940814 passed **47 tests**. This does not establish real Threads delivery, but it validates current source-code behavior.
+
+For statistical auto-tuning: require immutable 24h/72h metrics observations, provider `sent`, same news category plus language/format/content/observation-age, completed 28-day experiment, and >=2 independent cohorts each with >=20 baseline and >=20 recent observations showing consistent direction. Do not transform a small viral outlier into higher publishing capacity. Routine editorial scouting remains active with unchanged schedules and provider budgets.
+
 ## Publication commit trigger integrity
 
 The queue workflow is triggered by a `main` push that changes `jobs/pending/*.json`, but GitHub Actions **does not run push workflows for commits whose messages contain CI-skip directives**. This caused a confirmed 2026-10-21 incident: DSX POD was queued in commit `cf2ebf5` with `[skip ci]`; it was sent only when the six-hour recovery processed it, 3h32m after the intended audience slot.
