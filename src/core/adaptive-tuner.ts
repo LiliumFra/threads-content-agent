@@ -1,6 +1,6 @@
 import { readFile, readdir, writeFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
-import { isMatureProviderSent, matchedLearningSegment } from "./metrics-learning.js";
+import { isMatureProviderSent, matchedLearningSegments } from "./metrics-learning.js";
 
 type Any = Record<string, any>;
 const growthPath = "config/growth.json";
@@ -149,31 +149,70 @@ export async function adaptiveTune() {
     return { status: "cooldown", by_language: languageDiagnostics(mature), breakouts: breakoutDiagnostics(mature, g.performance_learning?.breakout_learning?.breakout_view_multiplier_vs_median ?? 3), manual_breakout_signals: manualBreakouts };
   }
 
-  // Do not confuse an older English card's lifetime views with a
-  // recent Spanish text post: compare language, content type, format and
-  // measured-post-age bands. At least 20 observations on EACH side.
+  // The original 28-day experiment must mature before the controller
+  // changes cadence. This is a diagnosis run, not a frequency quota.
+  const experiment = g.cadence?.scheduling_experiment;
+  const startedAt = Date.parse(String(experiment?.started_at ?? "") + "T00:00:00-03:00");
+  const evaluationDays = Number(experiment?.evaluation_days);
+  if (!Number.isFinite(startedAt) || !Number.isFinite(evaluationDays) || evaluationDays < 28) {
+    return {
+      status: "experiment_configuration_unverifiable",
+      mature: mature.length,
+      by_language: languageDiagnostics(mature)
+    };
+  }
+  const experimentEnd = startedAt + evaluationDays * 86_400_000;
+  if (now < experimentEnd) {
+    return {
+      status: "experiment_collecting",
+      mature: mature.length,
+      earliest_evaluation_at: new Date(experimentEnd).toISOString(),
+      by_language: languageDiagnostics(mature),
+      breakouts: breakoutDiagnostics(mature, g.performance_learning?.breakout_learning?.breakout_view_multiplier_vs_median ?? 3)
+    };
+  }
+
   const minComparable = Math.max(
     20,
     Number(g.cadence?.scheduling_experiment?.minimum_confirmed_comparable_posts_per_segment ?? 20)
   );
-  const matched = matchedLearningSegment(mature, minComparable);
-  if (!matched) {
+  // One outsized brand/outlier cannot change the GLOBAL posting capacity.
+  // Demand at least two independent same-topic, age-, format- and language-
+  // matched cohorts, each with >=20 older and >=20 newer observations.
+  const matched = matchedLearningSegments(mature, minComparable);
+  if (matched.length < 2) {
     return {
-      status: "insufficient_matched_segments",
+      status: "insufficient_independent_matched_cohorts",
       mature: mature.length,
-      required_per_period: minComparable,
-      required_per_segment: minComparable * 2,
+      eligible_cohorts: matched.length,
+      required_independent_cohorts: 2,
+      required_per_cohort: minComparable * 2,
       by_language: languageDiagnostics(mature),
       breakouts: breakoutDiagnostics(mature, g.performance_learning?.breakout_learning?.breakout_view_multiplier_vs_median ?? 3),
       manual_breakout_signals: manualBreakouts
     };
   }
-  const recent = matched.recent;
-  const prior = matched.baseline;
-
+  const cohortRatios = matched.map((cohort) => {
+    const baseline = median(cohort.baseline.map(score));
+    const observed = median(cohort.recent.map(score));
+    return baseline > 0 ? observed / baseline : 1;
+  });
+  const positive = cohortRatios.every((value) => value >= 1.15);
+  const negative = cohortRatios.every((value) => value <= 0.85);
+  if (!positive && !negative) {
+    return {
+      status: "mixed_cohort_directions",
+      mature: mature.length,
+      cohort_ratios: cohortRatios,
+      by_language: languageDiagnostics(mature)
+    };
+  }
+  const recent = matched.flatMap((cohort) => cohort.recent);
+  const prior = matched.flatMap((cohort) => cohort.baseline);
   const recentMedian = median(recent.map(score));
   const baselineMedian = median(prior.map(score));
-  const ratio = baselineMedian > 0 ? recentMedian / baselineMedian : 1;
+  const ratio = median(cohortRatios);
+
   const changes: Any[] = [];
   const set = (path: string, oldValue: number, nextValue: number) => {
     if (oldValue !== nextValue && changes.length < c.max_parameter_changes_per_cycle) {
