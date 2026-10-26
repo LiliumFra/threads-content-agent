@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-26T05:24:07.682-03:00",
+  "action": "post",
+  "topic": "artificial-intelligence",
+  "language": "en",
+  "content": {
+    "text": "Kimi is compensating paid K3.1 Pro subscribers after rate limits and unexpected quota use. Moonshot says it will restore 25% of each plan’s monthly allowance; if you used less than that, your usage counter resets to zero. It also reduced unnecessary sub-agent calls. Check your usage bar today: this is a quota adjustment, not a cash refund.",
+    "topic_tag": "Kimi"
+  },
+  "visual": {
+    "mode": "none"
+  },
+  "strategy": {
+    "hook_style": "direct-user-benefit",
+    "event_key": "moonshot-kimi-k31-pro-20261026-quota-reset",
+    "goal": "practical-user-update",
+    "content_type": "breaking_news",
+    "candidate_score": 80,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 0,
+      "source_quality": 14,
+      "account_fit": 15,
+      "novelty": 14,
+      "conversation_potential": 14,
+      "visual_potential": 8
+    },
+    "sources": [
+      "https://www.reuters.com/world/asia-pacific/moonshot-resets-subscriber-quotas-after-kimi-k31-pro-launch-issues-2026-10-26/",
+      "https://pandaily.com/kimi-apologizes-k3-1-pro-rate-limits-resets-25-percent-monthly-quota-fewer-sub-agent-calls"
+    ]
+  },
+  "dry_run": false
+}
