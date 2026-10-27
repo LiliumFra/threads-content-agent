@@ -55,19 +55,19 @@
       "likes": 0,
       "replies": 0,
       "engagement_rate": 0,
-      "views": 111,
+      "views": 112,
       "quotes": 0,
       "reposts": 0
     },
+    "metrics_snapshots": [],
     "provider_metrics": {
       "reactions": 0,
       "comments": 0,
       "engagementRate": 0,
-      "views": 111,
+      "views": 112,
       "quotes": 0,
       "reposts": 0
     },
-    "metrics_updated_at": "2026-10-25T23:57:20.495Z",
-    "metrics_snapshots": []
+    "metrics_updated_at": "2026-10-26T22:58:30.769Z"
   }
 }

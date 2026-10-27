@@ -60,6 +60,21 @@
       "quotes": 0,
       "reposts": 0
     },
+    "metrics_snapshots": [
+      {
+        "window": "24h",
+        "observed_at": "2026-10-25T23:57:20.494Z",
+        "age_hours": 35.63747083333333,
+        "metrics": {
+          "views": 22,
+          "likes": 0,
+          "replies": 0,
+          "reposts": 0,
+          "quotes": 0,
+          "engagement_rate": 0
+        }
+      }
+    ],
     "provider_metrics": {
       "reactions": 0,
       "comments": 0,
@@ -68,21 +83,6 @@
       "quotes": 0,
       "reposts": 0
     },
-    "metrics_updated_at": "2026-10-25T23:57:20.494Z",
-    "metrics_snapshots": [
-      {
-        "window": "24h",
-        "observed_at": "2026-10-25T23:57:20.494Z",
-        "age_hours": 35.63747083333333,
-        "metrics": {
-          "likes": 0,
-          "replies": 0,
-          "engagement_rate": 0,
-          "views": 22,
-          "quotes": 0,
-          "reposts": 0
-        }
-      }
-    ]
+    "metrics_updated_at": "2026-10-26T22:58:30.769Z"
   }
 }

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "DELIVERY_PENDING",
+  "status": "PUBLISHED",
   "publish_at": "2026-10-26T09:39:30-03:00",
   "action": "post",
   "topic": "chips",
@@ -39,15 +39,35 @@
   },
   "dry_run": false,
   "result": {
-    "status": "DELIVERY_PENDING",
+    "status": "PUBLISHED",
     "submitted_at": "2026-10-26T12:40:04.662Z",
+    "provider_status": "sent",
     "provider": "buffer",
-    "provider_status": "sending",
     "provider_post_id": "6adf4a27322a47148a748dc0",
     "content_hash": "a9131bf5854ff6fa6fec8e1e77a64dd585eae9321a7a681b7049a107764e3079",
     "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793018406/threads-content-agent/threads-a9131bf5854ff6fa6fec.jpg",
     "media_urls": [
       "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793018406/threads-content-agent/threads-a9131bf5854ff6fa6fec.jpg"
-    ]
+    ],
+    "external_url": "https://www.threads.com/@_itsmelilium/post/De9TdQPFBfG",
+    "published_at": "2026-10-26T12:40:19.898Z",
+    "metrics": {
+      "likes": 0,
+      "replies": 0,
+      "engagement_rate": 0,
+      "views": 3,
+      "quotes": 0,
+      "reposts": 0
+    },
+    "provider_metrics": {
+      "reactions": 0,
+      "comments": 0,
+      "engagementRate": 0,
+      "views": 3,
+      "quotes": 0,
+      "reposts": 0
+    },
+    "metrics_updated_at": "2026-10-26T22:58:30.768Z",
+    "metrics_snapshots": []
   }
 }
