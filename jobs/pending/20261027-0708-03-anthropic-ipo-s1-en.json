@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-27T07:07:56-03:00",
+  "action": "post",
+  "topic": "big-tech",
+  "language": "en",
+  "content": {
+    "text": "Anthropic has filed for an IPO, proposing the Nasdaq ticker ANT. The share price and number of shares are still undecided, and the filing isn't effective yet. Its seven co-founders would retain 50.1% of voting power after listing—a major distinction between owning stock and controlling the company.",
+    "topic_tag": "Anthropic"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "ANTHROPIC FILES FOR IPO",
+    "subheadline": "Proposed ticker: ANT · Price and share count not set · Founders to retain 50.1% voting power",
+    "eyebrow": "AI · PUBLIC MARKETS",
+    "alt_text": "Original editorial card about Anthropic's October 26, 2026 S-1 filing. Proposed Nasdaq ticker ANT; offering price and share count remain undetermined. The seven co-founders would retain 50.1% voting power after the proposed listing."
+  },
+  "strategy": {
+    "hook_style": "ownership-versus-control",
+    "event_key": "anthropic-ipo-s1-filing-20261026",
+    "goal": "explain-ipo-voting-control",
+    "content_type": "data",
+    "candidate_score": 79,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 9,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 15,
+      "novelty": 15,
+      "conversation_potential": 15,
+      "visual_potential": 10
+    },
+    "sources": [
+      "https://www.anthropic.com/news/s1-sec",
+      "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/0001628280-26-067168-index.htm",
+      "https://techcrunch.com/2026/10/26/anthropic-officially-files-for-its-public-debut/"
+    ]
+  },
+  "dry_run": false
+}
