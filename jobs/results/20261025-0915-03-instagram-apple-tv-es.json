@@ -73,6 +73,19 @@
           "quotes": 0,
           "engagement_rate": 0
         }
+      },
+      {
+        "window": "72h",
+        "observed_at": "2026-10-28T21:00:50.705Z",
+        "age_hours": 80.74474,
+        "metrics": {
+          "likes": 0,
+          "replies": 0,
+          "engagement_rate": 0,
+          "views": 67,
+          "quotes": 0,
+          "reposts": 0
+        }
       }
     ],
     "provider_metrics": {
@@ -83,6 +96,6 @@
       "quotes": 0,
       "reposts": 0
     },
-    "metrics_updated_at": "2026-10-27T21:59:39.970Z"
+    "metrics_updated_at": "2026-10-28T21:00:50.705Z"
   }
 }
