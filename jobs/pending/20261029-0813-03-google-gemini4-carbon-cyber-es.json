@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-29T08:13:08.442-03:00",
+  "action": "post",
+  "topic": "artificial-intelligence",
+  "language": "es",
+  "content": {
+    "text": "Google presentó Gemini 4 Carbon, centrado en ciberseguridad. Según sus pruebas, alcanzó un 88,2 % en SEC-bench Pro (detección de fallos) y un 71 % en CWE-bench (parches). Pero todavía no está disponible para el público: esta semana comienza el acceso para un grupo reducido de defensores. Los resultados de laboratorio no garantizan el mismo rendimiento en sistemas reales.",
+    "topic_tag": "Gemini"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "GEMINI 4 CARBON: ACCESO LIMITADO",
+    "subheadline": "88,2 % en SEC-bench Pro según Google · Acceso inicial solo para defensores seleccionados",
+    "eyebrow": "IA · CIBERSEGURIDAD",
+    "alt_text": "Tarjeta editorial original sobre Gemini 4 Carbon, anunciado por Google el 28 de octubre de 2026. La empresa reporta un 88,2 % en SEC-bench Pro y un 71 % en CWE-bench. El acceso inicial está restringido a un grupo de defensores de ciberseguridad; aún no hay disponibilidad general. Las cifras corresponden a evaluaciones de referencia, no a resultados garantizados en producción."
+  },
+  "strategy": {
+    "hook_style": "resultados-con-limite-de-acceso",
+    "event_key": "google-gemini-4-carbon-20261028-cybersecurity-launch",
+    "goal": "explicar-capacidades-y-acceso",
+    "content_type": "data",
+    "candidate_score": 79,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 9,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 15,
+      "novelty": 15,
+      "conversation_potential": 15,
+      "visual_potential": 10
+    },
+    "sources": [
+      "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/",
+      "https://www.reuters.com/technology/google-launches-gemini-4-carbon-ai-model-with-cybersecurity-focus-2026-10-28/",
+      "https://www.theverge.com/tech/1021339/google-gemini-4-carbon-cybersecurity-frontier"
+    ]
+  },
+  "dry_run": false
+}
