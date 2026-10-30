@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "DELIVERY_PENDING",
   "publish_at": "2026-10-30T08:18:37-03:00",
   "action": "post",
   "topic": "cybersecurity",
@@ -38,5 +38,17 @@
       "https://www.reuters.com/legal/transactional/tether-circle-freeze-238-billion-after-binance-reports-security-incident-2026-10-29/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "DELIVERY_PENDING",
+    "submitted_at": "2026-10-30T11:19:14.729Z",
+    "provider": "buffer",
+    "provider_status": "sending",
+    "provider_post_id": "6ae47d3414812ff59678487b",
+    "content_hash": "eb65f41b8bb9f496950d18452a781197b6ecd7d68cd7b7e343b82eaacfcbdcb6",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793359156/threads-content-agent/threads-eb65f41b8bb9f496950d.jpg",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793359156/threads-content-agent/threads-eb65f41b8bb9f496950d.jpg"
+    ]
+  }
 }
