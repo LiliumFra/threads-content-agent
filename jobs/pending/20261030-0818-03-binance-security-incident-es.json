@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-30T08:18:37-03:00",
+  "action": "post",
+  "topic": "cybersecurity",
+  "language": "es",
+  "content": {
+    "text": "Binance investiga un incidente de seguridad con impacto estimado en US$6.300 millones. Afirma que ya congeló unos US$3.000 millones y suspendió temporalmente los retiros; promete cubrir las pérdidas. La causa aún no está confirmada: apunta preliminarmente a una laptop comprometida. Consultá el estado solo en sus canales oficiales y desconfiá de mensajes de «recuperación».",
+    "topic_tag": "Ciberseguridad"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "BINANCE: INCIDENTE DE US$6.300 M",
+    "subheadline": "Unos US$3.000 M congelados y retiros suspendidos. La causa sigue bajo investigación.",
+    "eyebrow": "CIBERSEGURIDAD",
+    "alt_text": "Tarjeta editorial sobre el incidente de seguridad de Binance del 29 de octubre de 2026: impacto estimado de US$6.300 millones, unos US$3.000 millones congelados y retiros temporalmente suspendidos, según la actualización oficial del 30 de octubre."
+  },
+  "strategy": {
+    "hook_style": "impacto_confirmado_y_utilidad",
+    "event_key": "binance-20261029-security-incident-6300m",
+    "goal": "informar_riesgos_y_precauciones",
+    "content_type": "breaking_news",
+    "candidate_score": 81,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 13,
+      "novelty": 15,
+      "conversation_potential": 13,
+      "visual_potential": 10
+    },
+    "sources": [
+      "https://www.binance.com/en-IN/support/announcement/detail/c5a8729a97ac486d963784d96c5642d7",
+      "https://apnews.com/article/binance-cryptocurrency-security-39cda8ceb8095e036334a18549d3d20d",
+      "https://www.reuters.com/legal/transactional/tether-circle-freeze-238-billion-after-binance-reports-security-incident-2026-10-29/"
+    ]
+  },
+  "dry_run": false
+}
