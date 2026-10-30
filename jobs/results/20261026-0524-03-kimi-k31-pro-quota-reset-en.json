@@ -47,7 +47,7 @@
       "likes": 0,
       "replies": 0,
       "engagement_rate": 0,
-      "views": 37,
+      "views": 38,
       "quotes": 0,
       "reposts": 0
     },
@@ -64,16 +64,29 @@
           "quotes": 0,
           "engagement_rate": 0
         }
+      },
+      {
+        "window": "72h",
+        "observed_at": "2026-10-29T20:01:25.495Z",
+        "age_hours": 83.61432888888889,
+        "metrics": {
+          "likes": 0,
+          "replies": 0,
+          "engagement_rate": 0,
+          "views": 38,
+          "quotes": 0,
+          "reposts": 0
+        }
       }
     ],
     "provider_metrics": {
       "reactions": 0,
       "comments": 0,
       "engagementRate": 0,
-      "views": 37,
+      "views": 38,
       "quotes": 0,
       "reposts": 0
     },
-    "metrics_updated_at": "2026-10-28T21:00:50.705Z"
+    "metrics_updated_at": "2026-10-29T20:01:25.495Z"
   }
 }
