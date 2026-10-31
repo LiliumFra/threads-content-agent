@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "DELIVERY_PENDING",
   "publish_at": "2026-10-31T09:12:22-03:00",
   "action": "post",
   "topic": "chips",
@@ -38,5 +38,17 @@
       "https://www.theverge.com/tech/1023528/google-project-suncatcher-ai-satellite-transmission"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "DELIVERY_PENDING",
+    "submitted_at": "2026-10-31T12:12:37.707Z",
+    "provider": "buffer",
+    "provider_status": "sending",
+    "provider_post_id": "6ae5db38ceb491e585f6140c",
+    "content_hash": "7bc1b3fc7652fda53f7875d0bd1214e38fb7506b2023b14e07921e1e5a7d7cae",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793448759/threads-content-agent/threads-7bc1b3fc7652fda53f78.jpg",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793448759/threads-content-agent/threads-7bc1b3fc7652fda53f78.jpg"
+    ]
+  }
 }
