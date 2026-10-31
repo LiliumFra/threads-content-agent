@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-10-31T09:12:22-03:00",
+  "action": "post",
+  "topic": "chips",
+  "language": "es",
+  "content": {
+    "text": "Google ejecutó Gemma 4 en una TPU de clase centro de datos a bordo de su satélite Project Suncatcher y recibió un haiku desde la órbita. Es una prueba de inferencia y comunicación, no un centro de datos espacial operativo. Ahora toca evaluar radiación y temperatura; Google prevé probar dos satélites conectados en 2027.",
+    "topic_tag": "Google"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "Una TPU de Google ya respondió desde órbita",
+    "subheadline": "Gemma 4 devolvió un haiku. Falta evaluar radiación y temperatura; próximo hito: dos satélites conectados en 2027.",
+    "eyebrow": "IA EN ÓRBITA",
+    "alt_text": "Tarjeta editorial sobre Project Suncatcher: Google ejecutó Gemma 4 en una TPU de clase centro de datos en órbita y recibió un haiku en la Tierra. El ensayo inicial aún no valida la operación de un centro de datos espacial."
+  },
+  "strategy": {
+    "hook_style": "evidence_check",
+    "event_key": "google-project-suncatcher-gemma4-orbital-tpu-20261030-first-response",
+    "goal": "inform",
+    "content_type": "explainer",
+    "candidate_score": 75,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 6,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 15,
+      "novelty": 15,
+      "conversation_potential": 14,
+      "visual_potential": 10
+    },
+    "sources": [
+      "https://blog.google/innovation-and-ai/models-and-research/google-research/project-suncatcher-satellite-response/",
+      "https://techcrunch.com/2026/10/30/googles-first-data-center-satellite-is-online-and-writing-poetry/",
+      "https://www.theverge.com/tech/1023528/google-project-suncatcher-ai-satellite-transmission"
+    ]
+  },
+  "dry_run": false
+}
