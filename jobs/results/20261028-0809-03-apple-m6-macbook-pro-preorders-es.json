@@ -65,12 +65,12 @@
         "observed_at": "2026-10-29T20:01:25.495Z",
         "age_hours": 32.866217222222225,
         "metrics": {
+          "views": 41,
           "likes": 0,
           "replies": 0,
-          "engagement_rate": 0,
-          "views": 41,
+          "reposts": 0,
           "quotes": 0,
-          "reposts": 0
+          "engagement_rate": 0
         }
       }
     ],
@@ -82,6 +82,6 @@
       "quotes": 0,
       "reposts": 0
     },
-    "metrics_updated_at": "2026-10-29T20:01:25.495Z"
+    "metrics_updated_at": "2026-10-30T19:02:26.560Z"
   }
 }
