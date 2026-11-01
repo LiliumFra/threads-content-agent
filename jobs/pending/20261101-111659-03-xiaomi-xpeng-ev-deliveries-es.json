@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-11-01T11:16:59-03:00",
+  "action": "post",
+  "topic": "big-tech",
+  "language": "es",
+  "content": {
+    "text": "Xiaomi y XPeng cruzaron las 50.000 entregas de vehículos en octubre: XPeng registró 50.237 y Xiaomi informó más de 50.000. Pero el hito no equivale a cumplir las metas: Xiaomi lleva unas 336.000 entregas de 550.000 previstas para 2026. Necesitaría promediar unas 107.000 al mes en noviembre y diciembre para alcanzarla. Son entregas, no reservas.",
+    "topic_tag": "Vehículos eléctricos"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "Xiaomi y XPeng superan 50.000 entregas",
+    "subheadline": "Octubre 2026: XPeng 50.237; Xiaomi más de 50.000. Para alcanzar su meta anual, Xiaomi necesitaría unas 107.000 entregas por mes en noviembre y diciembre.",
+    "eyebrow": "MOVILIDAD ELÉCTRICA",
+    "alt_text": "Comparación de entregas de vehículos en octubre de 2026: XPeng reportó 50.237 unidades y Xiaomi más de 50.000. Para alcanzar su meta anual de 550.000, Xiaomi necesitaría aproximadamente 107.000 entregas mensuales en noviembre y diciembre."
+  },
+  "strategy": {
+    "hook_style": "comparison-with-target-gap",
+    "event_key": "xiaomi-xpeng-october-2026-ev-delivery-records-announced-20261101",
+    "goal": "explain-ev-production-scale",
+    "content_type": "data",
+    "candidate_score": 80,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 13,
+      "novelty": 15,
+      "conversation_potential": 12,
+      "visual_potential": 10
+    },
+    "sources": [
+      "https://ir.xiaopeng.com/zh-hant/news-releases/news-release-details/xpeng-announces-vehicle-delivery-results-october-2026",
+      "https://www.reuters.com/world/china/xiaomis-october-ev-deliveries-top-50000-hit-2026-monthly-high-2026-11-01/",
+      "https://cnevpost.com/2026/11/01/xpeng-deliveries-oct-2026/",
+      "https://finance.sina.cn/2026-11-01/detail-inixeyix6723346.d.html"
+    ]
+  },
+  "dry_run": false
+}
