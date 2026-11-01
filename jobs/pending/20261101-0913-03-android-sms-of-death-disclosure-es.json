@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-11-01T09:13:01-03:00",
+  "action": "post",
+  "topic": "cybersecurity",
+  "language": "es",
+  "content": {
+    "text": "Un SMS WAP Push malformado puede cortar llamadas en Android sin aparecer en Mensajes. La falla «SMS of Death» se divulgó el 29/10; AOSP incluye un arreglo para ramas 14–17, pero cada fabricante debe incorporarlo. Para Android 12/13 no hay arreglo oficial documentado. No se ha confirmado explotación generalizada: revisá las actualizaciones y consultá al fabricante si tu compilación incluye la corrección.",
+    "topic_tag": "Android"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "UN SMS PUEDE CORTAR LLAMADAS",
+    "subheadline": "Android 14–17: corrección en AOSP; cada fabricante debe distribuirla.",
+    "eyebrow": "SEGURIDAD ANDROID",
+    "alt_text": "Tarjeta informativa sobre la falla SMS of Death: un mensaje WAP Push malformado puede interrumpir llamadas sin interacción. La corrección figura en AOSP para Android 14 a 17 y depende de su distribución por el fabricante."
+  },
+  "strategy": {
+    "hook_style": "security-action",
+    "event_key": "android-wap-push-sms-of-death-20261029-disclosure",
+    "goal": "inform-protect",
+    "content_type": "explainer",
+    "candidate_score": 73,
+    "score_breakdown": {
+      "freshness": 6,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 15,
+      "novelty": 14,
+      "conversation_potential": 13,
+      "visual_potential": 10
+    },
+    "sources": [
+      "https://smsofdeath.com/",
+      "https://android.googlesource.com/platform/frameworks/opt/telephony/+/735d9672603fa206c4b43cb668c1aa273db70b97",
+      "https://www.bleepingcomputer.com/news/security/new-android-sms-of-death-exploit-can-remotely-crash-unpatched-phones/"
+    ]
+  },
+  "dry_run": false
+}
