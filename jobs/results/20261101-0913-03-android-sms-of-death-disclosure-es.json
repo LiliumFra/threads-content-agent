@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "DELIVERY_PENDING",
   "publish_at": "2026-11-01T09:13:01-03:00",
   "action": "post",
   "topic": "cybersecurity",
@@ -37,5 +37,17 @@
       "https://www.bleepingcomputer.com/news/security/new-android-sms-of-death-exploit-can-remotely-crash-unpatched-phones/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "DELIVERY_PENDING",
+    "submitted_at": "2026-11-01T12:13:21.711Z",
+    "provider": "buffer",
+    "provider_status": "sending",
+    "provider_post_id": "6ae72ce421c807e9d5b95577",
+    "content_hash": "7b994de941ceca6fc7c0644047412518135d92f157c652383e1943b0a31d1604",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793535203/threads-content-agent/threads-7b994de941ceca6fc7c0.jpg",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793535203/threads-content-agent/threads-7b994de941ceca6fc7c0.jpg"
+    ]
+  }
 }
