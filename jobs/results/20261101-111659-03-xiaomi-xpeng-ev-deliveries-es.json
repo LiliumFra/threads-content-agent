@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "DELIVERY_PENDING",
   "publish_at": "2026-11-01T11:16:59-03:00",
   "action": "post",
   "topic": "big-tech",
@@ -39,5 +39,17 @@
       "https://finance.sina.cn/2026-11-01/detail-inixeyix6723346.d.html"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "DELIVERY_PENDING",
+    "submitted_at": "2026-11-01T14:17:15.490Z",
+    "provider": "buffer",
+    "provider_status": "sending",
+    "provider_post_id": "6ae749ee1ee172cd6dff4201",
+    "content_hash": "894f69ed0cd42e8eb058122a3a12417fbbe7ba1c0a80f9c83a3993262c340a8b",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793542637/threads-content-agent/threads-894f69ed0cd42e8eb058.jpg",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793542637/threads-content-agent/threads-894f69ed0cd42e8eb058.jpg"
+    ]
+  }
 }
