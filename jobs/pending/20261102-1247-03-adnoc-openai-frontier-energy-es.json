@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-11-02T12:46:30-03:00",
+  "action": "post",
+  "topic": "artificial-intelligence",
+  "language": "es",
+  "content": {
+    "text": "OpenAI Frontier llega a la industria petrolera: ADNOC firmó con OpenAI y G42 para coordinar agentes de IA que analicen datos de miles de pozos y conecten decisiones de producción, logística y ventas. ADNOC afirma que busca reducir de meses a horas la planificación de yacimientos; es una meta anunciada, no un resultado medido. Las decisiones críticas seguirán bajo supervisión humana.",
+    "topic_tag": "Inteligencia Artificial"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "AGENTES DE IA PARA MILES DE POZOS",
+    "subheadline": "ADNOC + OpenAI + G42: planificación integrada en horas en vez de meses, según el objetivo anunciado. Decisiones críticas con supervisión humana.",
+    "eyebrow": "IA INDUSTRIAL",
+    "alt_text": "Tarjeta editorial sobre el acuerdo del 2 de noviembre de 2026 entre ADNOC, OpenAI y G42. ADNOC prevé usar OpenAI Frontier para coordinar agentes de IA y planificar yacimientos con datos de miles de pozos; la reducción de meses a horas es un objetivo anunciado, no una mejora demostrada. La supervisión humana se mantiene para decisiones críticas."
+  },
+  "strategy": {
+    "hook_style": "industrial-ai-with-evidence-caveat",
+    "event_key": "adnoc-openai-g42-20261102-frontier-energy-partnership",
+    "goal": "explain-industrial-ai",
+    "content_type": "explainer",
+    "candidate_score": 79,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 12,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 14,
+      "novelty": 15,
+      "conversation_potential": 13,
+      "visual_potential": 10
+    },
+    "sources": [
+      "https://www.adnoc.ae/ar/media-center/news/2026/11/ADNOC-Signs-Landmark-Partnership-Agreement-with-OpenAI",
+      "https://www.reuters.com/business/energy/abu-dhabis-adnoc-g42-sign-deal-with-openai-sam-altman-travels-uae-2026-11-02/",
+      "https://www.zawya.com/en/press-release/adnoc-signs-landmark-partnership-agreement-with-openai-and-g42-becoming-first-energy-company-to-deploy-openai-frontier-technology-1859105"
+    ]
+  },
+  "dry_run": false
+}
