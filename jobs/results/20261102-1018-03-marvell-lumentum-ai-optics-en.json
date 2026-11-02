@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "DELIVERY_PENDING",
   "publish_at": "2026-11-02T10:17:25-03:00",
   "action": "post",
   "topic": "chips",
@@ -38,5 +38,17 @@
       "https://www.wsj.com/business/deals/marvell-to-buy-lumentum-for-115-billion-in-all-stock-ai-deal-c9fd43a6"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "DELIVERY_PENDING",
+    "submitted_at": "2026-11-02T13:17:56.288Z",
+    "provider": "buffer",
+    "provider_status": "sending",
+    "provider_post_id": "6ae88d86386d2d7c133ff4be",
+    "content_hash": "5ee7c9621bf5f299326bf75a6a2443e1829edbf22ede4295a688232237c4afe9",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793625477/threads-content-agent/threads-5ee7c9621bf5f299326b.jpg",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793625477/threads-content-agent/threads-5ee7c9621bf5f299326b.jpg"
+    ]
+  }
 }
