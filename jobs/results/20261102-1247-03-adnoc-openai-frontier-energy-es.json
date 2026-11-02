@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-11-02T12:46:30-03:00",
   "action": "post",
   "topic": "artificial-intelligence",
@@ -38,5 +38,19 @@
       "https://www.zawya.com/en/press-release/adnoc-signs-landmark-partnership-agreement-with-openai-and-g42-becoming-first-energy-company-to-deploy-openai-frontier-technology-1859105"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "submitted_at": "2026-11-02T15:47:22.562Z",
+    "provider": "buffer",
+    "provider_status": "sent",
+    "provider_post_id": "6ae8b08d2426d4fa3506ceae",
+    "content_hash": "b7f1e9213c8848f86629eba25fbe41164ae26f1be8163329bc37b803bfd7b5cf",
+    "published_at": "2026-11-02T15:47:34.883Z",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DfPqcuflbEZ",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793634444/threads-content-agent/threads-b7f1e9213c8848f86629.jpg",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793634444/threads-content-agent/threads-b7f1e9213c8848f86629.jpg"
+    ]
+  }
 }
