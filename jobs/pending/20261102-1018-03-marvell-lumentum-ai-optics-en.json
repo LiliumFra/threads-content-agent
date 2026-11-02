@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-11-02T10:17:25-03:00",
+  "action": "post",
+  "topic": "chips",
+  "language": "en",
+  "content": {
+    "text": "Marvell has agreed to acquire Lumentum in a $115B all-stock deal, including debt. The AI angle is optical connectivity: moving data between accelerators matters as clusters scale. The merger still needs approvals, with closing expected in H1 2028. Which is the bigger AI bottleneck now: compute or networking?",
+    "topic_tag": "Semiconductors"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "MARVELL + LUMENTUM: $115B DEAL",
+    "subheadline": "All-stock acquisition agreement · Optical connectivity for AI data centers · Expected H1 2028 close, pending approvals",
+    "eyebrow": "AI INFRASTRUCTURE",
+    "alt_text": "Original editorial information card about Marvell's November 2, 2026 agreement to acquire Lumentum in a $115 billion all-stock deal including debt. The companies focus on semiconductor and optical links for AI data centers. Closing is expected in the first half of 2028, subject to approvals."
+  },
+  "strategy": {
+    "hook_style": "verified-deal-with-technical-impact",
+    "event_key": "marvell-lumentum-20261102-all-stock-acquisition-ai-optics",
+    "goal": "explain-ai-infrastructure-tradeoff",
+    "content_type": "breaking_news",
+    "candidate_score": 78,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 11,
+      "novelty": 15,
+      "conversation_potential": 12,
+      "visual_potential": 10
+    },
+    "sources": [
+      "https://www.reuters.com/legal/transactional/marvell-buy-lumentum-115-billion-deal-ai-data-center-bet-2026-11-02/",
+      "https://www.ft.com/content/92322fad-f293-48b8-a14b-00506d78eb3b",
+      "https://www.wsj.com/business/deals/marvell-to-buy-lumentum-for-115-billion-in-all-stock-ai-deal-c9fd43a6"
+    ]
+  },
+  "dry_run": false
+}
