@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-11-02T15:15:00-03:00",
+  "action": "post",
+  "topic": "software",
+  "language": "en",
+  "content": {
+    "text": "Brave faces a new lawsuit from The New York Times and other publishers. Filed Nov. 2, it alleges the company supplied copyrighted news through its search index to AI firms and enabled paywall bypassing. These are allegations, not court findings; Brave had not responded when Reuters reported. Where should search indexing end and paid AI data licensing begin?",
+    "topic_tag": "Brave"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "PUBLISHERS SUE BRAVE OVER AI SEARCH",
+    "subheadline": "Filed Nov 2, 2026 • Claims of news scraping and paywall bypass • No court ruling",
+    "eyebrow": "BROWSERS & COPYRIGHT",
+    "alt_text": "Original editorial card about a November 2, 2026 lawsuit by news publishers against Brave. It describes allegations involving AI search data and paywall bypass, not proven violations."
+  },
+  "strategy": {
+    "hook_style": "legal-impact",
+    "event_key": "nyt-daily-news-brave-ai-search-copyright-lawsuits-20261102",
+    "goal": "informed-discussion",
+    "content_type": "breaking_news",
+    "candidate_score": 82,
+    "score_breakdown": {
+      "freshness": 15,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 14,
+      "novelty": 15,
+      "conversation_potential": 14,
+      "visual_potential": 9
+    },
+    "sources": [
+      "https://storage.courtlistener.com/recap/gov.uscourts.nysd.676310/gov.uscourts.nysd.676310.1.0.pdf",
+      "https://www.reuters.com/legal/litigation/new-york-times-sues-maker-brave-web-browser-over-copyrights-2026-11-02/",
+      "https://www.theverge.com/tech/1024588/brave-lawsuit-ai-scraping-new-york-times"
+    ]
+  },
+  "dry_run": false
+}
