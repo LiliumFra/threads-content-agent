@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "publish_at": "2026-11-02T09:16:32-03:00",
+  "action": "post",
+  "topic": "cybersecurity",
+  "language": "es",
+  "content": {
+    "text": "Synology alertó sobre ataques de ransomware C3RB3R contra NAS con DSM desactualizado. Los atacantes aprovechan una falla corregida en diciembre de 2024; no es una vulnerabilidad nueva. Si usás uno, actualizá DSM, activá las actualizaciones automáticas y evitá exponer el panel de administración a Internet. Synology aún no identificó públicamente qué CVE se explota.",
+    "topic_tag": "Ciberseguridad"
+  },
+  "visual": {
+    "mode": "card",
+    "headline": "RANSOMWARE CONTRA NAS SYNOLOGY",
+    "subheadline": "Atacan DSM sin parches. Actualizá el sistema y evitá exponer el panel de administración a Internet.",
+    "eyebrow": "ALERTA DE SEGURIDAD",
+    "alt_text": "Tarjeta informativa sobre ataques de ransomware C3RB3R contra equipos NAS Synology con versiones antiguas de DSM. La recomendación es actualizar DSM, activar las actualizaciones automáticas y no exponer el panel de administración a Internet."
+  },
+  "strategy": {
+    "hook_style": "security-action",
+    "event_key": "synology-c3rb3r-dsm-outdated-20261029-ransomware-warning",
+    "goal": "inform-protect",
+    "content_type": "explainer",
+    "candidate_score": 75,
+    "breaking_news": false,
+    "score_breakdown": {
+      "freshness": 9,
+      "discussion_velocity": 0,
+      "source_quality": 15,
+      "account_fit": 14,
+      "novelty": 15,
+      "conversation_potential": 12,
+      "visual_potential": 10
+    },
+    "sources": [
+      "https://www.synology.com/en-global/company/news/article/C3RB3R/Synology%20urges%20users%20to%20update%20DSM%20following%20ransomware%20attacks%20on%20outdated%20DSM%20versions",
+      "https://www.synology.com/en-global/security/advisory/Synology_SA_24_20",
+      "https://www.bleepingcomputer.com/news/security/synology-warns-customers-of-ongoing-c3rb3r-ransomware-attacks/"
+    ]
+  },
+  "dry_run": false
+}
