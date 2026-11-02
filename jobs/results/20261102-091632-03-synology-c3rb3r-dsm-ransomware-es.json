@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "PUBLISHED",
   "publish_at": "2026-11-02T09:16:32-03:00",
   "action": "post",
   "topic": "cybersecurity",
@@ -38,5 +38,19 @@
       "https://www.bleepingcomputer.com/news/security/synology-warns-customers-of-ongoing-c3rb3r-ransomware-attacks/"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "PUBLISHED",
+    "submitted_at": "2026-11-02T12:17:03.932Z",
+    "provider": "buffer",
+    "provider_status": "sent",
+    "provider_post_id": "6ae87f426ee21de9577c026a",
+    "content_hash": "30547ea8be7b6ea62e758d13423a062acf3d18de6e42696db9845829f2391847",
+    "published_at": "2026-11-02T12:17:16.493Z",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DfPSYZulHxz",
+    "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793621826/threads-content-agent/threads-30547ea8be7b6ea62e75.jpg",
+    "media_urls": [
+      "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793621826/threads-content-agent/threads-30547ea8be7b6ea62e75.jpg"
+    ]
+  }
 }
