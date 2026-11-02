@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "DELIVERY_PENDING",
+  "status": "PUBLISHED",
   "publish_at": "2026-11-01T09:13:01-03:00",
   "action": "post",
   "topic": "cybersecurity",
@@ -39,15 +39,35 @@
   },
   "dry_run": false,
   "result": {
-    "status": "DELIVERY_PENDING",
+    "status": "PUBLISHED",
     "submitted_at": "2026-11-01T12:13:21.711Z",
+    "provider_status": "sent",
     "provider": "buffer",
-    "provider_status": "sending",
     "provider_post_id": "6ae72ce421c807e9d5b95577",
     "content_hash": "7b994de941ceca6fc7c0644047412518135d92f157c652383e1943b0a31d1604",
     "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793535203/threads-content-agent/threads-7b994de941ceca6fc7c0.jpg",
     "media_urls": [
       "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793535203/threads-content-agent/threads-7b994de941ceca6fc7c0.jpg"
-    ]
+    ],
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DfMtKTNkREj",
+    "published_at": "2026-11-01T12:13:34.465Z",
+    "metrics": {
+      "likes": 0,
+      "replies": 0,
+      "engagement_rate": 0,
+      "views": 195,
+      "quotes": 0,
+      "reposts": 0
+    },
+    "provider_metrics": {
+      "reactions": 0,
+      "comments": 0,
+      "engagementRate": 0,
+      "views": 195,
+      "quotes": 0,
+      "reposts": 0
+    },
+    "metrics_updated_at": "2026-11-01T17:04:29.077Z",
+    "metrics_snapshots": []
   }
 }

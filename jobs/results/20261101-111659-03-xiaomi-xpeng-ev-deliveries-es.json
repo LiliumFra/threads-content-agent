@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "DELIVERY_PENDING",
+  "status": "PUBLISHED",
   "publish_at": "2026-11-01T11:16:59-03:00",
   "action": "post",
   "topic": "big-tech",
@@ -41,15 +41,35 @@
   },
   "dry_run": false,
   "result": {
-    "status": "DELIVERY_PENDING",
+    "status": "PUBLISHED",
     "submitted_at": "2026-11-01T14:17:15.490Z",
+    "provider_status": "sent",
     "provider": "buffer",
-    "provider_status": "sending",
     "provider_post_id": "6ae749ee1ee172cd6dff4201",
     "content_hash": "894f69ed0cd42e8eb058122a3a12417fbbe7ba1c0a80f9c83a3993262c340a8b",
     "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793542637/threads-content-agent/threads-894f69ed0cd42e8eb058.jpg",
     "media_urls": [
       "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793542637/threads-content-agent/threads-894f69ed0cd42e8eb058.jpg"
-    ]
+    ],
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DfM7VzrkXFE",
+    "published_at": "2026-11-01T14:17:28.884Z",
+    "metrics": {
+      "likes": 0,
+      "replies": 0,
+      "engagement_rate": 0,
+      "views": 34,
+      "quotes": 0,
+      "reposts": 0
+    },
+    "provider_metrics": {
+      "reactions": 0,
+      "comments": 0,
+      "engagementRate": 0,
+      "views": 34,
+      "quotes": 0,
+      "reposts": 0
+    },
+    "metrics_updated_at": "2026-11-01T17:04:29.077Z",
+    "metrics_snapshots": []
   }
 }

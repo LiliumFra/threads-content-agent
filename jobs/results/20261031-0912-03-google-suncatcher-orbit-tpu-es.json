@@ -41,34 +41,48 @@
   "dry_run": false,
   "result": {
     "status": "PUBLISHED",
+    "published_at": "2026-10-31T12:12:50.749Z",
     "submitted_at": "2026-10-31T12:12:37.707Z",
     "provider_status": "sent",
     "provider": "buffer",
     "provider_post_id": "6ae5db38ceb491e585f6140c",
+    "external_url": "https://www.threads.com/@_itsmelilium/post/DfKISClFYw7",
     "content_hash": "7bc1b3fc7652fda53f7875d0bd1214e38fb7506b2023b14e07921e1e5a7d7cae",
     "media_url": "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793448759/threads-content-agent/threads-7bc1b3fc7652fda53f78.jpg",
     "media_urls": [
       "https://res.cloudinary.com/g6b2gmnj/image/upload/v1793448759/threads-content-agent/threads-7bc1b3fc7652fda53f78.jpg"
     ],
-    "external_url": "https://www.threads.com/@_itsmelilium/post/DfKISClFYw7",
-    "published_at": "2026-10-31T12:12:50.749Z",
     "metrics": {
       "likes": 0,
       "replies": 0,
       "engagement_rate": 0,
-      "views": 80,
+      "views": 84,
       "quotes": 0,
       "reposts": 0
     },
+    "metrics_snapshots": [
+      {
+        "window": "24h",
+        "observed_at": "2026-11-01T17:04:29.077Z",
+        "age_hours": 28.860646666666668,
+        "metrics": {
+          "likes": 0,
+          "replies": 0,
+          "engagement_rate": 0,
+          "views": 84,
+          "quotes": 0,
+          "reposts": 0
+        }
+      }
+    ],
     "provider_metrics": {
       "reactions": 0,
       "comments": 0,
       "engagementRate": 0,
-      "views": 80,
+      "views": 84,
       "quotes": 0,
       "reposts": 0
     },
-    "metrics_updated_at": "2026-10-31T18:03:26.025Z",
-    "metrics_snapshots": []
+    "metrics_updated_at": "2026-11-01T17:04:29.077Z"
   }
 }
