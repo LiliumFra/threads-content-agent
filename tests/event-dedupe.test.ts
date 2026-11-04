@@ -101,4 +101,41 @@ describe("queue cross-status event dedupe", () => {
     const original = JSON.parse(await readFile(candidatePath, "utf8"));
     expect(original.status).toBe("READY");
   });
+
+  it("quarantines an expired READY job without touching Buffer or Threads", async () => {
+    const root = await mkdtemp(join(tmpdir(), "threads-stale-"));
+    tempDirs.push(root);
+    const pendingDir = join(root, "pending");
+    const resultsDir = join(root, "results");
+    await Promise.all([mkdir(pendingDir), mkdir(resultsDir)]);
+    const pendingPath = join(pendingDir, "expired.json");
+    await writeFile(pendingPath, JSON.stringify(job("en")));
+
+    // The job was due at 12:00Z and is now over six hours late.
+    const processor = new FileProcessor({ policy, pendingDir, resultsDir });
+    const result = await processor.processFile(pendingPath, new Date("2026-10-25T18:00:01Z"));
+    expect(result).toBe("review:stale-ready-job");
+    const quarantined = JSON.parse(await readFile(join(resultsDir, "expired.json"), "utf8"));
+    expect(quarantined.status).toBe("REVIEW");
+    expect(quarantined.result.status).toBe("REVIEW");
+    expect(quarantined.result.provider_post_id).toBeUndefined();
+    expect(quarantined.result.error).toContain("historical provider delivery is unverified");
+    await expect(readFile(pendingPath, "utf8")).rejects.toThrow();
+  });
+
+  it("does not expire a READY job before its six-hour safety deadline", async () => {
+    const root = await mkdtemp(join(tmpdir(), "threads-stale-"));
+    tempDirs.push(root);
+    const pendingDir = join(root, "pending");
+    const resultsDir = join(root, "results");
+    await Promise.all([mkdir(pendingDir), mkdir(resultsDir)]);
+    const pendingPath = join(pendingDir, "fresh.json");
+    await writeFile(pendingPath, JSON.stringify(job("en")));
+
+    const processor = new FileProcessor({ policy, pendingDir, resultsDir });
+    const result = await processor.processFile(pendingPath, new Date("2026-10-25T17:59:59Z"));
+    expect(result).toBe("dry-run");
+    const completed = JSON.parse(await readFile(join(resultsDir, "fresh.json"), "utf8"));
+    expect(completed.status).toBe("DRY_RUN");
+  });
 });
