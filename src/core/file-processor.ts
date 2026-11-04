@@ -232,7 +232,27 @@ export class FileProcessor {
     }
 
     if (job.status !== "READY") return "ignored:status";
-    if (new Date(job.publish_at).getTime() > now.getTime()) return "queued:not-due";
+    const scheduledAt = new Date(job.publish_at).getTime();
+    if (scheduledAt > now.getTime()) return "queued:not-due";
+
+    // A stale READY job is no longer safe to publish as breaking news.
+    // Never assume a missing result proves that Buffer did not receive it.
+    // Quarantine without invoking either publishing provider; a human must
+    // reconcile any historical delivery before deciding whether to requeue.
+    const maximumReadyAgeMs = 6 * 60 * 60 * 1000;
+    if (now.getTime() - scheduledAt > maximumReadyAgeMs) {
+      const review: ThreadsJob = {
+        ...job,
+        status: "REVIEW",
+        result: {
+          status: "REVIEW",
+          content_hash: contentHash(job),
+          error: "READY job expired more than 6 hours after publish_at. Not dispatched by this attempt; historical provider delivery is unverified. Manual reconciliation required."
+        }
+      };
+      await this.persistTerminal(path, review);
+      return "review:stale-ready-job";
+    }
 
     // Stop cross-language event reuse even after a FAILED or uncertain Buffer
     // delivery. REVIEW is non-delivered and never retried automatically.
