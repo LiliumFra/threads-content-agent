@@ -470,10 +470,10 @@ export class FileProcessor {
     }
   }
 
-  async processQueue(): Promise<Record<string, string>> {
+  async processQueue(now = new Date()): Promise<Record<string, string>> {
     const results: Record<string, string> = {};
     for (const path of await listJson(this.pendingDir)) {
-      results[basename(path)] = await this.processFile(path);
+      results[basename(path)] = await this.processFile(path, now);
     }
     return results;
   }
