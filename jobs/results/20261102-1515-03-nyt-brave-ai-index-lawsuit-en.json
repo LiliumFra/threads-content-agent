@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "READY",
+  "status": "REVIEW",
   "publish_at": "2026-11-02T15:15:00-03:00",
   "action": "post",
   "topic": "software",
@@ -37,5 +37,10 @@
       "https://www.theverge.com/tech/1024588/brave-lawsuit-ai-scraping-new-york-times"
     ]
   },
-  "dry_run": false
+  "dry_run": false,
+  "result": {
+    "status": "REVIEW",
+    "content_hash": "3b8f2cc3ff3af859944b18d50701d518815b6ce462fa9bf00879d5846e10392c",
+    "error": "READY job expired more than 6 hours after publish_at. Not dispatched by this attempt; historical provider delivery is unverified. Manual reconciliation required."
+  }
 }
