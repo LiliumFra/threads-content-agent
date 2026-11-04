@@ -149,17 +149,16 @@ export class BufferProvider {
       throw new RetryableBufferError("Buffer API rate limit reached; wait for Retry-After");
     }
 
-    // All Buffer GraphQL responses are documented to include three RateLimit windows.
-    // Never log the token or dump response headers, and never blindly retry a mutation.
-    const windows = readBufferRateWindows(response.headers.get("ratelimit"));
-    if (windows.length !== 3) {
-      const reason = "Buffer did not supply complete rolling rate-limit headers";
-      if (mutation) throw new AmbiguousBufferPublishError(reason + " during createPost");
-      throw new RetryableBufferError(reason);
-    }
-    this.rateWindows = windows;
-
+    // HTTP auth failures commonly omit authenticated RateLimit headers. Diagnose
+    // the actual response before attributing everything to quota uncertainty.
+    // Never re-send a mutation when its outcome cannot be proven.
     if (!response.ok) {
+      if (response.status === 401 || response.status === 403) {
+        throw new BufferConfigurationError(
+          "Buffer API request failed: HTTP " + response.status +
+          "; verify the API key and channel permissions in GitHub Secrets"
+        );
+      }
       const detail = await response.text();
       if (response.status >= 500) {
         if (mutation) {
@@ -173,10 +172,13 @@ export class BufferProvider {
         );
       }
       throw new BufferConfigurationError(
-        "Buffer API request failed: " + response.status + " " + detail.slice(0, 800)
+        "Buffer API request failed: HTTP " + response.status + " " + detail.slice(0, 800)
       );
     }
 
+    // Authenticated GraphQL errors may also come with HTTP 200. Inspect their
+    // error codes without relaxing the three-window gate for successful calls.
+    const windows = readBufferRateWindows(response.headers.get("ratelimit"));
     const payload = await response.json() as GraphQLResponse<T>;
     const errors = payload.errors ?? [];
     if (errors.length > 0) {
@@ -185,12 +187,34 @@ export class BufferProvider {
           "Buffer GraphQL rate limit: " + errors.map((error) => error.message ?? "unknown").join("; ")
         );
       }
+      if (mutation && windows.length !== 3) {
+        throw new AmbiguousBufferPublishError(
+          "Buffer createPost returned GraphQL errors without complete rate-limit evidence; delivery unverified"
+        );
+      }
       throw new BufferConfigurationError(
-        "Buffer GraphQL error: " + errors.map((error) => error.message ?? "unknown").join("; ")
+        "Buffer GraphQL error: " + errors.map((error) =>
+          (error.extensions?.code ? "[" + error.extensions.code + "] " : "") +
+          (error.message ?? "unknown")
+        ).join("; ")
       );
     }
 
+    // Buffer documents exactly three RateLimit windows for authenticated API
+    // requests. Keep publishing AND metric refresh fail-closed if they are absent.
+    if (windows.length !== 3) {
+      const reason = "Buffer did not supply complete rolling rate-limit headers";
+      if (mutation) throw new AmbiguousBufferPublishError(reason + " during createPost");
+      throw new RetryableBufferError(reason);
+    }
+    this.rateWindows = windows;
+
     if (!payload.data) {
+      if (mutation) {
+        throw new AmbiguousBufferPublishError(
+          "Buffer createPost returned no GraphQL data; delivery state cannot be proven"
+        );
+      }
       throw new RetryableBufferError("Buffer GraphQL response did not contain data");
     }
     return payload.data;
