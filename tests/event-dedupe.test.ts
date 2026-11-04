@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
@@ -19,6 +19,7 @@ const policy: Policy = {
 const tempDirs: string[] = [];
 afterEach(async () => {
   for (const dir of tempDirs.splice(0)) await rm(dir, { recursive: true, force: true });
+  vi.unstubAllGlobals();
 });
 
 function job(language: string): ThreadsJob {
@@ -138,4 +139,35 @@ describe("queue cross-status event dedupe", () => {
     const completed = JSON.parse(await readFile(join(resultsDir, "fresh.json"), "utf8"));
     expect(completed.status).toBe("DRY_RUN");
   });
+
+  it("stops a metrics batch after one systemic Buffer authentication failure", async () => {
+    const root = await mkdtemp(join(tmpdir(), "threads-buffer-metrics-"));
+    tempDirs.push(root);
+    const pendingDir = join(root, "pending");
+    const resultsDir = join(root, "results");
+    await Promise.all([mkdir(pendingDir), mkdir(resultsDir)]);
+    const historical = job("en");
+    historical.status = "PUBLISHED";
+    historical.result = {
+      status: "PUBLISHED",
+      provider: "buffer",
+      provider_post_id: "post-1",
+      provider_status: "sent",
+      content_hash: "a".repeat(64),
+      published_at: "2026-10-25T12:00:00Z"
+    };
+    await writeFile(join(resultsDir, "001.json"), JSON.stringify(historical));
+    await writeFile(join(resultsDir, "002.json"), JSON.stringify(historical));
+
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ errors: [{ message: "Unauthorized" }] }), { status: 401 })
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const processor = new FileProcessor({ policy, pendingDir, resultsDir, bufferApiKey: "invalid" });
+    const outcome = await processor.refreshMetrics();
+    expect(outcome["_buffer_batch"]).toBe("stopped:provider-auth-or-budget-evidence-unavailable");
+    expect(Object.values(outcome).some(value => value.includes("HTTP 401"))).toBe(true);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
 });
