@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { BufferConfigurationError, BufferProvider } from "../src/buffer/provider.js";
+import { AmbiguousBufferPublishError, BufferConfigurationError, BufferProvider, RetryableBufferError } from "../src/buffer/provider.js";
 import type { ThreadsJob } from "../src/domain/job.js";
 
 const baseJob: ThreadsJob = {
@@ -177,6 +177,47 @@ describe("BufferProvider", () => {
     expect(status.status).toBe("error");
     expect(status.sentAt).toBeUndefined();
     expect(status.errorMessage).toContain("process the media");
+  });
+
+
+  it("reports HTTP 401 authentication failure even without RateLimit headers", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ errors: [{ message: "Unauthorized" }] }), { status: 401 })
+    ));
+    await expect(new BufferProvider("invalid").getMetrics("post-1"))
+      .rejects.toThrow(/HTTP 401/);
+  });
+
+  it("reports GraphQL UNAUTHORIZED on HTTP 200 instead of masking it as missing headers", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({
+        data: null,
+        errors: [{ message: "Not authorized", extensions: { code: "UNAUTHORIZED" } }]
+      }), { status: 200 })
+    ));
+    await expect(new BufferProvider("invalid").getMetrics("post-1"))
+      .rejects.toThrow(/UNAUTHORIZED/);
+  });
+
+  it("still blocks successful read-only API responses with missing budget headers", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ data: { post: { id: "post-1", status: "sent" } } }), { status: 200 })
+    ));
+    await expect(new BufferProvider("key").getMetrics("post-1"))
+      .rejects.toBeInstanceOf(RetryableBufferError);
+  });
+
+  it("treats HTTP 500 after Buffer createPost as ambiguous without retrying", async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(json({ data: { account: { organizations: [{ id: "org-1" }] } } }))
+      .mockResolvedValueOnce(json({ data: { channels: [{
+        id: "channel-1", service: "threads", isDisconnected: false, isLocked: false
+      }] } }))
+      .mockResolvedValueOnce(new Response("server error", { status: 500 }));
+    vi.stubGlobal("fetch", fetchMock);
+    await expect(new BufferProvider("key").publish(baseJob))
+      .rejects.toBeInstanceOf(AmbiguousBufferPublishError);
+    expect(fetchMock).toHaveBeenCalledTimes(3);
   });
 
 });
