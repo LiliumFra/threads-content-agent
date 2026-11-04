@@ -55,7 +55,7 @@ describe("queue cross-status event dedupe", () => {
     await writeFile(join(pendingDir, "002-rewrite.json"), JSON.stringify(job("es")));
 
     const processor = new FileProcessor({ policy, pendingDir, resultsDir });
-    const outcome = await processor.processQueue();
+    const outcome = await processor.processQueue(new Date("2026-10-25T12:05:00Z"));
     expect(outcome["001-original.json"]).toBe("dry-run");
     expect(outcome["002-rewrite.json"]).toBe("review:duplicate-news-event");
     const first = JSON.parse(await readFile(join(resultsDir, "001-original.json"), "utf8"));
