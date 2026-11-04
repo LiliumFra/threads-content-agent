@@ -553,9 +553,19 @@ export class FileProcessor {
         await writeJob(path, next);
         results[basename(path)] = "updated:threads";
       } catch (error) {
-        results[basename(path)] = "error:" + (
-          error instanceof Error ? error.message : String(error)
-        );
+        const message = error instanceof Error ? error.message : String(error);
+        results[basename(path)] = "error:" + message;
+        // Auth failures and missing provider rate-limit evidence affect every
+        // post, not just this ID. Avoid consuming the shared free-tier budget
+        // by repeating the same doomed request for the rest of the ledger.
+        if (
+          /Buffer API request failed: HTTP (401|403)/.test(message) ||
+          /Buffer did not supply complete rolling rate-limit headers/.test(message) ||
+          /Buffer GraphQL error:.*(UNAUTHORIZED|FORBIDDEN)/i.test(message)
+        ) {
+          results["_buffer_batch"] = "stopped:provider-auth-or-budget-evidence-unavailable";
+          break;
+        }
       }
     }
 
